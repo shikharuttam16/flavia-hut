@@ -120,7 +120,7 @@ const Header = ({ onFAQClick }) => {
           <div>
             <span className="mr-1 hidden sm:inline">📍 Store Location:</span>
             <span className="mr-1 hidden sm:inline">
-              #985/986 Housing Board Colony Sector 10 Ambala cantt
+              #985/986 Housing Board Colony Sector 10 Ambala
             </span>
           </div>
           <div className="flex gap-2 items-center">
