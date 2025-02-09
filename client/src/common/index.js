@@ -1,4 +1,4 @@
-const backendDomin = "https://flaviahut-server.vercel.app";
+const backendDomin = "https://flavia-hut.vercel.app"
 
 const SummaryApi = {
     signUP : {
