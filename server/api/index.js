@@ -15,7 +15,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL, // Frontend URL from .env file
+    origin: 'https://flavia-hut-8s4n.vercel.app',
     credentials: true, // Allow credentials (cookies, etc.)
     methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"], // Allowed methods as an array
     allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"], // Allowed headers as an array
