@@ -189,20 +189,20 @@ const Header = ({ onFAQClick }) => {
             style={{ whiteSpace: "nowrap" }}
           >
             {/* Logo Section */}
-            <div>
+            <div className="w-[100%]">
               <Link to="/">
-                <div className="flex-grow ">
+                <div className="flex-grow flex justify-center">
                   <img src={logos} alt="logo" className="h-18 w-25" />{" "}
                 </div>
               </Link>
             </div>
 
             {/* Search Section */}
-            <div className="flex items-center space-x-2  mt-2  ">
-              <div className="relative border border-gray-400 rounded">
+            <div className="flex items-center space-x-2  mt-2 w-[90%] ">
+              <div className="relative border border-gray-400 rounded w-[50%] ">
                 <input
                   type="text"
-                  className="pl-5 pr-4 py-2 w-44 sm:w-72 h-10 bg-white border-none rounded"
+                  className="pl-5 pr-4 py-2 w-44 sm:w-72 h-10 bg-white border-none rounded w-[100%]"
                   value={search}
                   onChange={handleSearch}
                   placeholder="Search products..."
