@@ -116,11 +116,12 @@ const Header = ({ onFAQClick }) => {
     <header className="shadow-md bg-white w-full z-40   sticky top-0">
       <div className="w-full">
         {/* Top Store Location Bar */}
-        {/* <div className="bg-red-700 text-white text-xs md:text-sm py-2 px-4 flex justify-between items-center">
+        <div className="bg-[#FFB255]-700 text-white text-xs md:text-sm py-2 px-4 flex justify-between items-center">
           <div>
-            <span className="mr-1 hidden sm:inline">📍 Store Location:</span>
+            {/* <span className="mr-1 hidden sm:inline">📍 Store Location:</span>  */}
             <span className="mr-1 hidden sm:inline">
-              #985/986 Housing Board Colony Sector 10 Ambala
+              {/* #985/986 Housing Board Colony Sector 10 Ambala */}
+              Get 8% Discount on Purchase of 899 and Above With Code "SAVER8"
             </span>
           </div>
           <div className="flex gap-2 items-center">
@@ -180,7 +181,7 @@ const Header = ({ onFAQClick }) => {
               </div>
             )}
           </div>
-        </div> */}
+        </div>
 
         <div className="bg-white shadow-md px-4  ">
           <div
