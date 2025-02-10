@@ -119,9 +119,9 @@ const Header = ({ onFAQClick }) => {
         <div className="bg-[#FFB255] bg-[#FFB255]-700 text-white text-xs md:text-sm py-2 px-4 flex justify-center items-center">
           <div >
             {/* <span className="mr-1 hidden sm:inline">📍 Store Location:</span>  */}
-            <span className="mr-1 hidden sm:inline">
+            <span className="mr-1 hidden sm:inline text-black ">
               {/* #985/986 Housing Board Colony Sector 10 Ambala */}
-              Get 8% Discount on Purchase of 899 and Above With Code "SAVER8"
+              Get 8% Discount on Purchase of 899 and Above With Code <span className="font-bold">"SAVER8"</span>
             </span>
           </div>
           {/* <div className="flex gap-2 items-center"> */}
