@@ -47,7 +47,7 @@ const ProductCard = ({ product, handleAddToCart, wishlistHandler }) => {
       {/* Discount Savings */}
         <p className="bg-[#326FFF] text-white font-titillium font-semibold text-[12px] 
                     leading-[12px] tracking-[0%] w-[95px] h-[27px] mt-[1px] 
-                    rounded-tl-[6px] rounded-br-[6px] flex items-center justify-center">
+                    rounded-tl-[6px] rounded-br-[6px] flex items-center justify-center mt-2">
           Save - {displayINRCurrency(amountSaved)}
         </p>
         {/* Product Image */}
@@ -62,12 +62,12 @@ const ProductCard = ({ product, handleAddToCart, wishlistHandler }) => {
 
         {/* Product Details */}
         <div className="p-4">
-          <h2 className="text-[#424750] font-barlow font-normal text-[14px] leading-[16.8px] tracking-[0%] text-ellipsis line-clamp-1">
+          <h2 className="text-[#424750] font-barlow font-normal text-[14px] leading-[16.8px] tracking-[0%] text-ellipsis line-clamp-1 min-h-[50px]">
             {product?.productName}
           </h2>
 
           <div className="flex justify-between mt-2 flex-col h-[101px]">
-            <div className="flex gap-2 flex-col">
+            <div className="flex gap-4 flex-col">
               <p className="text-[#424750] font-barlow font-normal text-[14px] leading-[17px] tracking-[0%] line-through">
                 From {displayINRCurrency(product?.price)}
               </p>
@@ -76,7 +76,7 @@ const ProductCard = ({ product, handleAddToCart, wishlistHandler }) => {
               </p>
             </div>
             {/* Add to Cart */}
-            <button onClick={(e) => handleAddToCart(e, product?._id)} className="cursor-pointer bg-[#28AD00] text-white px-4 py-2 rounded-[6px] font-barlow font-semibold text-[16px] leading-[26px] tracking-[0%] text-center"> Add to Cart</button>
+            <button onClick={(e) => handleAddToCart(e, product?._id)} className="cursor-pointer bg-[#28AD00] text-white px-4 py-2 rounded-[6px] font-barlow font-semibold text-[16px] leading-[26px] tracking-[0%] text-center mt-4"> Add to Cart</button>
           </div>
 
           <div>
