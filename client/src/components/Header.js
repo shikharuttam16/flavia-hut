@@ -185,11 +185,11 @@ const Header = ({ onFAQClick }) => {
 
         <div className="bg-white shadow-md px-4  ">
           <div
-            className="flex   items-center "
+            className="flex   items-center w-[100%] "
             style={{ whiteSpace: "nowrap" }}
           >
             {/* Logo Section */}
-            <div className="w-[100%]">
+            <div className="w-[10%]">
               <Link to="/">
                 <div className="flex-grow flex justify-center">
                   <img src={logos} alt="logo" className="h-18 w-25" />{" "}
