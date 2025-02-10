@@ -116,7 +116,7 @@ const Header = ({ onFAQClick }) => {
     <header className="shadow-md bg-white w-full z-40   sticky top-0">
       <div className="w-full">
         {/* Top Store Location Bar */}
-        <div className="bg-red-700 text-white text-xs md:text-sm py-2 px-4 flex justify-between items-center">
+        {/* <div className="bg-red-700 text-white text-xs md:text-sm py-2 px-4 flex justify-between items-center">
           <div>
             <span className="mr-1 hidden sm:inline">📍 Store Location:</span>
             <span className="mr-1 hidden sm:inline">
@@ -180,7 +180,7 @@ const Header = ({ onFAQClick }) => {
               </div>
             )}
           </div>
-        </div>
+        </div> */}
 
         <div className="bg-white shadow-md px-4  ">
           <div
@@ -227,7 +227,7 @@ const Header = ({ onFAQClick }) => {
           </div>
         </div>
 
-        <div className="bg-[#333333] text-white shadow-md px-4 sm:px-12 py-4">
+        <div className="bg-[#283B53] text-white shadow-md px-4 sm:px-12 py-4">
           <div className="flex justify-between items-center">
             {/* Left Section: Logo and Links */}
             <div className="flex items-center">
