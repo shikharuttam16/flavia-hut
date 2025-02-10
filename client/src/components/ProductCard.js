@@ -47,11 +47,11 @@ const ProductCard = ({ product, handleAddToCart, wishlistHandler }) => {
       {/* Discount Savings */}
         <p className="bg-[#326FFF] text-white font-titillium font-semibold text-[12px] 
                     leading-[12px] tracking-[0%] w-[95px] h-[27px] mt-[1px] 
-                    rounded-tl-[6px] rounded-br-[6px] flex items-center justify-center mt-2">
+                    rounded-tl-[6px] rounded-br-[6px] flex items-center justify-center">
           Save - {displayINRCurrency(amountSaved)}
         </p>
         {/* Product Image */}
-        <div className="bg-slate-200 h-[170px] min-w-[170px] vertical-product-card">
+        <div className="bg-slate-200 h-[170px] min-w-[170px] vertical-product-card mt-2">
           <img
             src={product?.productImage[0]}
             className="object-fill h-full w-full"
