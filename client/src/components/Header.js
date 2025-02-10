@@ -116,7 +116,7 @@ const Header = ({ onFAQClick }) => {
     <header className="shadow-md bg-white w-full z-40   sticky top-0">
       <div className="w-full">
         {/* Top Store Location Bar */}
-        <div className="bg-[#FFB255] bg-[#FFB255]-700 text-white text-xs md:text-sm py-8  flex justify-center items-center">
+        <div className="bg-[#FFB255] bg-[#FFB255]-700 text-white text-xs md:text-sm py-2  flex justify-center items-center">
           <div >
             {/* <span className="mr-1 hidden sm:inline">📍 Store Location:</span>  */}
             <span className="mr-1 hidden sm:inline text-black ">
