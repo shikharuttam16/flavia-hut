@@ -32,9 +32,6 @@ const Home = () => {
           heading1={"Gift "}
           heading2={"Combos"}
         />
-        <div ref={faqRef} className="w-[100%]">
-          <FAQAccordion />
-        </div>
       </div>
     </div>
   );

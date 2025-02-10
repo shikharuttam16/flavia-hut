@@ -17,23 +17,6 @@ import image5Mobile from '../assest/banner/img5_mobile.png';
 import { FaAngleRight, FaAngleLeft } from "react-icons/fa6";
 import { MdLocalShipping } from 'react-icons/md';
 import { CgHeadset, CgShoppingBag } from 'react-icons/cg';
-const features = [
-  {
-    icon: <MdLocalShipping fontSize="large" color="primary" />,
-    title: "All India Shipping",
-    description: "All India shipping on all your orders",
-  },
-  {
-    icon: <CgHeadset fontSize="large" color="primary" />,
-    title: "Customer Support",
-    description: "Instant access to support",
-  },
-  {
-    icon: <CgShoppingBag fontSize="large" color="primary" />,
-    title: "Secure Payment",
-    description: "We ensure your money is safe",
-  },
-];
 const BannerProduct = () => {
   const [currentImage, setCurrentImage] = useState(0);
 
@@ -107,19 +90,6 @@ const BannerProduct = () => {
       </div>
     </div>
   </div>
- 
-<div className="flex  md:flex-row justify-around md:p-[60px_20px_20px_20px] p-[5px_5px_5px_5px] w-[90%] shadow-xl rounded mt-4">
-  {features?.map((feature, index) => (
-    <div key={index} className="text-center text-[#AA0000] flex flex-col md:flex-row items-center gap-[15px] mb-4 md:mb-0">
-      {feature.icon}
-      <div className="text-center">
-        <h6 className="text-[#1A1A1A] font-semibold mb-2 text-[10px] md:text-base">{feature.title}</h6>
-        <p className="text-[8px] text-[#8B8B8B]  md:text-sm">{feature.description}</p>
-      </div>
-    </div>
-  ))}
-</div>
-
   </>
   
   );
