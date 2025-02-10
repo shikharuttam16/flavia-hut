@@ -117,15 +117,15 @@ const Header = ({ onFAQClick }) => {
       <div className="w-full">
         {/* Top Store Location Bar */}
         <div className="bg-[#FFB255] bg-[#FFB255]-700 text-white text-xs md:text-sm py-2 px-4 flex justify-between items-center">
-          <div>
+          <div className="justify-center">
             {/* <span className="mr-1 hidden sm:inline">📍 Store Location:</span>  */}
             <span className="mr-1 hidden sm:inline">
               {/* #985/986 Housing Board Colony Sector 10 Ambala */}
               Get 8% Discount on Purchase of 899 and Above With Code "SAVER8"
             </span>
           </div>
-          <div className="flex gap-2 items-center">
-            {user?._id && (
+          {/* <div className="flex gap-2 items-center"> */}
+            {/* {user?._id && (
               <div
                 className="text-3xl cursor-pointer relative"
                 onClick={() => setMenuDisplay((prev) => !prev)}
@@ -140,8 +140,8 @@ const Header = ({ onFAQClick }) => {
                   <FaRegCircleUser />
                 )}
               </div>
-            )}
-            <div>
+            )} */}
+            {/* <div>
               {user?._id ? (
                 <button
                   onClick={handleLogout}
@@ -161,9 +161,9 @@ const Header = ({ onFAQClick }) => {
                   </Link>
                 </div>
               )}
-            </div>
+            </div> */}
 
-            {menuDisplay && (
+            {/* {menuDisplay && (
               <div className="absolute bg-white bottom-0 top-11 h-fit p-2 shadow-lg rounded text-[#1A1A1A] font-semibold">
                 <nav>
                   {user?.role === ROLE.ADMIN ? (
@@ -179,8 +179,8 @@ const Header = ({ onFAQClick }) => {
                   )}
                 </nav>
               </div>
-            )}
-          </div>
+            )} */}
+          {/* </div> */}
         </div>
 
         <div className="bg-white shadow-md px-4  ">
