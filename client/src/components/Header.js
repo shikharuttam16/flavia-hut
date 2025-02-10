@@ -116,8 +116,8 @@ const Header = ({ onFAQClick }) => {
     <header className="shadow-md bg-white w-full z-40   sticky top-0">
       <div className="w-full">
         {/* Top Store Location Bar */}
-        <div className="bg-[#FFB255] bg-[#FFB255]-700 text-white text-xs md:text-sm py-2 px-4 flex justify-between items-center">
-          <div className="justify-center">
+        <div className="bg-[#FFB255] bg-[#FFB255]-700 text-white text-xs md:text-sm py-2 px-4 flex justify-center items-center">
+          <div >
             {/* <span className="mr-1 hidden sm:inline">📍 Store Location:</span>  */}
             <span className="mr-1 hidden sm:inline">
               {/* #985/986 Housing Board Colony Sector 10 Ambala */}
