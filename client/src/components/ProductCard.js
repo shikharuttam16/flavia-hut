@@ -67,11 +67,11 @@ const ProductCard = ({ product, handleAddToCart, wishlistHandler }) => {
 
           <div className="flex justify-between items-center mt-2">
             <div className="flex gap-2">
-              <p className="text-red-600 font-semibold">
-                {displayINRCurrency(product?.sellingPrice)}
-              </p>
-              <p className="text-slate-500 line-through">
+              From <p className="text-slate-500 line-through">
                 {displayINRCurrency(product?.price)}
+              </p>
+              <p className="text-red-600 font-semibold">
+                To {displayINRCurrency(product?.sellingPrice)}
               </p>
             </div>
 
