@@ -66,7 +66,7 @@ const ProductCard = ({ product, handleAddToCart, wishlistHandler }) => {
             {product?.productName}
           </h2>
 
-          <div className="flex justify-between mt-2 flex-col">
+          <div className="flex justify-between mt-2 flex-col h-[101px]">
             <div className="flex gap-2 flex-col">
               <p className="text-[#424750] font-barlow font-normal text-[14px] leading-[17px] tracking-[0%] line-through">
                 From {displayINRCurrency(product?.price)}
