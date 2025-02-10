@@ -101,7 +101,7 @@ const addToWishlist = async(e,id) =>{
             key={category}
           >
             <p className="text-center text-sm md:text-base capitalize">
-              View All
+              View All Cards
             </p>
           </Link>
         </h2>
