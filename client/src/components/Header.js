@@ -185,7 +185,7 @@ const Header = ({ onFAQClick }) => {
 
         <div className="bg-white shadow-md px-4  ">
           <div
-            className="flex  justify-between items-center "
+            className="flex   items-center "
             style={{ whiteSpace: "nowrap" }}
           >
             {/* Logo Section */}
