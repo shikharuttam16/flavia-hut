@@ -65,8 +65,8 @@ const ProductCard = ({ product, handleAddToCart, wishlistHandler }) => {
             {product?.productName}
           </h2>
 
-          <div className="flex justify-between items-center mt-2">
-            <div className="flex gap-2">
+          <div className="flex justify-between items-center mt-2 flex-col">
+            <div className="flex gap-2 flex-col">
               <p className="text-[#424750] font-barlow font-normal text-[14px] leading-[17px] tracking-[0%] line-through">
                 From {displayINRCurrency(product?.price)}
               </p>
@@ -74,7 +74,6 @@ const ProductCard = ({ product, handleAddToCart, wishlistHandler }) => {
                 To {displayINRCurrency(product?.sellingPrice)}
               </p>
             </div>
-
             {/* Add to Cart */}
             <button onClick={(e) => handleAddToCart(e, product?._id)} className="cursor-pointer bg-[#28AD00] text-white px-4 py-2 rounded-[6px] font-barlow font-semibold text-[16px] leading-[26px] tracking-[0%] text-center"> Add to Cart</button>
           </div>
