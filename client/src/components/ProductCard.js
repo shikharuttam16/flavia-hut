@@ -41,7 +41,7 @@ const ProductCard = ({ product, handleAddToCart, wishlistHandler }) => {
   
   return (
     // <div className="w-full min-w-[230px] md:min-w-[220px] max-w-[230px] md:max-w-[220px] h-[310px] bg-white rounded-md shadow-lg overflow-hidden relative hover:scale-105 transition-transform rounded hover:border hover:border-[#AA0000] border border-[#EDEDED]">
-    <div className="w-full min-w-[190px] md:min-w-[220px] max-w-[190px] md:max-w-[220px] h-[300px] md:h-[370px] bg-white rounded-md shadow-lg overflow-hidden relative md:hover:scale-105 transition-transform rounded md:hover:border md:hover:border-[#AA0000] border border-[#EDEDED]">
+    <div className="w-full min-w-[248px] max-w-[248px] h-[410px] md:h-[410px] bg-white rounded-md shadow-lg overflow-hidden relative md:hover:scale-105 transition-transform rounded md:hover:border md:hover:border-[#CDD1D6] border border-[#CDD1D6]">
       <Link to={"/product/" + product?._id}>
         {/* Discount Label */}
         <div className="absolute right-0 top-0 bg-green-600 text-white text-[8px] font-bold p-1 rounded-md h-[35px] w-[40px]">
@@ -65,7 +65,7 @@ const ProductCard = ({ product, handleAddToCart, wishlistHandler }) => {
             {product?.productName}
           </h2>
 
-          <div className="flex justify-between items-center mt-2 flex-col">
+          <div className="flex justify-between mt-2 flex-col">
             <div className="flex gap-2 flex-col">
               <p className="text-[#424750] font-barlow font-normal text-[14px] leading-[17px] tracking-[0%] line-through">
                 From {displayINRCurrency(product?.price)}
