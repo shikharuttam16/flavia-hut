@@ -189,11 +189,13 @@ const Header = ({ onFAQClick }) => {
             style={{ whiteSpace: "nowrap" }}
           >
             {/* Logo Section */}
-            <Link to="/">
-              <div className="flex-grow ">
-                <img src={logos} alt="logo" className="h-18 w-25" />{" "}
-              </div>
-            </Link>
+            <div>
+              <Link to="/">
+                <div className="flex-grow ">
+                  <img src={logos} alt="logo" className="h-18 w-25" />{" "}
+                </div>
+              </Link>
+            </div>
 
             {/* Search Section */}
             <div className="flex items-center space-x-2  mt-2  ">
