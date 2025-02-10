@@ -44,13 +44,14 @@ const ProductCard = ({ product, handleAddToCart, wishlistHandler }) => {
     <div className="w-full min-w-[248px] max-w-[248px] h-[410px] md:h-[410px] bg-white rounded-md shadow-lg overflow-hidden relative md:hover:scale-105 transition-transform rounded md:hover:border md:hover:border-[#CDD1D6] border border-[#CDD1D6]">
       <Link to={"/product/" + product?._id}>
         {/* Discount Label */}
-        <div className="absolute right-0 top-0 bg-green-600 text-white text-[8px] font-bold p-1 rounded-md h-[35px] w-[40px]">
-          {discountPercentage}%<br />
-          <span>OFF</span>
-        </div>
-
+      {/* Discount Savings */}
+        <p className="bg-[#326FFF] text-white font-titillium font-semibold text-[12px] 
+                    leading-[12px] tracking-[0%] w-[95px] h-[27px] mt-[1px] 
+                    rounded-tl-[6px] rounded-br-[6px] flex items-center justify-center">
+          Save - {displayINRCurrency(amountSaved)}
+        </p>
         {/* Product Image */}
-        <div className="bg-slate-200 h-[250px] min-w-[180px] vertical-product-card">
+        <div className="bg-slate-200 h-[170px] min-w-[170px] vertical-product-card">
           <img
             src={product?.productImage[0]}
             className="object-fill h-full w-full"
@@ -61,7 +62,7 @@ const ProductCard = ({ product, handleAddToCart, wishlistHandler }) => {
 
         {/* Product Details */}
         <div className="p-4">
-        <h2 className="text-[#424750] font-barlow font-normal text-[14px] leading-[16.8px] tracking-[0%] text-ellipsis line-clamp-1">
+          <h2 className="text-[#424750] font-barlow font-normal text-[14px] leading-[16.8px] tracking-[0%] text-ellipsis line-clamp-1">
             {product?.productName}
           </h2>
 
@@ -81,11 +82,6 @@ const ProductCard = ({ product, handleAddToCart, wishlistHandler }) => {
           <div>
             <hr />
           </div>
-
-          {/* Discount Savings */}
-          <p className="text-sm font-bold text-green-600 mt-2">
-            Save - {displayINRCurrency(amountSaved)}
-          </p>
         </div>
       </Link>
 
