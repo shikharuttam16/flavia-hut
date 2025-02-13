@@ -1,157 +1,121 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import fetchCategoryWiseProduct from "../helpers/fetchCategoryWiseProduct";
-import displayINRCurrency from "../helpers/displayCurrency";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import addToCart from "../helpers/addToCart";
 import Context from "../context";
-import { FaShoppingCart } from "react-icons/fa";
-import ProductCard from "./ProductCard";
 import { toast } from "react-toastify";
 import SummaryApi from "../common";
+import ProductCard from "./ProductCard";
 
-const HorizontalCardProduct = ({ category, heading1,heading2 }) => {
-  const navigate = useNavigate();
+const HorizontalCardProduct = ({ category, heading1, heading2 }) => {
+  const { fetchUserAddToCart, fetchCartData, fetchWishListData } = useContext(Context);
   const [data, setData] = useState([]);
-  const context = useContext(Context);
   const [loading, setLoading] = useState(true);
-  const loadingList = new Array(13).fill(null);
+  const scrollElement = useRef(null);
 
-  const [scroll, setScroll] = useState(0);
-  const scrollElement = useRef();
+  const addToWishlist = async (e, id) => {
+    e?.stopPropagation();
+    e?.preventDefault();
 
-  const { fetchUserAddToCart ,fetchCartData,fetchWishListData} = useContext(Context);
+    const response = await fetch(SummaryApi.addToWishlist.url, {
+      method: SummaryApi.addToWishlist.method,
+      credentials: "include",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ productId: id }),
+    });
 
-const addToWishlist = async(e,id) =>{
-  e?.stopPropagation()
-  e?.preventDefault()
+    const responseData = await response.json();
 
-  const response = await fetch(SummaryApi.addToWishlist.url,{
-      method : SummaryApi.addToWishlist.method,
-      credentials : 'include',
-      headers : {
-          "content-type" : 'application/json'
-      },
-      body : JSON.stringify(
-          { productId : id }
-      )
-  })
-
-  const responseData = await response.json()
-
-  if(responseData.success){
-      toast.success(responseData.message)
-      
-  }
-
-  if(responseData.error){
-      toast.error(responseData.message)
-  }
-
-
-  return responseData
-
-}
+    responseData.success ? toast.success(responseData.message) : toast.error(responseData.message);
+    fetchWishListData();
+  };
 
   const handleAddToCart = async (e, id) => {
     await addToCart(e, id);
     fetchUserAddToCart();
-    fetchCartData()
-
-  };
-
-  const wishlistHandler = async(e,id) => {
-   await addToWishlist(e,id);
-   fetchWishListData()
-
+    fetchCartData();
   };
 
   const fetchData = async () => {
     setLoading(true);
     const categoryProduct = await fetchCategoryWiseProduct(category);
     setLoading(false);
-    setData(categoryProduct?.data);
+    setData(categoryProduct?.data || []);
   };
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [category]);
 
   const scrollRight = () => {
-    scrollElement.current.scrollLeft += 300;
-  };
-  const scrollLeft = () => {
-    scrollElement.current.scrollLeft -= 300;
+    scrollElement.current.scrollBy({ left: 300, behavior: "smooth" });
   };
 
-  
+  const scrollLeft = () => {
+    scrollElement.current.scrollBy({ left: -300, behavior: "smooth" });
+  };
 
   return (
-    <div className="w-[100%] mx-auto px-4 my-6 relative">
-      <div className="flex justify-between  items-center">
+    <div className="w-full mx-auto px-4 my-6 relative">
+      <div className="flex justify-between items-center">
         <h2 className="text-xl sm:text-2xl md:text-3xl font-normal">
-          <span className="text-black">{heading1}</span> {/* Red heading */}
-          <span className="text-[#AA0000]">{heading2}</span>{" "}
-          {/* Black heading */}
+          <span className="text-black">{heading1}</span>
+          <span className="text-[#AA0000]">{heading2}</span>
         </h2>
-        <h2 className=" font-semibold py-4">
-          <Link
-            to={"/product-category?category=" + category}
-            className="cursor-pointer"
-            key={category}
-          >
-            <p className="text-center text-sm md:text-base capitalize">
-              View All Cards
-            </p>
+        <h2 className="font-semibold py-4">
+          <Link to={`/product-category?category=${category}`} className="cursor-pointer capitalize">
+            View All Cards
           </Link>
         </h2>
       </div>
 
-      <div>
-        <hr />
-      </div>
-      <div
-        className="flex items-center gap-4 md:gap-6 overflow-scroll scrollbar-none transition-all pt-4 md:p-4"
-        ref={scrollElement}
-      >
+      <hr />
+
+      <div className="relative w-full">
         <button
-          className="bg-white shadow-md rounded-full p-1 absolute left-0 text-lg hidden md:block"
+          className="bg-white shadow-md rounded-full p-2 absolute left-0 z-10 text-lg hidden md:block"
           onClick={scrollLeft}
         >
           <FaAngleLeft />
         </button>
+        <div
+          className="flex items-center gap-4 md:gap-6 overflow-x-auto scrollbar-none transition-all pt-4 md:p-4 scroll-smooth"
+          ref={scrollElement}
+        >
+          {loading
+            ? new Array(13).fill(null).map((_, index) => (
+                <div
+                  key={index}
+                  className="w-full min-w-[280px] md:min-w-[320px] max-w-[280px] md:max-w-[320px] h-36 bg-white rounded-sm shadow flex animate-pulse"
+                >
+                  <div className="bg-slate-200 h-full p-4 min-w-[120px] md:min-w-[145px]"></div>
+                  <div className="p-4 grid w-full gap-2">
+                    <div className="bg-slate-200 p-2 rounded"></div>
+                    <div className="bg-slate-200 p-2 rounded"></div>
+                    <div className="flex gap-3">
+                      <div className="bg-slate-200 p-2 w-full rounded"></div>
+                      <div className="bg-slate-200 p-2 w-full rounded"></div>
+                    </div>
+                    <div className="bg-slate-200 p-2 w-full rounded"></div>
+                  </div>
+                </div>
+              ))
+            : data.map((product) => (
+                <ProductCard
+                  key={product?._id}
+                  product={product}
+                  handleAddToCart={handleAddToCart}
+                  wishlistHandler={addToWishlist}
+                />
+              ))}
+        </div>
         <button
-          className="bg-white shadow-md rounded-full p-1 absolute right-0 text-lg hidden md:block"
+          className="bg-white shadow-md rounded-full p-2 absolute right-0 z-10 text-lg hidden md:block"
           onClick={scrollRight}
         >
           <FaAngleRight />
         </button>
-
-        {loading
-          ? loadingList?.map((product, index) => {
-              return (
-                <div className="w-full min-w-[280px] md:min-w-[320px] max-w-[280px] md:max-w-[320px] h-36 bg-white rounded-sm shadow flex">
-                  <div className="bg-slate-200 h-full p-4 min-w-[120px] md:min-w-[145px] animate-pulse"></div>
-                  <div className="p-4 grid w-full gap-2">
-                    <h2 className="font-medium text-base md:text-lg text-ellipsis line-clamp-1 text-black bg-slate-200 animate-pulse p-1 rounded-full"></h2>
-                    <p className="capitalize text-slate-500 p-1 bg-slate-200 animate-pulse rounded-full"></p>
-                    <div className="flex gap-3 w-full">
-                      <p className="text-red-600 font-medium p-1 bg-slate-200 w-full animate-pulse rounded-full"></p>
-                      <p className="text-slate-500 line-through p-1 bg-slate-200 w-full animate-pulse rounded-full"></p>
-                    </div>
-                    <button className="text-sm  text-white px-3 py-0.5 rounded-full w-full bg-slate-200 animate-pulse"></button>
-                  </div>
-                </div>
-              );
-            })
-          : data?.map((product, index) => (
-              <ProductCard
-                key={product?._id}
-                product={product}
-                handleAddToCart={handleAddToCart}
-                wishlistHandler={wishlistHandler}
-              />
-            ))}
       </div>
     </div>
   );
