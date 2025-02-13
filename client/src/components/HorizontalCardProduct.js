@@ -73,12 +73,12 @@ const HorizontalCardProduct = ({ category, heading1, heading2 }) => {
       <hr />
 
       <div className="relative w-full">
-        <button
-          className="bg-white shadow-md rounded-full p-2 absolute left-0 z-10 text-lg hidden md:block"
-          onClick={scrollLeft}
-        >
-          <FaAngleLeft />
-        </button>
+      <button
+    className="bg-white shadow-md rounded-full p-2 absolute left-0 top-1/2 -translate-y-1/2 z-10 text-lg hidden md:block"
+    onClick={scrollLeft}
+  >
+    <FaAngleLeft />
+  </button>
         <div
           className="flex items-center gap-4 md:gap-6 overflow-x-auto scrollbar-none transition-all pt-4 md:p-4 scroll-smooth"
           ref={scrollElement}
@@ -111,11 +111,11 @@ const HorizontalCardProduct = ({ category, heading1, heading2 }) => {
               ))}
         </div>
         <button
-          className="bg-white shadow-md rounded-full p-2 absolute right-0 z-10 text-lg hidden md:block"
-          onClick={scrollRight}
-        >
-          <FaAngleRight />
-        </button>
+    className="bg-white shadow-md rounded-full p-2 absolute right-0 top-1/2 -translate-y-1/2 z-10 text-lg hidden md:block"
+    onClick={scrollRight}
+  >
+    <FaAngleRight />
+  </button>
       </div>
     </div>
   );
