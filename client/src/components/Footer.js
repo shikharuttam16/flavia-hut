@@ -1,77 +1,47 @@
-
-
-
-import React from 'react';
-import { FaFacebook, FaTwitter, FaInstagram, FaPinterest, FaWhatsapp } from 'react-icons/fa';
-import Logo from '../assest/images/logo.png';
+import React from "react";
+import { FaFacebook, FaTwitter, FaInstagram } from "react-icons/fa";
 
 const Footer = () => {
-  const phoneNumber = "+918950023691";
-  const whatsappLink = `https://wa.me/${phoneNumber}`;
-
   return (
-    <div className="bg-[#F2F2F2] pt-10 border">
-      <div className="container mx-auto px-8 pb-10">
-        <div className="flex flex-wrap justify-between gap-8">
-          {/* Logo and Social Links */}
-          <div className="flex flex-col items-start">
-            <img src={Logo} alt="Logo" className="w-25 h-20" />
-            <p className="text-sm">"Where Flavor Meets Home".</p>
-            <div className="mt-4 flex space-x-3">
-              <a href="#" className="text-gray-600"><FaFacebook size={24} /></a>
-              <a href="#" className="text-gray-600"><FaTwitter size={24} /></a>
-              <a href="#" className="text-gray-600"><FaPinterest size={24} /></a>
-              <a href="https://www.instagram.com/flaviahutt?igsh=MXhkbW0zaGJ3NzNmbw==" target="_blank" className="text-gray-600">
-                <FaInstagram size={24} />
-              </a>
-            </div>
+    <div className="bg-[#F2F2F2] py-10 px-6">
+      <div className="container mx-auto text-gray-700 text-sm">
+        {/* Discount Message */}
+        <div className="mb-10 flex flex-col gap-x-20 lg:flex-row lg:w-full">
+          <div className="w-[70%] lg:w-full sm:w-full xs:w-full w-full">
+            <p className="font-barlow text-[14px] leading-[20px] tracking-[0%] text-customBlue font-600 mt-6">You've Hit Rock Bottom!</p>
+            <p className="font-barlow text-[12px] leading-[20px] tracking-[0%] text-customBlue font-normal">
+              You’ve been doing some scrolling - so here’s a reward for that overworked thumb.
+              Get <strong>10% discount</strong> with code <strong>"SECRET"</strong>. Apply it at checkout.
+              Don’t wait! Complete the order - you can thank us later dumdum.
+            </p>
           </div>
-
-          {/* My Account */}
-          <div className="flex flex-col">
-            <h6 className="md:text-base text-sm  font-bold text-gray-900">My Account</h6>
-            <ul className="mt-4 space-y-2 md:text-base text-sm text-gray-600">
-              <li><a href="#" className="hover:underline">My Account</a></li>
-              <li><a href="#" className="hover:underline">Order History</a></li>
-              <li><a href="#" className="hover:underline">Shopping Cart</a></li>
-              <li><a href="#" className="hover:underline">Wishlist</a></li>
-            </ul>
-          </div>
-
-          {/* Helps */}
-          <div className="flex flex-col">
-            <h6 className="md:text-base text-sm font-bold text-gray-900">Helps</h6>
-            <ul className="mt-4 space-y-2 md:text-base text-sm text-gray-600">
-              <li><a href="#" className="hover:underline">Contact</a></li>
-              <li><a href="#" className="hover:underline">Faqs</a></li>
-              <li><a href="#" className="hover:underline">Terms & Conditions</a></li>
-              <li><a href="#" className="hover:underline">Privacy Policy</a></li>
-            </ul>
-          </div>
-
-          {/* Proxy */}
-          <div className="flex flex-col">
-            <h6 className="md:text-base text-sm font-bold text-gray-900">Proxy</h6>
-            <ul className="mt-4 space-y-2 md:text-base text-sm text-gray-600">
-              <li><a href="#" className="hover:underline">About</a></li>
-              <li><a href="#" className="hover:underline">Shop</a></li>
-              <li><a href="#" className="hover:underline">Product</a></li>
-              <li><a href="#" className="hover:underline">Track Order</a></li>
-            </ul>
-          </div>
-
-          {/* WhatsApp */}
-          <div className="flex justify-center items-center">
-            <a href={whatsappLink} target="_blank" className="text-green-500">
-              <FaWhatsapp size={60} />
-            </a>
+          {/* Our Story and Policies */}
+          <div className="flex flex-col space-y-2 text-gray-900 w-[30%] mt-6 w-full">
+            <p className="font-barlow text-[14px] leading-[20px] tracking-[0%] text-customBlue font-600 w-max">Our Story and Policies</p>
+            <a href="#" className="font-barlow text-[12px] leading-[20px] tracking-[0%] text-customBlue font-normal">About Us</a>
+            <a href="#" className="font-barlow text-[12px] leading-[20px] tracking-[0%] text-customBlue font-normal">Privacy Policy</a>
+            <a href="#" className="font-barlow text-[12px] leading-[20px] tracking-[0%] text-customBlue font-normal">Terms of Service</a>
+            <a href="#" className="font-barlow text-[12px] leading-[20px] tracking-[0%] text-customBlue font-normal">Refund Policy</a>
           </div>
         </div>
-      </div>
 
-      <div className="bg-gray-800 py-4 mt-10">
-        <div className="container mx-auto px-8 flex flex-wrap justify-between items-center">
-          <p className="text-white text-sm">Flavia hut © 2024. All Rights Reserved</p>
+        {/* Footer Links & Social Media */}
+        <div className="mb-10 flex flex-col gap-x-20 lg:flex-row lg:w-full w-full">
+          {/* Company Info */}
+          <p className="w-[70%] lg:w-full sm:w-full xs:w-full w-full font-barlow text-[12px] leading-[20px] tracking-[0%] text-customBlue font-normal mt-6">
+            © 2025 Farmley | ConneDit Business Solutions Private Limited
+            Powered by Shopify
+          </p>
+
+          {/* Social Media Icons */}
+          <div className="flex flex-col space-y-2 items-start w-[30%]">
+            <p className="font-barlow text-[12px] leading-[20px] tracking-[0%] text-customBlue font-600 mt-6">Follow Us</p>
+            <div className="flex space-x-3 mt-2">
+              <a href="#" className="text-gray-600"><FaFacebook size={24} /></a>
+              <a href="#" className="text-gray-600"><FaTwitter size={24} /></a>
+              <a href="#" className="text-gray-600"><FaInstagram size={24} /></a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
