@@ -16,7 +16,7 @@ const Footer = () => {
             </p>
           </div>
           {/* Our Story and Policies */}
-          <div className="flex flex-col space-y-2 text-gray-900 w-[30%] mt-6 w-full">
+          <div className="flex flex-col space-y-2 text-gray-900 w-[30%] mt-6">
             <p className="font-barlow text-[14px] leading-[20px] tracking-[0%] text-customBlue font-600 w-max">Our Story and Policies</p>
             <a href="#" className="font-barlow text-[12px] leading-[20px] tracking-[0%] text-customBlue font-normal">About Us</a>
             <a href="#" className="font-barlow text-[12px] leading-[20px] tracking-[0%] text-customBlue font-normal">Privacy Policy</a>
