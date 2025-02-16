@@ -257,28 +257,28 @@ const Header = ({ onFAQClick }) => {
             {/* Left Section: Logo and Links */}
             <div className="flex items-center">
               <ul className="hidden md:flex space-x-8 ">
-                <Link to="/" className="font-semibold">
+                <Link to="/" className="">
                   Home
                 </Link>
-                <Link to="/" className="font-semibold">
+                <Link to="/" className="">
                   BestSellers
                 </Link>
-                <Link to="/" className="font-semibold">
+                <Link to="/" className="">
                   Combo's
                 </Link>
-                <Link to="/" className="font-semibold">
+                <Link to="/" className="">
                   Featured Products
                 </Link>
-                <Link to="/" className="font-semibold">
+                <Link to="/" className="">
                   Makhana's
                 </Link>
-                <Link to="/" className="font-semibold">
+                <Link to="/" className="">
                   New Arrivals
                 </Link>
-                <Link to="/" className="font-semibold">
+                <Link to="/" className="">
                   Bulk Orders
                 </Link>
-                <Link to="/" className="font-semibold">
+                <Link to="/" className="">
                   Contact Us
                 </Link>
                 {/* <div className="relative">
