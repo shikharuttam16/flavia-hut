@@ -156,9 +156,9 @@ const ProductDetails = () => {
     <div className="w-[90%] mx-auto p-4 flex flex-col gap-4">
       <div className="p-4"></div>
 
-      <div className="min-h-[200px] flex flex-col lg:flex-row gap-6 mt-6 border border-[#E1E3E4] rounded-[6px] p-6 ">
+      <div className="min-h-[200px] flex flex-col lg:flex-row gap-6">
         {/***product Image */}
-        <div className=" flex flex-col lg:flex-row-reverse gap-4 ">
+        <div className="flex flex-col lg:flex-row-reverse gap-4 mt-6 border border-[#E1E3E4] rounded-[6px] p-6">
           <div className="md:h-[400px] md:w-[450px] relative object-contain ">
             <img
               src={activeImage}
