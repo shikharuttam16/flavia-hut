@@ -156,9 +156,9 @@ const ProductDetails = () => {
     <div className="w-[90%] mx-auto p-4 flex flex-col gap-4">
       <div className="p-4"></div>
 
-      <div className="min-h-[200px] flex flex-col lg:flex-row gap-6 ">
+      <div className="min-h-[200px] flex flex-col lg:flex-row gap-6">
         {/***product Image */}
-        <div className=" flex flex-col lg:flex-row-reverse gap-4 ">
+        <div className="flex flex-col lg:flex-row-reverse gap-4 mt-6 border border-[#E1E3E4] rounded-[6px] p-6">
           <div className="md:h-[400px] md:w-[450px] relative object-contain ">
             <img
               src={activeImage}
@@ -229,12 +229,13 @@ const ProductDetails = () => {
             </div>
           </div>
         ) : (
-          <div className="mt-6 border border-[#E1E3E4] rounded-[6px] p-6">
+          <div>
+            <div className="mt-6 border border-[#E1E3E4] rounded-[6px] p-6">
               <h2 className="font-barlow font-bold text-[24px] leading-[32px] tracking-[0%] text-[#424750] mb-3">
                 {data?.productName}
               </h2>
               <hr className="mb-3"></hr>
-            <div className="flex items-center gap-2 text-1xl lg:text-1xl font-medium my-1 mt-2">
+            <div className="flex flex-col items-start gap-2 text-1xl lg:text-1xl font-medium my-1 mt-2">
               <p className="font-titillium font-semibold text-[14px] leading-[26.18px] tracking-[0%] text-[#424750] mb-3">
                 M.R.P: <span className="font-['Titillium_Web'] font-normal text-[15px] leading-[28.05px] text-[#424750] line-through">{displayINRCurrency(data.price)}</span>
               </p>
@@ -256,16 +257,14 @@ const ProductDetails = () => {
               </button>
             </div>
             </div>
+            </div>
+            <div className="mt-6 border border-[#E1E3E4] rounded-[6px] p-6">
+              <p className="font-barlow font-semibold text-[22px] leading-[26px] tracking-[0%] text-[#424750] mb-3">Description</p>
+              <p className="font-barlow text-[12px] leading-[20px] tracking-[0%] text-customBlue font-normal">{data?.description}</p>
+            </div>
           </div>
         )}
       </div>
-      <div className="mt-6 border border-[#E1E3E4] rounded-[6px] p-6">
-        <p className="font-barlow font-semibold text-[22px] leading-[26px] tracking-[0%] text-[#424750] mb-3">Description</p>
-        <div>
-        </div>
-        <p className="font-barlow text-[12px] leading-[20px] tracking-[0%] text-customBlue font-normal">{data?.description}</p>
-      </div>
-
       {data.category && (
         <div>
           <HorizontalCardProduct
