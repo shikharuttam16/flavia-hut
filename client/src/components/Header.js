@@ -203,13 +203,13 @@ const Header = ({ onFAQClick }) => {
                   Logout
                 </button>
               ) : (
-                <div className="flex  items-center">
-                  <FaRegUser />
-                  <Link to={"/login"} className="px-3 py-1 hover:bg-red-700">
+                <div className="flex  items-center text-[#424750]">
+                  {/* <FaRegUser /> */}
+                  <Link to={"/login"} className="px-3 py-1 ">
                     SignIn
                   </Link>
-                  /
-                  <Link to={"/sign-up"} className="px-3 py-1 hover:bg-red-700">
+                  <span>/</span>
+                  <Link to={"/sign-up"} className="px-3 py-1 ">
                     SignUp
                   </Link>
                 </div>
