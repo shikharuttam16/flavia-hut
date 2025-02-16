@@ -234,7 +234,7 @@ const ProductDetails = () => {
                 {data?.productName}
               </h2>
               <hr className="mb-3"></hr>
-            <div className="flex items-center gap-2 text-1xl lg:text-1xl font-medium my-1 mt-2">
+            <div className="flex flex-col items-start gap-2 text-1xl lg:text-1xl font-medium my-1 mt-2">
               <p className="font-titillium font-semibold text-[14px] leading-[26.18px] tracking-[0%] text-[#424750] mb-3">
                 M.R.P: <span className="font-['Titillium_Web'] font-normal text-[15px] leading-[28.05px] text-[#424750] line-through">{displayINRCurrency(data.price)}</span>
               </p>
