@@ -203,7 +203,7 @@ const Header = ({ onFAQClick }) => {
             </div>
 
             {/* Search Section */}
-            <div className="flex items-center space-x-2  mt-2 w-[65%] ">
+            <div className="flex items-center space-x-2  mt-2 w-[90%] ">
               <div className="relative border border-gray-400 rounded w-[65%] ">
                 <input
                   type="text"
