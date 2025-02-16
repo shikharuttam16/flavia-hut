@@ -218,7 +218,7 @@ const Header = ({ onFAQClick }) => {
                 onClick={handleSearchSubmit}
                 className="bg-red-700 text-white px-4 sm:px-6 py-2 rounded h-10 hidden lg:block"
               >
-                <FaSearch />
+                <FaSearch  style={{ fill: 'white' }}/>
               </button>
               <button
                 onClick={handleSearchSubmit}
