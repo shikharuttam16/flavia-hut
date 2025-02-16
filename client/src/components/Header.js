@@ -204,7 +204,7 @@ const Header = ({ onFAQClick }) => {
 
             {/* Search Section */}
             <div className="flex items-center space-x-2  mt-2 w-[65%] ">
-              <div className="relative border border-gray-400 rounded w-[50%] ">
+              <div className="relative border border-gray-400 rounded w-[65%] ">
                 <input
                   type="text"
                   className="pl-5 pr-4 py-2 w-44 sm:w-72 h-10 bg-white border-none rounded w-[100%]"
