@@ -156,7 +156,7 @@ const ProductDetails = () => {
     <div className="w-[90%] mx-auto p-4 flex flex-col gap-4">
       <div className="p-4"></div>
 
-      <div className="min-h-[200px] flex flex-col lg:flex-row gap-6 ">
+      <div className="min-h-[200px] flex flex-col lg:flex-row gap-6 mt-6 border border-[#E1E3E4] rounded-[6px] p-6 ">
         {/***product Image */}
         <div className=" flex flex-col lg:flex-row-reverse gap-4 ">
           <div className="md:h-[400px] md:w-[450px] relative object-contain ">
@@ -229,7 +229,8 @@ const ProductDetails = () => {
             </div>
           </div>
         ) : (
-          <div className="mt-6 border border-[#E1E3E4] rounded-[6px] p-6">
+          <div>
+            <div className="mt-6 border border-[#E1E3E4] rounded-[6px] p-6">
               <h2 className="font-barlow font-bold text-[24px] leading-[32px] tracking-[0%] text-[#424750] mb-3">
                 {data?.productName}
               </h2>
@@ -256,16 +257,14 @@ const ProductDetails = () => {
               </button>
             </div>
             </div>
+            </div>
+            <div className="mt-6 border border-[#E1E3E4] rounded-[6px] p-6">
+              <p className="font-barlow font-semibold text-[22px] leading-[26px] tracking-[0%] text-[#424750] mb-3">Description</p>
+              <p className="font-barlow text-[12px] leading-[20px] tracking-[0%] text-customBlue font-normal">{data?.description}</p>
+            </div>
           </div>
         )}
       </div>
-      <div className="mt-6 border border-[#E1E3E4] rounded-[6px] p-6">
-        <p className="font-barlow font-semibold text-[22px] leading-[26px] tracking-[0%] text-[#424750] mb-3">Description</p>
-        <div>
-        </div>
-        <p className="font-barlow text-[12px] leading-[20px] tracking-[0%] text-customBlue font-normal">{data?.description}</p>
-      </div>
-
       {data.category && (
         <div>
           <HorizontalCardProduct
