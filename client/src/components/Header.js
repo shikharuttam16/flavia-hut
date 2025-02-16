@@ -261,7 +261,7 @@ const Header = ({ onFAQClick }) => {
                   Home
                 </Link>
                 <Link to="/" className="">
-                  BestSellers
+                  BestSellers's
                 </Link>
                 <Link to="/" className="">
                   Combo's
