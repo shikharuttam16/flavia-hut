@@ -24,6 +24,8 @@ import { AiFillInfoCircle } from "react-icons/ai";
 import { MdLocalPhone } from "react-icons/md";
 import { FaQuestion } from "react-icons/fa6";
 import { FaSearch } from "react-icons/fa";
+import { FiShoppingBag } from "react-icons/fi";
+
 
 
 
@@ -217,8 +219,11 @@ const Header = ({ onFAQClick }) => {
             </div>
             <div className="hidden md:flex items-center gap-4">
                 {/* <WishlistDrawer /> */}
-                <CartDrawer />
+                {/* <CartDrawer /> */}
+                <FiShoppingBag />
             </div>
+
+
 
             {/* {menuDisplay && (
               <div className="absolute bg-white bottom-0 top-11 h-fit p-2 shadow-lg rounded text-[#1A1A1A] font-semibold">
