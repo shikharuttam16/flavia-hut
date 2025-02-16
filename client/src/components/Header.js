@@ -12,6 +12,7 @@ import ROLE from "../common/role";
 import Context from "../context";
 import CartDrawer from "./CartDrawer";
 import logos from "../assest/images/logo.png";
+
 import WishlistDrawer from "./WishlistDrawer";
 import { FiAlignJustify } from "react-icons/fi";
 import { FaRegUser } from "react-icons/fa6";
@@ -22,6 +23,10 @@ import { GiChipsBag } from "react-icons/gi";
 import { AiFillInfoCircle } from "react-icons/ai";
 import { MdLocalPhone } from "react-icons/md";
 import { FaQuestion } from "react-icons/fa6";
+import { FaSearch } from "react-icons/fa";
+
+
+
 const Header = ({ onFAQClick }) => {
   const user = useSelector((state) => state?.user?.user);
   const dispatch = useDispatch();
@@ -213,7 +218,7 @@ const Header = ({ onFAQClick }) => {
                 onClick={handleSearchSubmit}
                 className="bg-red-700 text-white px-4 sm:px-6 py-2 rounded h-10 hidden lg:block"
               >
-                Search
+                FaSearch
               </button>
               <button
                 onClick={handleSearchSubmit}
