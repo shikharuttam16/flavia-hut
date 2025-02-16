@@ -15,6 +15,7 @@ import Checkout from '../pages/CheckOut'
 import AllOrders from '../pages/AllOrders'
 import AboutUs from '../pages/AboutUs'
 import NotFoundPage from '../pages/NotFoundPage'
+import MyOrders from '../pages/MyOrder'
 
 const router = createBrowserRouter([
   {
@@ -83,6 +84,10 @@ const router = createBrowserRouter([
       {
         path: "*",
         element: <NotFoundPage />,
+      },
+      {
+        path: "my-orders",
+        element: <MyOrders />,
       },
     ],
   },
