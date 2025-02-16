@@ -205,11 +205,11 @@ const Header = ({ onFAQClick }) => {
               ) : (
                 <div className="flex ml-1 items-center text-[#424750] ">
                   {/* <FaRegUser /> */}
-                  <Link to={"/login"} className="px-1 py-1 ">
+                  <Link to={"/login"} className="px-1 py-1 text-sm">
                     Login
                   </Link>
-                  <span>/</span>
-                  <Link to={"/sign-up"} className="px-1 py-1 ">
+                  <span className="text-sm">/</span>
+                  <Link to={"/sign-up"} className="px-1 py-1 text-sm">
                     SignUp
                   </Link>
                 </div>
