@@ -231,7 +231,7 @@ const ProductDetails = () => {
         ) : (
           <div className="flex flex-col gap-1  ">
             <div className="flex  gap-3  items-center ">
-              <h2 className="text-2xl lg:text-4xl text-[#AA0000] font-medium ">
+              <h2 className="font-barlow font-bold text-[24px] leading-[32px] tracking-[0%] text-[#424750]">
                 {data?.productName}
               </h2>
 
@@ -283,12 +283,11 @@ const ProductDetails = () => {
           </div>
         )}
       </div>
-      <div className="mt-6">
-        <p className="text-[#AA0000] text-lg font-bold my-1">Description</p>
+      <div className="mt-6 border border-[#E1E3E4] rounded-[6px] p-6">
+        <p className="font-barlow font-semibold text-[22px] leading-[26px] tracking-[0%] text-[#424750]">Description</p>
         <div>
-          <hr />
         </div>
-        <p className=" text-md  my-1">{data?.description}</p>
+        <p className="font-barlow text-[12px] leading-[20px] tracking-[0%] text-customBlue font-normal">{data?.description}</p>
       </div>
 
       {data.category && (
