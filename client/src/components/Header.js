@@ -203,13 +203,13 @@ const Header = ({ onFAQClick }) => {
                   Logout
                 </button>
               ) : (
-                <div className="flex  items-center text-[#424750]">
+                <div className="flex ml-1 items-center text-[#424750] ">
                   {/* <FaRegUser /> */}
-                  <Link to={"/login"} className="px-3 py-1 ">
-                    SignIn
+                  <Link to={"/login"} className="px-1 py-1 ">
+                    Login
                   </Link>
                   <span>/</span>
-                  <Link to={"/sign-up"} className="px-3 py-1 ">
+                  <Link to={"/sign-up"} className="px-1 py-1 ">
                     SignUp
                   </Link>
                 </div>
