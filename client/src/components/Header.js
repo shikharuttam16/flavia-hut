@@ -214,6 +214,10 @@ const Header = ({ onFAQClick }) => {
                   </Link>
                 </div>
               )}
+               <div className="hidden md:flex items-center gap-4">
+                {/* <WishlistDrawer /> */}
+                <CartDrawer />
+              </div>
             </div>
 
             {/* {menuDisplay && (
@@ -308,8 +312,8 @@ const Header = ({ onFAQClick }) => {
             {/* Right Section: Search and Icons */}
             <div className="flex items-center gap-4 sm:gap-7">
               <div className="hidden md:flex items-center gap-4">
-                <WishlistDrawer />
-                <CartDrawer />
+                {/* <WishlistDrawer /> */}
+                {/* <CartDrawer /> */}
               </div>
             </div>
           </div>
