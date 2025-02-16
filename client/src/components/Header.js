@@ -217,14 +217,14 @@ const Header = ({ onFAQClick }) => {
                 </div>
               )}
             </div>
-            <div className="hidden md:flex items-center gap-4 flex">
+            <div className="hidden md:flex items-center gap-4 flex items-center">
                 {/* <WishlistDrawer /> */}
                 {/* <CartDrawer /> */}
                 <button className="flex justify-center">
                 <FiShoppingBag
                 size={30}
                 />
-                <span className="ml-3 text-sm">Cart</span>
+                <span className="ml-3 text-sm font-bold">Cart</span>
                 </button>
             </div>
 
