@@ -129,63 +129,7 @@ const Header = ({ onFAQClick }) => {
               Get 8% Discount on Purchase of 899 and Above With Code <span className="font-bold">"SAVER8"</span>
             </span>
           </div>
-          {/* <div className="flex gap-2 items-center"> */}
-            {/* {user?._id && (
-              <div
-                className="text-3xl cursor-pointer relative"
-                onClick={() => setMenuDisplay((prev) => !prev)}
-              >
-                {user?.profilePic ? (
-                  <img
-                    src={user?.profilePic}
-                    className="w-10 h-10 rounded-full"
-                    alt={user?.name}
-                  />
-                ) : (
-                  <FaRegCircleUser />
-                )}
-              </div>
-            )} */}
-            {/* <div>
-              {user?._id ? (
-                <button
-                  onClick={handleLogout}
-                  className="px-3 py-1 hover:bg-red-700"
-                >
-                  Logout
-                </button>
-              ) : (
-                <div className="flex  items-center">
-                  <FaRegUser />
-                  <Link to={"/login"} className="px-3 py-1 hover:bg-red-700">
-                    SignIn
-                  </Link>
-                  /
-                  <Link to={"/sign-up"} className="px-3 py-1 hover:bg-red-700">
-                    SignUp
-                  </Link>
-                </div>
-              )}
-            </div> */}
-
-            {/* {menuDisplay && (
-              <div className="absolute bg-white bottom-0 top-11 h-fit p-2 shadow-lg rounded text-[#1A1A1A] font-semibold">
-                <nav>
-                  {user?.role === ROLE.ADMIN ? (
-                    <Link
-                      to={"/admin-panel/all-products"}
-                      className="whitespace-nowrap  md:block hover:bg-slate-100 p-2"
-                      onClick={() => setMenuDisplay((prev) => !prev)}
-                    >
-                      Admin Panel
-                    </Link>
-                  ) : (
-                    <p>{user?.name}</p>
-                  )}
-                </nav>
-              </div>
-            )} */}
-          {/* </div> */}
+          
         </div>
 
         <div className="bg-white shadow-md px-4  ">
@@ -229,9 +173,67 @@ const Header = ({ onFAQClick }) => {
               </button>
 
               {/* Phone Icon and Number */}
-              <div className="hidden sm:flex items-center space-x-2">
+              {/* <div className="hidden sm:flex items-center space-x-2">
                 <span className="text-black text-sm">+91-8307252108</span>
+              </div> */}
+
+              {/* <div className="flex gap-2 items-center"> */}
+            {/* {user?._id && (
+              <div
+                className="text-3xl cursor-pointer relative"
+                onClick={() => setMenuDisplay((prev) => !prev)}
+              >
+                {user?.profilePic ? (
+                  <img
+                    src={user?.profilePic}
+                    className="w-10 h-10 rounded-full"
+                    alt={user?.name}
+                  />
+                ) : (
+                  <FaRegCircleUser />
+                )}
               </div>
+            )} */}
+            <div>
+              {user?._id ? (
+                <button
+                  onClick={handleLogout}
+                  className="px-3 py-1 hover:bg-red-700"
+                >
+                  Logout
+                </button>
+              ) : (
+                <div className="flex  items-center">
+                  <FaRegUser />
+                  <Link to={"/login"} className="px-3 py-1 hover:bg-red-700">
+                    SignIn
+                  </Link>
+                  /
+                  <Link to={"/sign-up"} className="px-3 py-1 hover:bg-red-700">
+                    SignUp
+                  </Link>
+                </div>
+              )}
+            </div>
+
+            {/* {menuDisplay && (
+              <div className="absolute bg-white bottom-0 top-11 h-fit p-2 shadow-lg rounded text-[#1A1A1A] font-semibold">
+                <nav>
+                  {user?.role === ROLE.ADMIN ? (
+                    <Link
+                      to={"/admin-panel/all-products"}
+                      className="whitespace-nowrap  md:block hover:bg-slate-100 p-2"
+                      onClick={() => setMenuDisplay((prev) => !prev)}
+                    >
+                      Admin Panel
+                    </Link>
+                  ) : (
+                    <p>{user?.name}</p>
+                  )}
+                </nav>
+              </div>
+            )} */}
+          {/* </div> */}
             </div>
           </div>
         </div>
