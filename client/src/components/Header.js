@@ -224,7 +224,7 @@ const Header = ({ onFAQClick }) => {
                 <FiShoppingBag
                 size={30}
                 />
-                <span className="ml-3 text-sm font-bold">Cart</span>
+                <span className="ml-3 text-sm font-bold flex items-center">Cart</span>
                 </button>
             </div>
 
