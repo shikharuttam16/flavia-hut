@@ -158,6 +158,51 @@ const ProductDetails = () => {
 
       <div className="min-h-[200px] flex flex-col lg:flex-row gap-6">
         {/***product Image */}
+        <div className="flex flex-col lg:flex-row-reverse gap-4 mt-6 border border-[#E1E3E4] rounded-[6px] p-6">
+          <div className="md:h-[400px] md:w-[450px] relative object-contain ">
+            <img
+              src={activeImage}
+              className="h-full w-full object-contain"
+              loading="lazy"
+              onMouseMove={handleZoomImage}
+              onMouseLeave={handleLeaveImageZoom}
+            />
+          </div>
+
+          <div className="h-full">
+            {loading ? (
+              <div className="flex gap-2 lg:flex-col overflow-scroll scrollbar-none h-full">
+                {productImageListLoading?.map((el, index) => {
+                  return (
+                    <div
+                      className="h-20 w-20 bg-slate-200 rounded animate-pulse"
+                      key={"loadingImage" + index}
+                    ></div>
+                  );
+                })}
+              </div>
+            ) : (
+              <div className="flex gap-2 lg:flex-col overflow-scroll scrollbar-none h-full">
+                {data?.productImage?.map((imgURL, index) => {
+                  return (
+                    <div
+                      className="h-20 w-20 bg-slate-200 rounded border border-[#AA0000]"
+                      key={imgURL}
+                    >
+                      <img
+                        src={imgURL}
+                        loading="lazy"
+                        className="w-full h-full object-fill  cursor-pointer"
+                        onMouseEnter={() => handleMouseEnterProduct(imgURL)}
+                        onClick={() => handleMouseEnterProduct(imgURL)}
+                      />
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        </div>
 
         {/***product details */}
         {loading ? (
