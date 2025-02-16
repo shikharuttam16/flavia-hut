@@ -252,7 +252,7 @@ const Header = ({ onFAQClick }) => {
           </div>
         </div>
 
-        <div className="bg-[#fff] text-[#283B53] shadow-md px-5 sm:px-12 py-4">
+        <div className="bg-[#fff] text-[#283B53] shadow-md px-7 sm:px-12 py-4">
           <div className="flex justify-between items-center">
             {/* Left Section: Logo and Links */}
             <div className="flex items-center">
