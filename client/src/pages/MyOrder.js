@@ -3,7 +3,7 @@
 const MyOrders = () => {
   return (
     <>
-      <h1 className="text-xl text-[#FFB255]">My Orders</h1>
+      <h1 className="text-xl text-[#FFB255]">My Order's</h1>
     </>
   );
 };
