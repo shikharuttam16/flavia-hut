@@ -260,7 +260,28 @@ const Header = ({ onFAQClick }) => {
                 <Link to="/" className="font-semibold">
                   Home
                 </Link>
-                <div className="relative">
+                <Link to="/" className="font-semibold">
+                  BestSellers
+                </Link>
+                <Link to="/" className="font-semibold">
+                  Combo's
+                </Link>
+                <Link to="/" className="font-semibold">
+                  Featured Products
+                </Link>
+                <Link to="/" className="font-semibold">
+                  Makhana's
+                </Link>
+                <Link to="/" className="font-semibold">
+                  New Arrivals
+                </Link>
+                <Link to="/" className="font-semibold">
+                  Bulk Orders
+                </Link>
+                <Link to="/" className="font-semibold">
+                  Contact Us
+                </Link>
+                {/* <div className="relative">
                   <button
                     className="flex items-center gap-x-1  font-semibold "
                     aria-expanded="false"
@@ -280,8 +301,8 @@ const Header = ({ onFAQClick }) => {
                         clip-rule="evenodd"
                       /> */}
                     {/* </svg> */}
-                  </button>
-                  {isProductsDropdownOpen && (
+                  {/* </button> */}
+                  {/* {isProductsDropdownOpen && (
                     <div className="absolute mt-2 w-48 bg-white border shadow-lg rounded-lg text-black">
                       {loading
                         ? categoryLoading?.map((_, index) => (
@@ -305,9 +326,9 @@ const Header = ({ onFAQClick }) => {
                             </ul>
                           ))}
                     </div>
-                  )}
+                  )} 
                 </div>
-                <Link to="/about" className="font-semibold">
+                {/* <Link to="/about" className="font-semibold">
                   About Us
                 </Link>
                 <p
@@ -315,7 +336,7 @@ const Header = ({ onFAQClick }) => {
                   onClick={handleFAQClick}
                 >
                   FAQ
-                </p>
+                </p>  */}
               </ul>
             </div>
 
