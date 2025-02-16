@@ -220,9 +220,12 @@ const Header = ({ onFAQClick }) => {
             <div className="hidden md:flex items-center gap-4">
                 {/* <WishlistDrawer /> */}
                 {/* <CartDrawer /> */}
+                <button>
                 <FiShoppingBag
                 size={30}
                 />
+                <span className="ml-3 text-sm">Cart</span>
+                </button>
             </div>
 
 
