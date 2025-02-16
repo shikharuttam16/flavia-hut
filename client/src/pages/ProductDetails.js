@@ -230,15 +230,15 @@ const ProductDetails = () => {
           </div>
         ) : (
           <div className="mt-6 border border-[#E1E3E4] rounded-[6px] p-6">
-              <h2 className="font-barlow font-bold text-[24px] leading-[32px] tracking-[0%] text-[#424750]">
+              <h2 className="font-barlow font-bold text-[24px] leading-[32px] tracking-[0%] text-[#424750] mb-3">
                 {data?.productName}
               </h2>
-              <hr></hr>
+              <hr className="mb-3"></hr>
             <div className="flex items-center gap-2 text-1xl lg:text-1xl font-medium my-1 mt-2">
-              <p className="font-titillium font-semibold text-[14px] leading-[26.18px] tracking-[0%] text-[#424750]">
+              <p className="font-titillium font-semibold text-[14px] leading-[26.18px] tracking-[0%] text-[#424750] mb-3">
                 M.R.P: <span className="font-['Titillium_Web'] font-normal text-[15px] leading-[28.05px] text-[#424750] line-through">{displayINRCurrency(data.price)}</span>
               </p>
-              <p className="font-titillium font-semibold text-[14px] leading-[26.18px] tracking-[0%] text-[#424750]">
+              <p className="font-titillium font-semibold text-[14px] leading-[26.18px] tracking-[0%] text-[#424750] mb-3">
                 Offer Price: <span className="font-barlow font-semibold text-[22px] leading-[26px] tracking-[0%] text-[#56CE00]">{displayINRCurrency(data.sellingPrice)}</span> <span className="font-titillium font-normal text-[14px] leading-[14px] tracking-[0%] text-[#424750]">(incl. of all taxes)</span>
               </p>
               <div className="flex items-center gap-3 my-2">
