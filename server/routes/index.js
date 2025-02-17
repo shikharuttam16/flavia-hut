@@ -31,6 +31,7 @@ const getWishlistController = require('../controller/user/getWishlistController'
 const updateWishlist = require('../controller/user/updateWishlist')
 const deleteWishlistProduct = require('../controller/user/deleteWishlistProduct')
 const deleteProductController = require('../controller/product/deleteProductController')
+const { addCategory, getCategory, updateCategory, deleteCategory } = require('../controller/category/category')
 
 
 
@@ -60,6 +61,11 @@ router.get("/view-card-product",authToken,addToCartViewProduct)
 router.post("/update-cart-product",authToken,updateAddToCartProduct)
 router.post("/delete-cart-product",authToken,deleteAddToCartProduct)
 
+//category
+router.post("/addCategory",authToken, addCategory)
+router.get("/getCategory",authToken, getCategory)
+router.put("/updateCategory",authToken, updateCategory)
+router.delete("/deleteCategory",authToken, deleteCategory)
 
 
 router.post("/add",authToken,addAddress);
