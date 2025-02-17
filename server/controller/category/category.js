@@ -1,5 +1,5 @@
 const slugify = require("slugify");
-const Category = require("../../models/category")
+const Category = require("../../models/productCategory")
 
 // Create a new category
 const addCategory = async (req, res) => {
