@@ -152,19 +152,15 @@ const ProductDetails = () => {
     (item) => item.productId?._id === data?._id
   );
 
-  const QuantityCounter = () => {
-    const [quantity, setQuantity] = useState(1);
-  
+  const [quantity, setQuantity] = useState(1);
     const increaseQuantity = () => {
       setQuantity(quantity + 1);
     };
-  
     const decreaseQuantity = () => {
       if (quantity > 1) {
         setQuantity(quantity - 1);
       }
     };
-  }
   return (
     <div className="w-[90%] mx-auto p-4 flex flex-col gap-4">
       <div className="p-4"></div>
