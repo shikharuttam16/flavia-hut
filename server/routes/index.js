@@ -62,10 +62,10 @@ router.post("/update-cart-product",authToken,updateAddToCartProduct)
 router.post("/delete-cart-product",authToken,deleteAddToCartProduct)
 
 //category
-// router.post("/addCategory",authToken, addCategory)
-// router.get("/getCategory",authToken, getCategory)
-// router.put("/updateCategory",authToken, updateCategory)
-// router.delete("/deleteCategory",authToken, deleteCategory)
+router.post("/addCategory",authToken, addCategory)
+router.get("/getCategory",authToken, getCategory)
+router.put("/updateCategory",authToken, updateCategory)
+router.delete("/deleteCategory",authToken, deleteCategory)
 
 
 router.post("/add",authToken,addAddress);
