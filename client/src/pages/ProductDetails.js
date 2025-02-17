@@ -269,8 +269,8 @@ const ProductDetails = () => {
         <div>
           <HorizontalCardProduct
             category={data?.category}
-            heading1={"Recommended"}
-            heading2={"Product"}
+            heading1={"You may also like"}
+            heading2={""}
           />
         </div>
       )}
