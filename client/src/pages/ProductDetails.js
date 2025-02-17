@@ -252,7 +252,7 @@ const ProductDetails = () => {
                 Offer Price: <span className="font-barlow font-semibold text-[22px] leading-[26px] tracking-[0%] text-[#56CE00]">{displayINRCurrency(data.sellingPrice)}</span> <span className="font-titillium font-normal text-[14px] leading-[14px] tracking-[0%] text-[#424750]">(incl. of all taxes)</span>
               </p>
               <div className="font-titillium font-semibold text-[14px] leading-[26.18px] tracking-[0%] text-[#424750] mb-3 flex gap-4 items-center">
-              Quantity: <div className="flex items-center border border-[#E1E3E4] rounded-[3px] p-2 w-max">
+              Quantity: <div className="flex items-center border border-[#E1E3E4] rounded-[3px] w-max">
                   <button
                     onClick={decreaseQuantity}
                     className="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold"
