@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState,useRef  } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import SummaryApi from "../common";
 import { FaHeart, FaStar } from "react-icons/fa";
@@ -14,6 +14,8 @@ import { toast } from "react-toastify";
 
 const ProductDetails = () => {
   const navigate = useNavigate();
+  const [zoomStyle, setZoomStyle] = useState({});
+  const imageRef = useRef(null);
   const [data, setData] = useState({
     productName: "",
     availability: "",
@@ -116,24 +118,23 @@ const ProductDetails = () => {
     setActiveImage(imageURL);
   };
 
-  const handleZoomImage = useCallback(
-    (e) => {
-      setZoomImage(true);
-      const { left, top, width, height } = e.target.getBoundingClientRect();
-   
-      const x = (e.clientX - left) / width;
-      const y = (e.clientY - top) / height;
+  const handleZoomImage = (e) => {
+    if (!imageRef.current) return;
 
-      setZoomImageCoordinate({
-        x,
-        y,
-      });
-    },
-    [zoomImageCoordinate]
-  );
+    const { left, top, width, height } = imageRef.current.getBoundingClientRect();
+    const x = ((e.clientX - left) / width) * 100;
+    const y = ((e.clientY - top) / height) * 100;
+
+    setZoomStyle({
+      backgroundImage: `url(${activeImage})`,
+      backgroundPosition: `${x}% ${y}%`,
+      backgroundSize: "200%", // Adjust zoom level
+      display: "block",
+    });
+  };
 
   const handleLeaveImageZoom = () => {
-    setZoomImage(false);
+    setZoomStyle({ display: "none" });
   };
 
   const handleAddToCart = async (e, id) => {
@@ -169,12 +170,17 @@ const ProductDetails = () => {
         {/***product Image */}
         <div className="flex flex-col lg:flex-row-reverse gap-4 mt-6 border border-[#E1E3E4] rounded-[6px] p-6">
           <div className="md:h-[400px] md:w-[450px] relative object-contain ">
+          <div
+          className="absolute inset-0 bg-no-repeat bg-center"
+          style={zoomStyle}
+        />
             <img
-              src={activeImage}
-              className="h-full w-full object-contain"
-              loading="lazy"
-              onMouseMove={handleZoomImage}
-              onMouseLeave={handleLeaveImageZoom}
+               ref={imageRef}
+               src={activeImage}
+               className="h-full w-full object-contain"
+               loading="lazy"
+               onMouseMove={handleZoomImage}
+               onMouseLeave={handleLeaveImageZoom}
             />
           </div>
 
