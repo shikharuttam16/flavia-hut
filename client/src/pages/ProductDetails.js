@@ -255,14 +255,14 @@ const ProductDetails = () => {
               Quantity: <div className="flex items-center border border-[#E1E3E4] rounded-[3px] p-2 w-max">
                   <button
                     onClick={decreaseQuantity}
-                    className="px-3 py-1 bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold rounded"
+                    className="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold"
                   >
                     −
                   </button>
-                  <span className="text-lg font-medium w-8 text-center">{quantity}</span>
+                  <span className="text-lg font-medium w-20 text-center">{quantity}</span>
                   <button
                     onClick={increaseQuantity}
-                    className="px-3 py-1 bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold rounded"
+                    className="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold"
                   >
                     +
                   </button>
