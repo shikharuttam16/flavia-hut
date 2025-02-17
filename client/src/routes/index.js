@@ -1,21 +1,21 @@
-import { createBrowserRouter } from 'react-router-dom'
-import App from '../App'
-import Home from '../pages/Home'
-import Login from '../pages/Login'
-import ForgotPassowrd from '../pages/ForgotPassowrd'
-import SignUp from '../pages/SignUp'
-import AdminPanel from '../pages/AdminPanel'
-import AllUsers from '../pages/AllUsers'
-import AllProducts from '../pages/AllProducts'
-import CategoryProduct from '../pages/CategoryProduct'
-import ProductDetails from '../pages/ProductDetails'
-import Cart from '../pages/Cart'
-import SearchProduct from '../pages/SearchProduct'
-import Checkout from '../pages/CheckOut'
-import AllOrders from '../pages/AllOrders'
-import AboutUs from '../pages/AboutUs'
-import NotFoundPage from '../pages/NotFoundPage'
-import MyOrders from '../pages/MyOrder'
+import { createBrowserRouter } from "react-router-dom";
+import App from "../App";
+import Home from "../pages/Home";
+import Login from "../pages/Login";
+import ForgotPassowrd from "../pages/ForgotPassowrd";
+import SignUp from "../pages/SignUp";
+import AdminPanel from "../pages/AdminPanel";
+import AllUsers from "../pages/AllUsers";
+import AllProducts from "../pages/AllProducts";
+import CategoryProduct from "../pages/CategoryProduct";
+import ProductDetails from "../pages/ProductDetails";
+import Cart from "../pages/Cart";
+import SearchProduct from "../pages/SearchProduct";
+import Checkout from "../pages/CheckOut";
+import AllOrders from "../pages/AllOrders";
+import AboutUs from "../pages/AboutUs";
+import NotFoundPage from "../pages/NotFoundPage";
+import MyCart from "../pages/MyCart";
 
 const router = createBrowserRouter([
   {
@@ -86,12 +86,11 @@ const router = createBrowserRouter([
         element: <NotFoundPage />,
       },
       {
-        path: "my-orders",
-        element: <MyOrders />,
+        path: "my-cart",
+        element: <MyCart />,
       },
     ],
   },
 ]);
 
-
-export default router
+export default router;
