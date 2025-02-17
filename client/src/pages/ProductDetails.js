@@ -192,7 +192,7 @@ const ProductDetails = () => {
                       <img
                         src={imgURL}
                         loading="lazy"
-                        className="w-full h-full object-fill  cursor-pointer"
+                        className="w-full h-full object-cover transition-transform duration-300 ease-in-out hover:scale-110"
                         onMouseEnter={() => handleMouseEnterProduct(imgURL)}
                         onClick={() => handleMouseEnterProduct(imgURL)}
                       />
