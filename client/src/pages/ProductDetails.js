@@ -259,7 +259,7 @@ const ProductDetails = () => {
                   >
                     −
                   </button>
-                  <span className="text-lg font-medium w-20 text-center">{quantity}</span>
+                  <span className="text-lg font-medium w-26 px-4 text-center">{quantity}</span>
                   <button
                     onClick={increaseQuantity}
                     className="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold"
