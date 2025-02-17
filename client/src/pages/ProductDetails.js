@@ -186,7 +186,7 @@ const ProductDetails = () => {
                 {data?.productImage?.map((imgURL, index) => {
                   return (
                     <div
-                      className="h-20 w-20 bg-slate-200 rounded border border-[#AA0000]"
+                      className="w-[72px] h-[72px] top-[8px] left-[4px] rounded-[3px] border-[2px] border-[#424750]"
                       key={imgURL}
                     >
                       <img
