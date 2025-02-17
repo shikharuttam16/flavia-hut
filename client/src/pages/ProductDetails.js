@@ -152,6 +152,19 @@ const ProductDetails = () => {
     (item) => item.productId?._id === data?._id
   );
 
+  const QuantityCounter = () => {
+    const [quantity, setQuantity] = useState(1);
+  
+    const increaseQuantity = () => {
+      setQuantity(quantity + 1);
+    };
+  
+    const decreaseQuantity = () => {
+      if (quantity > 1) {
+        setQuantity(quantity - 1);
+      }
+    };
+  }
   return (
     <div className="w-[90%] mx-auto p-4 flex flex-col gap-4">
       <div className="p-4"></div>
@@ -242,20 +255,25 @@ const ProductDetails = () => {
               <p className="font-titillium font-semibold text-[14px] leading-[26.18px] tracking-[0%] text-[#424750] mb-3">
                 Offer Price: <span className="font-barlow font-semibold text-[22px] leading-[26px] tracking-[0%] text-[#56CE00]">{displayINRCurrency(data.sellingPrice)}</span> <span className="font-titillium font-normal text-[14px] leading-[14px] tracking-[0%] text-[#424750]">(incl. of all taxes)</span>
               </p>
-              <div className="flex items-center gap-3 my-2">
-            <button
-                  className="w-[292.5px] h-[48px] rounded-[4px] px-3 py-2 font-barlow font-bold text-[16px] leading-[26px] tracking-[0%] text-center text-white bg-[#FF8C00] hover:bg-[#FF8C00]"
-                  onClick={(e) => handleAddToCart(e, data?._id)}
-                >
-                  Add To Cart
-                </button>
+              <div className="flex items-center space-x-2 border border-gray-400 rounded-md p-2 w-max">
                 <button
-                  className="w-[292.5px] h-[48px] rounded-[4px] px-3 py-2 font-barlow font-bold text-[16px] leading-[26px] tracking-[0%] text-center text-white bg-[#56CE00] hover:bg-[#56CE00]"
-                  onClick={(e) => handleBuyProduct(e, data?._id)}
+                  onClick={decreaseQuantity}
+                  className="px-3 py-1 bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold rounded"
                 >
-                BUY IT NOW
-              </button>
-            </div>
+                  −
+                </button>
+                <span className="text-lg font-medium w-8 text-center">{quantity}</span>
+                <button
+                  onClick={increaseQuantity}
+                  className="px-3 py-1 bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold rounded"
+                >
+                  +
+                </button>
+              </div>
+              <div className="flex items-center gap-3 my-2">
+                <button className="w-[292.5px] h-[48px] rounded-[4px] px-3 py-2 font-barlow font-bold text-[16px] leading-[26px] tracking-[0%] text-center text-white bg-[#FF8C00] hover:bg-[#FF8C00]" onClick={(e) => handleAddToCart(e, data?._id)}> Add To Cart </button>
+                <button className="w-[292.5px] h-[48px] rounded-[4px] px-3 py-2 font-barlow font-bold text-[16px] leading-[26px] tracking-[0%] text-center text-white bg-[#56CE00] hover:bg-[#56CE00]" onClick={(e) => handleBuyProduct(e, data?._id)}> BUY IT NOW </button>
+              </div>
             </div>
             </div>
             <div className="mt-6 border border-[#E1E3E4] rounded-[6px] p-6">
