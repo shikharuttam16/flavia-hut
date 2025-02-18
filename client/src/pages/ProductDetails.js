@@ -268,16 +268,16 @@ const ProductDetails = () => {
                   </button>
                 </div>
               </div>
-              <div className="flex flex-col md:flex-row md:items-center gap-3 my-2">
+              <div className="flex sm:flex-col md:flex-row md:items-center gap-3 my-2">
                 <button 
-                  className="w-full md:w-[292.5px] h-[48px] rounded-[4px] px-3 py-2 font-barlow font-bold text-[16px] leading-[26px] text-center text-white bg-[#FF8C00] hover:bg-[#FF8C00] transition duration-300"
+                  className="sm:w-full md:w-[292.5px] h-[48px] rounded-[4px] px-3 py-2 font-barlow font-bold text-[16px] leading-[26px] text-center text-white bg-[#FF8C00] hover:bg-[#FF8C00] transition duration-300"
                   onClick={(e) => handleAddToCart(e, data?._id)}
                 >
                   Add To Cart
                 </button>
                 
                 <button 
-                  className="w-full md:w-[292.5px] h-[48px] rounded-[4px] px-3 py-2 font-barlow font-bold text-[16px] leading-[26px] text-center text-white bg-[#56CE00] hover:bg-[#56CE00] transition duration-300"
+                  className="sm:w-full md:w-[292.5px] h-[48px] rounded-[4px] px-3 py-2 font-barlow font-bold text-[16px] leading-[26px] text-center text-white bg-[#56CE00] hover:bg-[#56CE00] transition duration-300"
                   onClick={(e) => handleBuyProduct(e, data?._id)}
                 >
                   BUY IT NOW
