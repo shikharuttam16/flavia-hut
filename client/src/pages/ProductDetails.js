@@ -113,23 +113,31 @@ const ProductDetails = () => {
   };
 
   const handleZoomImage = (e) => {
-    if (!imageRef.current) return;
-
+    if (!imageRef.current || !activeImage) return;
+  
     const { left, top, width, height } = imageRef.current.getBoundingClientRect();
     const x = ((e.clientX - left) / width) * 100;
     const y = ((e.clientY - top) / height) * 100;
-
+  
     setZoomStyle({
       backgroundImage: `url(${activeImage})`,
       backgroundPosition: `${x}% ${y}%`,
-      backgroundSize: "200%", // Adjust zoom level
+      backgroundSize: "300%", // Adjust zoom level
+      backgroundRepeat: "no-repeat",
+      width: "100%",
+      height: "100%",
+      position: "absolute",
+      top: 0,
+      left: 0,
+      pointerEvents: "none",
       display: "block",
     });
   };
-
+  
   const handleLeaveImageZoom = () => {
     setZoomStyle({ display: "none" });
   };
+  
 
   const handleAddToCart = async (e, id) => {
     await addToCart(e, id);
@@ -163,19 +171,16 @@ const ProductDetails = () => {
       <div className="min-h-[200px] flex flex-col lg:flex-row gap-6">
         {/***product Image */}
         <div className="flex flex-col lg:flex-row-reverse gap-4 mt-6 border border-[#E1E3E4] rounded-[6px] p-6">
-          <div className="md:h-[400px] md:w-[450px] relative object-contain ">
-          <div
-          className="absolute inset-0 bg-no-repeat bg-center"
-          style={zoomStyle}
-        />
-            <img
-               ref={imageRef}
-               src={activeImage}
-               className="h-full w-full object-contain"
-               loading="lazy"
-               onMouseMove={handleZoomImage}
-               onMouseLeave={handleLeaveImageZoom}
-            />
+          <div className="md:h-[400px] md:w-[450px] relative object-contain overflow-hidden">
+          <div className="absolute inset-0 bg-no-repeat bg-center pointer-events-none"style={zoomStyle}/>
+          <img
+            ref={imageRef}
+            src={activeImage}
+            className="h-full w-full object-contain"
+            loading="lazy"
+            onMouseMove={handleZoomImage}
+            onMouseLeave={handleLeaveImageZoom}
+          />
           </div>
 
           <div className="h-full">
