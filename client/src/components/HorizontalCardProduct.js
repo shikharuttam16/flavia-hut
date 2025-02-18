@@ -49,11 +49,15 @@ const HorizontalCardProduct = ({ category, heading1, heading2 }) => {
   }, [category]);
 
   const scrollRight = () => {
-    scrollElement.current.scrollBy({ left: 300, behavior: "smooth" });
+    if (scrollElement.current) {
+      scrollElement.current.scrollBy({ left: 300, behavior: "smooth" });
+    }
   };
 
   const scrollLeft = () => {
-    scrollElement.current.scrollBy({ left: -300, behavior: "smooth" });
+    if (scrollElement.current) {
+      scrollElement.current.scrollBy({ left: -300, behavior: "smooth" });
+    }
   };
 
   return (
@@ -73,24 +77,28 @@ const HorizontalCardProduct = ({ category, heading1, heading2 }) => {
       <hr />
 
       <div className="relative w-full">
-      <button
-    className="bg-white shadow-md rounded-full p-2 absolute left-0 top-1/2 -translate-y-1/2 z-10 text-lg hidden md:block"
-    onClick={scrollLeft}
-  >
-    <FaAngleLeft />
-  </button>
+        {/* Left Scroll Button */}
+        <button
+          className="bg-white shadow-md rounded-full p-2 absolute left-0 top-1/2 -translate-y-1/2 z-10 text-lg hidden md:flex items-center justify-center"
+          onClick={scrollLeft}
+        >
+          <FaAngleLeft />
+        </button>
+
+        {/* Product List with Touch & Scroll Support */}
         <div
-          className="flex items-center gap-4 md:gap-6 overflow-x-auto scrollbar-none transition-all pt-4 md:p-4 scroll-smooth"
           ref={scrollElement}
+          className="flex items-center gap-4 md:gap-6 overflow-x-auto scrollbar-hide transition-all pt-4 md:p-4 scroll-smooth snap-x snap-mandatory"
+          style={{ scrollBehavior: "smooth", WebkitOverflowScrolling: "touch" }}
         >
           {loading
-            ? new Array(13).fill(null).map((_, index) => (
+            ? new Array(5).fill(null).map((_, index) => (
                 <div
                   key={index}
-                  className="w-full min-w-[280px] md:min-w-[320px] max-w-[280px] md:max-w-[320px] h-36 bg-white rounded-sm shadow flex animate-pulse"
+                  className="w-[90%] sm:w-[80%] md:w-[300px] h-40 bg-white rounded-md shadow-md flex animate-pulse snap-start"
                 >
-                  <div className="bg-slate-200 h-full p-4 min-w-[120px] md:min-w-[145px]"></div>
-                  <div className="p-4 grid w-full gap-2">
+                  <div className="bg-slate-200 h-full w-1/3 p-4"></div>
+                  <div className="p-4 grid w-2/3 gap-2">
                     <div className="bg-slate-200 p-2 rounded"></div>
                     <div className="bg-slate-200 p-2 rounded"></div>
                     <div className="flex gap-3">
@@ -107,15 +115,18 @@ const HorizontalCardProduct = ({ category, heading1, heading2 }) => {
                   product={product}
                   handleAddToCart={handleAddToCart}
                   wishlistHandler={addToWishlist}
+                  className="snap-start"
                 />
               ))}
         </div>
+
+        {/* Right Scroll Button */}
         <button
-    className="bg-white shadow-md rounded-full p-2 absolute right-0 top-1/2 -translate-y-1/2 z-10 text-lg hidden md:block"
-    onClick={scrollRight}
-  >
-    <FaAngleRight />
-  </button>
+          className="bg-white shadow-md rounded-full p-2 absolute right-0 top-1/2 -translate-y-1/2 z-10 text-lg hidden md:flex items-center justify-center"
+          onClick={scrollRight}
+        >
+          <FaAngleRight />
+        </button>
       </div>
     </div>
   );
