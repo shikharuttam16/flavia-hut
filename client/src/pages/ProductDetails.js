@@ -15,7 +15,6 @@ import { toast } from "react-toastify";
 const ProductDetails = () => {
   const navigate = useNavigate();
   const [zoomStyle, setZoomStyle] = useState({});
-  const imageRef = useRef(null);
   const [data, setData] = useState({
     productName: "",
     availability: "",
@@ -29,12 +28,7 @@ const ProductDetails = () => {
   const [loading, setLoading] = useState(true);
   const productImageListLoading = new Array(4).fill(null);
   const [activeImage, setActiveImage] = useState("");
-
-  const [zoomImageCoordinate, setZoomImageCoordinate] = useState({
-    x: 0,
-    y: 0,
-  });
-  const [zoomImage, setZoomImage] = useState(false);
+  const imageRef = useRef(null);
 
   const {
     fetchUserAddToCart,
