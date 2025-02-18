@@ -1,18 +1,20 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import fetchCategoryWiseProduct from "../helpers/fetchCategoryWiseProduct";
-import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import addToCart from "../helpers/addToCart";
 import Context from "../context";
 import { toast } from "react-toastify";
 import SummaryApi from "../common";
 import ProductCard from "./ProductCard";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
 
 const HorizontalCardProduct = ({ category, heading1, heading2 }) => {
   const { fetchUserAddToCart, fetchCartData, fetchWishListData } = useContext(Context);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const scrollElement = useRef(null);
 
   const addToWishlist = async (e, id) => {
     e?.stopPropagation();
@@ -48,18 +50,6 @@ const HorizontalCardProduct = ({ category, heading1, heading2 }) => {
     fetchData();
   }, [category]);
 
-  const scrollRight = () => {
-    if (scrollElement.current) {
-      scrollElement.current.scrollBy({ left: 300, behavior: "smooth" });
-    }
-  };
-
-  const scrollLeft = () => {
-    if (scrollElement.current) {
-      scrollElement.current.scrollBy({ left: -300, behavior: "smooth" });
-    }
-  };
-
   return (
     <div className="w-full mx-auto px-4 my-6 relative">
       <div className="flex justify-between items-center">
@@ -76,27 +66,22 @@ const HorizontalCardProduct = ({ category, heading1, heading2 }) => {
 
       <hr />
 
-      <div className="relative w-full">
-        {/* Left Scroll Button */}
-        <button
-          className="bg-white shadow-md rounded-full p-2 absolute left-0 top-1/2 -translate-y-1/2 z-10 text-lg hidden md:flex items-center justify-center"
-          onClick={scrollLeft}
-        >
-          <FaAngleLeft />
-        </button>
-
-        {/* Product List with Touch & Scroll Support */}
-        <div
-          ref={scrollElement}
-          className="flex items-center gap-4 md:gap-6 overflow-x-auto scrollbar-hide transition-all pt-4 md:p-4 scroll-smooth snap-x snap-mandatory"
-          style={{ scrollBehavior: "smooth", WebkitOverflowScrolling: "touch" }}
-        >
-          {loading
-            ? new Array(5).fill(null).map((_, index) => (
-                <div
-                  key={index}
-                  className="w-[90%] sm:w-[80%] md:w-[300px] h-40 bg-white rounded-md shadow-md flex animate-pulse snap-start"
-                >
+      <Swiper
+        modules={[Navigation]}
+        spaceBetween={20}
+        slidesPerView={1.5}
+        breakpoints={{
+          640: { slidesPerView: 2 },
+          768: { slidesPerView: 3 },
+          1024: { slidesPerView: 4 },
+        }}
+        navigation
+        className="my-4"
+      >
+        {loading
+          ? new Array(5).fill(null).map((_, index) => (
+              <SwiperSlide key={index}>
+                <div className="w-full h-40 bg-white rounded-md shadow-md flex animate-pulse">
                   <div className="bg-slate-200 h-full w-1/3 p-4"></div>
                   <div className="p-4 grid w-2/3 gap-2">
                     <div className="bg-slate-200 p-2 rounded"></div>
@@ -108,26 +93,18 @@ const HorizontalCardProduct = ({ category, heading1, heading2 }) => {
                     <div className="bg-slate-200 p-2 w-full rounded"></div>
                   </div>
                 </div>
-              ))
-            : data.map((product) => (
+              </SwiperSlide>
+            ))
+          : data.map((product) => (
+              <SwiperSlide key={product?._id}>
                 <ProductCard
-                  key={product?._id}
                   product={product}
                   handleAddToCart={handleAddToCart}
                   wishlistHandler={addToWishlist}
-                  className="snap-start"
                 />
-              ))}
-        </div>
-
-        {/* Right Scroll Button */}
-        <button
-          className="bg-white shadow-md rounded-full p-2 absolute right-0 top-1/2 -translate-y-1/2 z-10 text-lg hidden md:flex items-center justify-center"
-          onClick={scrollRight}
-        >
-          <FaAngleRight />
-        </button>
-      </div>
+              </SwiperSlide>
+            ))}
+      </Swiper>
     </div>
   );
 };
