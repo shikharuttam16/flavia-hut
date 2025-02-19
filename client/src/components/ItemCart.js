@@ -1,8 +1,33 @@
 import { FiPlus } from "react-icons/fi";
 import { AiOutlineMinus } from "react-icons/ai";
 import { CgTrash } from "react-icons/cg";
+import { useEffect, useState } from "react";
+import SummaryApi from "../common";
 
 const ItemCart = () => {
+  const [cartProduct, setCartProduct] = useState([]);
+
+  useEffect(() => {
+    const fetchCartData = async () => {
+      try {
+        const dataResponse = await fetch(SummaryApi.addToCartProductView.url, {
+          method: SummaryApi.addToCartProductView.method,
+          credentials: "include",
+        });
+
+        const dataApi = await dataResponse.json();
+        setCartProduct(dataApi?.data);
+        console.log("Cart Data:", dataApi?.data);
+      } catch (error) {
+        console.error("Error fetching cart data:", error);
+      }
+    };
+
+    fetchCartData();
+  }, []);
+
+  console.log(cartProduct,"cartProduct");
+
   return (
     <>
       <div className="flex my-4 mx-4">
