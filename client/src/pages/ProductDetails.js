@@ -15,7 +15,6 @@ import { toast } from "react-toastify";
 const ProductDetails = () => {
   const navigate = useNavigate();
   const [zoomStyle, setZoomStyle] = useState({});
-  const imageRef = useRef(null);
   const [data, setData] = useState({
     productName: "",
     availability: "",
@@ -29,12 +28,7 @@ const ProductDetails = () => {
   const [loading, setLoading] = useState(true);
   const productImageListLoading = new Array(4).fill(null);
   const [activeImage, setActiveImage] = useState("");
-
-  const [zoomImageCoordinate, setZoomImageCoordinate] = useState({
-    x: 0,
-    y: 0,
-  });
-  const [zoomImage, setZoomImage] = useState(false);
+  const imageRef = useRef(null);
 
   const {
     fetchUserAddToCart,
@@ -119,23 +113,31 @@ const ProductDetails = () => {
   };
 
   const handleZoomImage = (e) => {
-    if (!imageRef.current) return;
-
+    if (!imageRef.current || !activeImage) return;
+  
     const { left, top, width, height } = imageRef.current.getBoundingClientRect();
     const x = ((e.clientX - left) / width) * 100;
     const y = ((e.clientY - top) / height) * 100;
-
+  
     setZoomStyle({
       backgroundImage: `url(${activeImage})`,
       backgroundPosition: `${x}% ${y}%`,
-      backgroundSize: "200%", // Adjust zoom level
+      backgroundSize: "300%", // Adjust zoom level
+      backgroundRepeat: "no-repeat",
+      width: "100%",
+      height: "100%",
+      position: "absolute",
+      top: 0,
+      left: 0,
+      pointerEvents: "none",
       display: "block",
     });
   };
-
+  
   const handleLeaveImageZoom = () => {
     setZoomStyle({ display: "none" });
   };
+  
 
   const handleAddToCart = async (e, id) => {
     await addToCart(e, id);
@@ -169,19 +171,16 @@ const ProductDetails = () => {
       <div className="min-h-[200px] flex flex-col lg:flex-row gap-6">
         {/***product Image */}
         <div className="flex flex-col lg:flex-row-reverse gap-4 mt-6 border border-[#E1E3E4] rounded-[6px] p-6">
-          <div className="md:h-[400px] md:w-[450px] relative object-contain ">
-          <div
-          className="absolute inset-0 bg-no-repeat bg-center"
-          style={zoomStyle}
-        />
-            <img
-               ref={imageRef}
-               src={activeImage}
-               className="h-full w-full object-contain"
-               loading="lazy"
-               onMouseMove={handleZoomImage}
-               onMouseLeave={handleLeaveImageZoom}
-            />
+          <div className="md:h-[400px] md:w-[450px] relative object-contain overflow-hidden">
+          <div className="absolute inset-0 bg-no-repeat bg-center pointer-events-none"style={zoomStyle}/>
+          <img
+            ref={imageRef}
+            src={activeImage}
+            className="h-full w-full object-contain"
+            loading="lazy"
+            onMouseMove={handleZoomImage}
+            onMouseLeave={handleLeaveImageZoom}
+          />
           </div>
 
           <div className="h-full">
@@ -274,10 +273,22 @@ const ProductDetails = () => {
                   </button>
                 </div>
               </div>
-              <div className="flex items-center gap-3 my-2">
-                <button className="w-[292.5px] h-[48px] rounded-[4px] px-3 py-2 font-barlow font-bold text-[16px] leading-[26px] tracking-[0%] text-center text-white bg-[#FF8C00] hover:bg-[#FF8C00]" onClick={(e) => handleAddToCart(e, data?._id)}> Add To Cart </button>
-                <button className="w-[292.5px] h-[48px] rounded-[4px] px-3 py-2 font-barlow font-bold text-[16px] leading-[26px] tracking-[0%] text-center text-white bg-[#56CE00] hover:bg-[#56CE00]" onClick={(e) => handleBuyProduct(e, data?._id)}> BUY IT NOW </button>
+              <div className="flex flex-col md:flex-row md:items-center gap-3 my-2">
+                <button 
+                  className="w-full md:w-[292.5px] h-[48px] rounded-[4px] px-3 py-2 font-barlow font-bold text-[16px] leading-[26px] text-center text-white bg-[#FF8C00] hover:bg-[#FF8C00] transition duration-300"
+                  onClick={(e) => handleAddToCart(e, data?._id)}
+                >
+                  Add To Cart
+                </button>
+                
+                <button 
+                  className="w-full md:w-[292.5px] h-[48px] rounded-[4px] px-3 py-2 font-barlow font-bold text-[16px] leading-[26px] text-center text-white bg-[#56CE00] hover:bg-[#56CE00] transition duration-300"
+                  onClick={(e) => handleBuyProduct(e, data?._id)}
+                >
+                  BUY IT NOW
+                </button>
               </div>
+
             </div>
             </div>
             <div className="mt-6 border border-[#E1E3E4] rounded-[6px] p-6">
