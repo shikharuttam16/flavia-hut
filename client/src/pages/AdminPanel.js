@@ -60,8 +60,6 @@ const AdminPanel = () => {
                     <Link to="all-products" className='px-2 py-1 hover:bg-slate-100 rounded'>All Products</Link>
                     <Link to="all-categories" className='px-2 py-1 hover:bg-slate-100 rounded'>All Categories</Link>
                     <Link to="all-orders" className='px-2 py-1 hover:bg-slate-100 rounded'>All Orders</Link>
-                    <Link to="all-orders" className='px-2 py-1 hover:bg-slate-100 rounded'>All Categories</Link>
-
                     <div className='flex flex-col items-center'>
                     <button
                     className='border border-red-600 text-red-600 hover:bg-red-600 hover:text-white transition-all py-1 px-2 rounded-full mt-auto mb-4 md:mb-0 w-[100px]'
