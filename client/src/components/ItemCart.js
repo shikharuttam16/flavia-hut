@@ -1,7 +1,7 @@
-import { useState } from "react";
 import { FiPlus } from "react-icons/fi";
 import { AiOutlineMinus } from "react-icons/ai";
 import { CgTrash } from "react-icons/cg";
+import { useState } from "react";
 
 const ItemCart = ({
   id,
@@ -10,17 +10,17 @@ const ItemCart = ({
   description,
   price,
   sellingPrice,
-  initialQuantity,
+  quantity,
 }) => {
-  const [quantity, setQuantity] = useState(initialQuantity);
+  const [productQty, setProductQty] = useState(quantity);
 
   const onPlusButton = () => {
-    setQuantity((prevQuantity) => prevQuantity + 1);
+    setProductQty((prev) => prev + 1);
   };
 
   const onMinusButton = () => {
-    if (quantity > 1) {
-      setQuantity((prevQuantity) => prevQuantity - 1);
+    if (productQty > 1) {
+      setProductQty((prev) => prev - 1);
     }
   };
 
@@ -29,7 +29,7 @@ const ItemCart = ({
       <div className="flex my-4 mx-4">
         <div className="min-h-40 flex flex-col items-center justify-center p-4">
           {/* Image area */}
-          <div>
+          <div className="">
             <img src={image} alt={name} className="w-24 object-cover" />
           </div>
 
@@ -42,7 +42,7 @@ const ItemCart = ({
               <AiOutlineMinus size={24} />
             </button>
             <span className="text-sm border rounded-md border-gray-300 px-3.5 py-2">
-              {quantity}
+              {productQty}
             </span>
             <button
               className="w-8 h-8 flex items-center justify-center text-lg font-bold"
