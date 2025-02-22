@@ -6,6 +6,10 @@ import Context from "../context";
 import { toast } from "react-toastify";
 import SummaryApi from "../common";
 import ProductCard from "./ProductCard";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
 
 const HorizontalCardProduct = ({ category, heading1, heading2 }) => {
   const { fetchUserAddToCart, fetchCartData, fetchWishListData } = useContext(Context);
@@ -24,6 +28,7 @@ const HorizontalCardProduct = ({ category, heading1, heading2 }) => {
     });
 
     const responseData = await response.json();
+
     responseData.success ? toast.success(responseData.message) : toast.error(responseData.message);
     fetchWishListData();
   };
@@ -38,7 +43,7 @@ const HorizontalCardProduct = ({ category, heading1, heading2 }) => {
     setLoading(true);
     const categoryProduct = await fetchCategoryWiseProduct(category);
     setLoading(false);
-    setData(categoryProduct?.data?.slice(0, 5) || []);
+    setData(categoryProduct?.data || []);
   };
 
   useEffect(() => {
@@ -58,33 +63,49 @@ const HorizontalCardProduct = ({ category, heading1, heading2 }) => {
           </Link>
         </h2>
       </div>
+
       <hr />
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 my-4">
+      <Swiper
+          modules={[Navigation]}
+          spaceBetween={10} // Reduced space between items
+          slidesPerView={1.5}
+          breakpoints={{
+            640: { slidesPerView: 1, spaceBetween: 10 },
+            768: { slidesPerView: 2, spaceBetween: 10 },
+            1024: { slidesPerView: 3, spaceBetween: 10 },
+            1200: { slidesPerView: 5, spaceBetween: 10 },
+          }}
+          navigation
+          className="my-4"
+        >
         {loading
           ? new Array(5).fill(null).map((_, index) => (
-              <div key={index} className="w-full h-40 bg-white rounded-md shadow-md flex animate-pulse">
-                <div className="bg-slate-200 h-full w-1/3 p-4"></div>
-                <div className="p-4 grid w-2/3 gap-2">
-                  <div className="bg-slate-200 p-2 rounded"></div>
-                  <div className="bg-slate-200 p-2 rounded"></div>
-                  <div className="flex gap-3">
-                    <div className="bg-slate-200 p-2 w-full rounded"></div>
+              <SwiperSlide key={index}>
+                <div className="w-full h-40 bg-white rounded-md shadow-md flex animate-pulse">
+                  <div className="bg-slate-200 h-full w-1/3 p-4"></div>
+                  <div className="p-4 grid w-2/3 gap-2">
+                    <div className="bg-slate-200 p-2 rounded"></div>
+                    <div className="bg-slate-200 p-2 rounded"></div>
+                    <div className="flex gap-3">
+                      <div className="bg-slate-200 p-2 w-full rounded"></div>
+                      <div className="bg-slate-200 p-2 w-full rounded"></div>
+                    </div>
                     <div className="bg-slate-200 p-2 w-full rounded"></div>
                   </div>
-                  <div className="bg-slate-200 p-2 w-full rounded"></div>
                 </div>
-              </div>
+              </SwiperSlide>
             ))
           : data.map((product) => (
-              <ProductCard
-                key={product?._id}
-                product={product}
-                handleAddToCart={handleAddToCart}
-                wishlistHandler={addToWishlist}
-              />
+              <SwiperSlide key={product?._id}>
+                <ProductCard
+                  product={product}
+                  handleAddToCart={handleAddToCart}
+                  wishlistHandler={addToWishlist}
+                />
+              </SwiperSlide>
             ))}
-      </div>
+      </Swiper>
     </div>
   );
 };
