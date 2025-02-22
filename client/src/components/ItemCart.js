@@ -16,7 +16,7 @@ const ItemCart = ({
       <div className="flex my-4 mx-4">
         <div className="min-h-40 flex flex-col items-center justify-center p-4">
           {/* Image area */}
-          <div className="self-start">
+          <div className="">
             <img src={image} alt={name} className="w-24 h-24 object-cover" />
           </div>
 
