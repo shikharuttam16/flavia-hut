@@ -16,6 +16,7 @@ import AllOrders from '../pages/AllOrders'
 import AboutUs from '../pages/AboutUs'
 import NotFoundPage from '../pages/NotFoundPage'
 import MyOrders from '../pages/MyOrder'
+import AllCategories from '../pages/AllCategories'
 
 const router = createBrowserRouter([
   {
@@ -76,7 +77,15 @@ const router = createBrowserRouter([
             element: <AllProducts />,
           },
           {
+            path: "all-categories",
+            element: <AllCategories />,
+          },
+          {
             path: "all-orders",
+            element: <AllOrders />,
+          },
+          {
+            path: "all-categories",
             element: <AllOrders />,
           },
         ],
