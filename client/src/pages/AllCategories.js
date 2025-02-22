@@ -9,8 +9,8 @@ function AllCategories() {
             <th>Sr.</th>
             <th>Name</th>
             <th>Edit</th>
-            <th>Show In Header</th>
-            <th>Show In Home Page</th>
+            <th>Header</th>
+            <th>Home Page</th>
             <th>Edit</th>
             <th>Delete</th>
           </tr>
