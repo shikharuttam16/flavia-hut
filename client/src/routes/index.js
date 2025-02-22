@@ -15,7 +15,6 @@ import Checkout from '../pages/CheckOut'
 import AllOrders from '../pages/AllOrders'
 import AboutUs from '../pages/AboutUs'
 import NotFoundPage from '../pages/NotFoundPage'
-import MyOrders from '../pages/MyOrder'
 import AllCategories from '../pages/AllCategories'
 import MyCart from "../pages/MyCart";
 
