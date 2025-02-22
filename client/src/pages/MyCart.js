@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import ItemCart from "../components/ItemCart";
 import SummaryApi from "../common";
+import { debounce, throttle } from "lodash";
 
 const MyCart = () => {
   const [cartProduct, setCartProduct] = useState([]);
@@ -22,6 +23,43 @@ const MyCart = () => {
 
     fetchCartData();
   }, []);
+
+  // Debounced API call (updates the cart after user stops clicking)
+  const updateCartAPI = useCallback(
+    debounce(async (id, newQty) => {
+      console.log(`API Call: Updating product ${id} to quantity ${newQty}`);
+      try {
+        await fetch(SummaryApi.updateCartProduct.url, {
+          method: SummaryApi.updateCartProduct.method,
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ _id: id, quantity: newQty }),
+        });
+      } catch (error) {
+        console.error("Error updating cart:", error);
+      }
+    }, 500),
+    []
+  );
+
+  // Throttled function to handle quantity updates (smoothens UI updates)
+  const handleQuantityChange = useCallback(
+    throttle((id, change) => {
+      setCartProduct((prevCart) =>
+        prevCart.map((item) =>
+          item._id === id
+            ? { ...item, quantity: Math.max(1, item.quantity + change) }
+            : item
+        )
+      );
+
+      // Trigger debounced API update
+      const updatedQty =
+        cartProduct.find((item) => item._id === id)?.quantity + change;
+      updateCartAPI(id, updatedQty);
+    }, 500),
+    []
+  );
 
   return (
     <>
@@ -45,6 +83,8 @@ const MyCart = () => {
               price={item.productId.price}
               sellingPrice={item.productId.sellingPrice}
               quantity={item.quantity}
+              onPlusButton={() => handleQuantityChange(item._id, 1)}
+              onMinusButton={() => handleQuantityChange(item._id, -1)}
             />
           ))}
         </div>
