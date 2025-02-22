@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { createBrowserRouter } from 'react-router-dom'
 import App from '../App'
 import Home from '../pages/Home'
@@ -18,7 +17,6 @@ import AboutUs from '../pages/AboutUs'
 import NotFoundPage from '../pages/NotFoundPage'
 import MyOrders from '../pages/MyOrder'
 import AllCategories from '../pages/AllCategories'
-=======
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
 import Home from "../pages/Home";
@@ -37,7 +35,6 @@ import AllOrders from "../pages/AllOrders";
 import AboutUs from "../pages/AboutUs";
 import NotFoundPage from "../pages/NotFoundPage";
 import MyCart from "../pages/MyCart";
->>>>>>> 2ab8e0abbbc13d9fb9d37f007d305ddfaec2763e
 
 const router = createBrowserRouter([
   {
