@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { FiPlus } from "react-icons/fi";
 import { AiOutlineMinus } from "react-icons/ai";
 import { CgTrash } from "react-icons/cg";
@@ -9,26 +10,44 @@ const ItemCart = ({
   description,
   price,
   sellingPrice,
-  quantity,
+  initialQuantity,
 }) => {
+  const [quantity, setQuantity] = useState(initialQuantity);
+
+  const onPlusButton = () => {
+    setQuantity((prevQuantity) => prevQuantity + 1);
+  };
+
+  const onMinusButton = () => {
+    if (quantity > 1) {
+      setQuantity((prevQuantity) => prevQuantity - 1);
+    }
+  };
+
   return (
     <>
       <div className="flex my-4 mx-4">
         <div className="min-h-40 flex flex-col items-center justify-center p-4">
           {/* Image area */}
-          <div className="">
+          <div>
             <img src={image} alt={name} className="w-24 object-cover" />
           </div>
 
           {/* Counter Section */}
           <div className="flex items-center gap-x-4 mt-3 self-start">
-            <button className="w-8 h-8 flex items-center justify-center text-lg font-bold">
+            <button
+              className="w-8 h-8 flex items-center justify-center text-lg font-bold"
+              onClick={onMinusButton}
+            >
               <AiOutlineMinus size={24} />
             </button>
             <span className="text-sm border rounded-md border-gray-300 px-3.5 py-2">
               {quantity}
             </span>
-            <button className="w-8 h-8 flex items-center justify-center text-lg font-bold">
+            <button
+              className="w-8 h-8 flex items-center justify-center text-lg font-bold"
+              onClick={onPlusButton}
+            >
               <FiPlus size={24} />
             </button>
           </div>
