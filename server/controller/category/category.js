@@ -1,24 +1,22 @@
 const slugify = require("slugify");
-const Category = require("../../models/Category"); // Import the Category model
+const Category = require("../../models/productCategory")
 
 // Create a new category
 const addCategory = async (req, res) => {
   try {
-    const { name, visibleInHeader, visibleOnHomePage } = req.body;
+    const { name } = req.body;
     if (!name) {
       return res.status(400).json({ message: "Category name is required" });
     }
 
     const slug = slugify(name, { lower: true, strict: true });
     const existingCategory = await Category.findOne({ slug });
-
     if (existingCategory) {
       return res.status(400).json({ message: "Category already exists" });
     }
 
-    const category = new Category({ name, slug, visibleInHeader, visibleOnHomePage });
+    const category = new Category({ name, slug });
     await category.save();
-
     res.status(201).json(category);
   } catch (error) {
     res.status(500).json({ message: "Server Error", error });
@@ -39,7 +37,7 @@ const getCategory = async (req, res) => {
 const updateCategory = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, visibleInHeader, visibleOnHomePage } = req.body;
+    const { name } = req.body;
 
     if (!name) {
       return res.status(400).json({ message: "Category name is required" });
@@ -48,7 +46,7 @@ const updateCategory = async (req, res) => {
     const slug = slugify(name, { lower: true, strict: true });
     const category = await Category.findByIdAndUpdate(
       id,
-      { name, slug, visibleInHeader, visibleOnHomePage },
+      { name, slug },
       { new: true, runValidators: true }
     );
 
