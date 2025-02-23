@@ -67,21 +67,21 @@ const HorizontalCardProduct = ({ category, heading1, heading2 }) => {
       <hr />
 
       <Swiper
-        modules={[Navigation]}
-        spaceBetween={10}
-        slidesPerView={1} // Ensures proper alignment
-        breakpoints={{
-          640: { slidesPerView: 1, spaceBetween: 10 },
-          768: { slidesPerView: 2, spaceBetween: 10 },
-          1024: { slidesPerView: 3, spaceBetween: 10 },
-          1200: { slidesPerView: 5, spaceBetween: 10 },
-        }}
-        navigation={false} // Disables left/right arrows
-        className="my-4"
-      >
+          modules={[Navigation]}
+          spaceBetween={10} // Reduced space between items
+          slidesPerView={1}
+          breakpoints={{
+            640: { slidesPerView: 1, spaceBetween: 10 },
+            768: { slidesPerView: 2, spaceBetween: 10 },
+            1024: { slidesPerView: 3, spaceBetween: 10 },
+            1200: { slidesPerView: 5, spaceBetween: 10 },
+          }}
+          navigation
+          className="my-4"
+        >
         {loading
           ? new Array(5).fill(null).map((_, index) => (
-              <SwiperSlide key={index} className="w-full flex justify-center">
+              <SwiperSlide key={index}>
                 <div className="w-full h-40 bg-white rounded-md shadow-md flex animate-pulse">
                   <div className="bg-slate-200 h-full w-1/3 p-4"></div>
                   <div className="p-4 grid w-2/3 gap-2">
@@ -96,13 +96,12 @@ const HorizontalCardProduct = ({ category, heading1, heading2 }) => {
                 </div>
               </SwiperSlide>
             ))
-          : data.slice(0, 5).map((product) => (
-              <SwiperSlide key={product?._id} className="w-full flex justify-center">
+          : data.map((product) => (
+              <SwiperSlide key={product?._id}>
                 <ProductCard
                   product={product}
                   handleAddToCart={handleAddToCart}
                   wishlistHandler={addToWishlist}
-                  className="w-full"
                 />
               </SwiperSlide>
             ))}
