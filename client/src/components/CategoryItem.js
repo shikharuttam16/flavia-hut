@@ -1,28 +1,27 @@
 import React, { useState } from "react";
-import SummaryApi from "../common";
 
-function CategoryItem({ data, index, onUpdate }) {
+function CategoryItem({ data, index, onEdit, onDelete }) {
   const [isEditing, setIsEditing] = useState(false);
   const [categoryName, setCategoryName] = useState(data.name);
   const [visibleInHeader, setVisibleInHeader] = useState(data.visibleInHeader);
   const [visibleOnHomePage, setVisibleOnHomePage] = useState(data.visibleOnHomePage);
 
-  // Handle Edit (Update Category)
+  // Handle Edit
   const handleEdit = async () => {
     try {
-      const response = await fetch(`${SummaryApi.updateCategory.url}/${data._id}`, {
-        method: SummaryApi.updateCategory.method,
+      const response = await fetch(`YOUR_API_URL/updateCategory/${data._id}`, {
+        method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: categoryName,
-          visibleInHeader,
-          visibleOnHomePage,
+        body: JSON.stringify({ 
+          name: categoryName, 
+          visibleInHeader, 
+          visibleOnHomePage 
         }),
       });
 
       if (response.ok) {
         setIsEditing(false);
-        onUpdate(); // Refresh category list after update
+        onEdit(); // Refresh category list after update
       } else {
         console.error("Failed to update category");
       }
@@ -31,17 +30,17 @@ function CategoryItem({ data, index, onUpdate }) {
     }
   };
 
-  // Handle Delete (Remove Category)
+  // Handle Delete
   const handleDelete = async () => {
     if (!window.confirm("Are you sure you want to delete this category?")) return;
 
     try {
-      const response = await fetch(`${SummaryApi.deleteCategory.url}/${data._id}`, {
-        method: SummaryApi.deleteCategory.method,
+      const response = await fetch(`YOUR_API_URL/deleteCategory/${data._id}`, {
+        method: "DELETE",
       });
 
       if (response.ok) {
-        onUpdate(); // Refresh category list after deletion
+        onDelete(); // Refresh category list after delete
       } else {
         console.error("Failed to delete category");
       }
@@ -59,7 +58,7 @@ function CategoryItem({ data, index, onUpdate }) {
             type="text"
             value={categoryName}
             onChange={(e) => setCategoryName(e.target.value)}
-            className="border p-1 rounded w-full"
+            className="border p-1 rounded"
           />
         ) : (
           data.name
