@@ -1,6 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
+import SummaryApi from "../common";
 
 function AllCategories() {
+  const [allCategories, setAllCategories] = useState([]);
+
+  // Fetch all categories
+  const fetchAllCategories = async () => {
+    const response = await fetch(SummaryApi.allCategories.url)
+    const dataResponse = await response.json()
+    console.log('All categories data',dataResponse);
+    
+    setAllCategories(dataResponse)
+  }
   return (
     <div className="bg-white pb-4 border overflow-y-scroll">
       <table className="w-full userTable">
@@ -15,6 +26,9 @@ function AllCategories() {
             <th>Delete</th>
           </tr>
         </thead>
+        <tbody>
+
+        </tbody>
       </table>
     </div>
   );
