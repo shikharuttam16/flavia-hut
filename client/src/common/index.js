@@ -1,44 +1,44 @@
-const backendDomin = "https://flavia-hut.vercel.app"
+const backendDomain = "https://flavia-hut.vercel.app"
 
 const SummaryApi = {
     signUP : {
-        url : `${backendDomin}/api/signup`,
+        url : `${backendDomain}/api/signup`,
         method : "post"
     },
     signIn : {
-        url : `${backendDomin}/api/signin`,
+        url : `${backendDomain}/api/signin`,
         method : "post"
     },
     current_user : {
-        url : `${backendDomin}/api/user-details`,
+        url : `${backendDomain}/api/user-details`,
         method : "get"
     },
     logout_user : {
-        url : `${backendDomin}/api/userLogout`,
+        url : `${backendDomain}/api/userLogout`,
         method : 'get'
     },
     allUser : {
-        url : `${backendDomin}/api/all-user`,
+        url : `${backendDomain}/api/all-user`,
         method : 'get'
     },
     updateUser : {
-        url : `${backendDomin}/api/update-user`,
+        url : `${backendDomain}/api/update-user`,
         method : "post"
     },
     uploadProduct : {
-        url : `${backendDomin}/api/upload-product`,
+        url : `${backendDomain}/api/upload-product`,
         method : 'post'
     },
     allProduct : {
-        url : `${backendDomin}/api/get-product`,
+        url : `${backendDomain}/api/get-product`,
         method : 'get'
     },
     updateProduct : {
-        url : `${backendDomin}/api/update-product`,
+        url : `${backendDomain}/api/update-product`,
         method  : 'post'
     },
     allCategories : {
-        url : `${backendDomin}/api/getCategory` ,
+        url : `${backendDomain}/api/getCategory` ,
         method : 'get'
     },
     addCategory: {
@@ -54,132 +54,132 @@ const SummaryApi = {
         method: "DELETE",
     },
     categoryProduct : {
-        url : `${backendDomin}/api/get-categoryProduct`,
+        url : `${backendDomain}/api/get-categoryProduct`,
         method : 'get'
     },
     categoryWiseProduct : {
-        url : `${backendDomin}/api/category-product`,
+        url : `${backendDomain}/api/category-product`,
         method : 'post'
     },
     productDetails : {
-        url : `${backendDomin}/api/product-details`,
+        url : `${backendDomain}/api/product-details`,
         method : 'post'
     },
     addToCartProduct : {
-        url : `${backendDomin}/api/addtocart`,
+        url : `${backendDomain}/api/addtocart`,
         method : 'post'
     },
     addToCartProductCount : {
-        url : `${backendDomin}/api/countAddToCartProduct`,
+        url : `${backendDomain}/api/countAddToCartProduct`,
         method : 'get'
     },
     addToCartProductView : {
-        url : `${backendDomin}/api/view-card-product`,
+        url : `${backendDomain}/api/view-card-product`,
         method : 'get'
     },
     updateCartProduct : {
-        url : `${backendDomin}/api/update-cart-product`,
+        url : `${backendDomain}/api/update-cart-product`,
         method : 'post'
     },
     deleteCartProduct : {
-        url : `${backendDomin}/api/delete-cart-product`,
+        url : `${backendDomain}/api/delete-cart-product`,
         method : 'post'
     },
     searchProduct : {
-        url : `${backendDomin}/api/search`,
+        url : `${backendDomain}/api/search`,
         method : 'get'
     },
     filterProduct : {
-        url : `${backendDomin}/api/filter-product`,
+        url : `${backendDomain}/api/filter-product`,
         method : 'post'
     },
 
     addAddress:{
-        url : `${backendDomin}/api/add`,
+        url : `${backendDomain}/api/add`,
         method : 'post'
     },
     fetchAddress : {
-        url : `${backendDomin}/api/get/:userId`,
+        url : `${backendDomain}/api/get/:userId`,
         method : 'get'
     },
     deleteAddress : {
-        url : `${backendDomin}/api/delete/:userId/:addressId`,
+        url : `${backendDomain}/api/delete/:userId/:addressId`,
         method : 'delete'
     },
     updateAddress : {
-        url : `${backendDomin}/api/update/:userId/:addressId`,
+        url : `${backendDomain}/api/update/:userId/:addressId`,
         method : 'put'
     },
     createOrder:{
-         url : `${backendDomin}/api/create-order`,
+         url : `${backendDomain}/api/create-order`,
         method : 'post'
     },
     createOrder: {
-        url: `${backendDomin}/api/create-order`,
+        url: `${backendDomain}/api/create-order`,
         method: 'post',
     },
     getAllOrdersOfAllUsers: {
-        url: `${backendDomin}/api/get`,
+        url: `${backendDomain}/api/get`,
         method: 'get',
     },
     orderDetails: {
-        url: `${backendDomin}/api/order-details/:id`,
+        url: `${backendDomain}/api/order-details/:id`,
         method: 'get',
     },
     updateOrderStatus: {
-        url: `${backendDomin}/api/order-update/:id`,
+        url: `${backendDomain}/api/order-update/:id`,
         method: 'put',
     },
     orderListByUser: {
-        url: `${backendDomin}/api/order-list/:userId`,
+        url: `${backendDomain}/api/order-list/:userId`,
         method: 'get',
     },
     orderDetailsById: {
-        url: `${backendDomin}/api/orderdetails/:id`,
+        url: `${backendDomain}/api/orderdetails/:id`,
         method: 'get',
     },
     addFeatureImage: {
-        url: `${backendDomin}/api/addimage`,
+        url: `${backendDomain}/api/addimage`,
         method: 'post',
     },
     getFeatureImages: {
-        url: `${backendDomin}/api/getimage`,
+        url: `${backendDomain}/api/getimage`,
         method: 'get',
     },
     deleteFeatureImage: {
-        url: `${backendDomin}/api/feature-image/:id`,
+        url: `${backendDomain}/api/feature-image/:id`,
         method: 'delete',
     },
     addToWishlist: {
-        url: `${backendDomin}/api/wishlist`,
+        url: `${backendDomain}/api/wishlist`,
         method: 'post',
     },
     getWishlist: {
-        url: `${backendDomin}/api/getwishlist`,
+        url: `${backendDomain}/api/getwishlist`,
         method: 'get',
     },
     deleteWishlist: {
-        url: `${backendDomin}/api/delete-wishlist`,
+        url: `${backendDomain}/api/delete-wishlist`,
         method: 'delete',
     },
     updateWishlist: {
-        url: `${backendDomin}/api/update-wishlist`,
+        url: `${backendDomain}/api/update-wishlist`,
         method: 'post',
     },
    deleteProductById: {
-        url: `${backendDomin}/api/delete-product`,
+        url: `${backendDomain}/api/delete-product`,
         method: 'delete',
     },
     deleteProductById : {
-        url : `${backendDomin}/api/delete-product`,
+        url : `${backendDomain}/api/delete-product`,
         method  : 'delete'
     },
     paymentOrder:{
-         url : `${backendDomin}/order`,
+         url : `${backendDomain}/order`,
         method  : 'post'
     },
     paymentValidate:{
-         url : `${backendDomin}/order/validate`,
+         url : `${backendDomain}/order/validate`,
         method  : 'post'
     }
 }
