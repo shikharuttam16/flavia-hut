@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
 
-function CategoryItem() {
+function CategoryItem({ data }) {
   return (
-    <div>CategoryItem</div>
-  )
+    <div>
+      <div>CategoryItem</div>
+      <div>{data.name}</div>
+    </div>
+  );
 }
 
-export default CategoryItem
+export default CategoryItem;
