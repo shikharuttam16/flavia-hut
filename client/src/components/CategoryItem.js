@@ -17,9 +17,8 @@ function CategoryItem({ data, index, onUpdate }) {
           name: categoryName,
           visibleInHeader,
           visibleOnHomePage,
-        })
+        }),
       });
- 
 
       if (response.ok) {
         setIsEditing(false);
