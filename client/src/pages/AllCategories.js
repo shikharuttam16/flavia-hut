@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import SummaryApi from "../common";
+import CategoryItem from "../components/CategoryItem";
 
 function AllCategories() {
   const [allCategories, setAllCategories] = useState([]);
@@ -34,7 +35,7 @@ function AllCategories() {
           </tr>
         </thead>
         <tbody>
-
+          {allCategories && allCategories.map((categoryItem)=><CategoryItem data={categoryItem} />) }
         </tbody>
       </table>
     </div>
