@@ -37,7 +37,7 @@ const BannerProduct = () => {
       <div className="hidden md:block">
         <Swiper
           ref={swiperRef}
-          modules={[Navigation, Pagination, Autoplay]}
+          modules={[Pagination, Autoplay]}
           navigation
           pagination={{ clickable: true }}
           autoplay={true}
