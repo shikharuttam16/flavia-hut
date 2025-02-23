@@ -12,14 +12,17 @@ function CategoryItem({ data, index, onUpdate }) {
     try {
       const response = await fetch(`${SummaryApi.updateCategory.url}/${data._id}`, {
         method: SummaryApi.updateCategory.method,
+        credentials:'include',
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: categoryName,
           visibleInHeader,
           visibleOnHomePage,
-        }),
-        credentials:'include'
+        })
       });
+
+      console.log('response',response);
+      
 
       if (response.ok) {
         setIsEditing(false);
