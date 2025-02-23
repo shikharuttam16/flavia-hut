@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import SummaryApi from "../common"; // Import API routes
 
 function CategoryItem({ data, index, onEdit, onDelete }) {
   const [isEditing, setIsEditing] = useState(false);
@@ -10,8 +9,8 @@ function CategoryItem({ data, index, onEdit, onDelete }) {
   // Handle Edit
   const handleEdit = async () => {
     try {
-      const response = await fetch(`${SummaryApi.updateCategory.url}/${data._id}`, {
-        method: SummaryApi.updateCategory.method,
+      const response = await fetch(`YOUR_API_URL/updateCategory/${data._id}`, {
+        method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ 
           name: categoryName, 
@@ -36,8 +35,8 @@ function CategoryItem({ data, index, onEdit, onDelete }) {
     if (!window.confirm("Are you sure you want to delete this category?")) return;
 
     try {
-      const response = await fetch(`${SummaryApi.deleteCategory.url}/${data._id}`, {
-        method: SummaryApi.deleteCategory.method,
+      const response = await fetch(`YOUR_API_URL/deleteCategory/${data._id}`, {
+        method: "DELETE",
       });
 
       if (response.ok) {

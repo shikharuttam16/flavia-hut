@@ -46,11 +46,11 @@ const SummaryApi = {
         method: "POST",
     },
     updateCategory: {
-        url: `${backendDomain}/api/updateCategory`, // ID will be appended dynamically
+        url: `${backendDomain}/api/updateCategory`,
         method: "PUT",
     },
     deleteCategory: {
-        url: `${backendDomain}/api/deleteCategory`, // ID will be appended dynamically
+        url: `${backendDomain}/api/deleteCategory`,
         method: "DELETE",
     },
     categoryProduct : {
