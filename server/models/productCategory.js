@@ -14,6 +14,14 @@ const CategorySchema = new mongoose.Schema(
       unique: true,
       lowercase: true,
     },
+    visibleInHeader: {
+      type: Boolean,
+      default: false, // Default is false
+    },
+    visibleOnHomePage: {
+      type: Boolean,
+      default: false, // Default is false
+    },
   },
   { timestamps: true } // Adds createdAt & updatedAt fields automatically
 );
