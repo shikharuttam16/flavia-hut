@@ -18,6 +18,8 @@ function AllCategories() {
       }
 
       const dataResponse = await response.json();
+      console.log("Catagery data response",dataResponse);
+      
       setAllCategories(dataResponse);
     } catch (error) {
       console.error("Error fetching categories:", error);
