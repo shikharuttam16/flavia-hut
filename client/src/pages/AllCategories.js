@@ -6,7 +6,10 @@ function AllCategories() {
 
   // Fetch all categories
   const fetchAllCategories = async () => {
-    const response = await fetch(SummaryApi.allCategories.url)
+    const response = await fetch(SummaryApi.allCategories.url,{
+      method: SummaryApi.allCategories.method,
+      credentials:'include'
+    })
     const dataResponse = await response.json()
     console.log('All categories data',dataResponse);
     
