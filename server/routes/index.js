@@ -64,7 +64,7 @@ router.post("/delete-cart-product",authToken,deleteAddToCartProduct)
 //category
 router.post("/addCategory",authToken, addCategory)
 router.get("/getCategory",authToken, getCategory)
-router.put("/updateCategory",authToken, updateCategory)
+router.put("/updateCategory/:id", authToken, updateCategory);
 router.delete("/deleteCategory",authToken, deleteCategory)
 
 
