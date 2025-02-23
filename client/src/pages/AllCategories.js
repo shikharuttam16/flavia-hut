@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import SummaryApi from "../common";
+
 import CategoryItem from "../components/CategoryItem";
 
 function AllCategories() {
@@ -8,6 +9,10 @@ function AllCategories() {
   // Fetch all categories
   const fetchAllCategories = async () => {
     try {
+
+      console.log("Summary api",SummaryApi.allCategories.url);
+      
+
       const response = await fetch(SummaryApi.allCategories.url, {
         method: SummaryApi.allCategories.method,
         credentials: "include",
