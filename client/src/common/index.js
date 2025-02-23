@@ -41,18 +41,6 @@ const SummaryApi = {
         url : `${backendDomin}/api/getCategory` ,
         method : 'get'
     },
-    addCategory: {
-        url: `${backendDomin}/api/addCategory`,
-        method: "POST",
-    },
-    updateCategory: {
-        url: `${backendDomin}/api/updateCategory`,
-        method: "PUT",
-    },
-    deleteCategory: {
-        url: `${backendDomin}/api/deleteCategory`,
-        method: "DELETE",
-    },
     categoryProduct : {
         url : `${backendDomin}/api/get-categoryProduct`,
         method : 'get'
