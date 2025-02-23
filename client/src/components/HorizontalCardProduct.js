@@ -76,7 +76,7 @@ const HorizontalCardProduct = ({ category, heading1, heading2 }) => {
             1024: { slidesPerView: 3, spaceBetween: 10 },
             1200: { slidesPerView: 5, spaceBetween: 10 },
           }}
-          navigation
+          navigation={false}
           className="my-4"
         >
         {loading
