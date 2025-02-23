@@ -21,7 +21,7 @@ function CategoryItem({ data, index, onUpdate }) {
         })
       });
 
-      console.log('response',response);
+      console.log('response 123',response);
       
 
       if (response.ok) {
