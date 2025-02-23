@@ -18,6 +18,7 @@ function CategoryItem({ data, index, onUpdate }) {
           visibleInHeader,
           visibleOnHomePage,
         }),
+        credentials:'include'
       });
 
       if (response.ok) {
