@@ -69,7 +69,7 @@ const HorizontalCardProduct = ({ category, heading1, heading2 }) => {
       <Swiper
         modules={[Navigation]}
         spaceBetween={10}
-        slidesPerView={5} // Ensures proper alignment
+        slidesPerView={1} // Ensures proper alignment
         breakpoints={{
           640: { slidesPerView: 1, spaceBetween: 10 },
           768: { slidesPerView: 2, spaceBetween: 10 },
