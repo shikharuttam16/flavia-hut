@@ -35,7 +35,7 @@ function AllCategories() {
           </tr>
         </thead>
         <tbody>
-          {allCategories && allCategories.map((categoryItem)=><CategoryItem data={categoryItem} />) }
+          {allCategories && allCategories.map(({categoryItem,index})=><CategoryItem data={categoryItem} />) }
         </tbody>
       </table>
     </div>
