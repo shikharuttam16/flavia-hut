@@ -67,9 +67,8 @@ const HorizontalCardProduct = ({ category, heading1, heading2 }) => {
       <hr />
 
       <Swiper
-          modules={[Navigation]}
-          spaceBetween={10} // Reduced space between items
-          slidesPerView={1}
+        modules={[Navigation]}
+        spaceBetween={20}
           breakpoints={{
             640: { slidesPerView: 1, spaceBetween: 10 },
             768: { slidesPerView: 2, spaceBetween: 10 },
@@ -77,8 +76,8 @@ const HorizontalCardProduct = ({ category, heading1, heading2 }) => {
             1200: { slidesPerView: 5, spaceBetween: 10 },
           }}
           navigation={false}
-          className="my-4"
-        >
+        className="my-4"
+      >
         {loading
           ? new Array(5).fill(null).map((_, index) => (
               <SwiperSlide key={index}>
