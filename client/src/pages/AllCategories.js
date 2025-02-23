@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SummaryApi from "../common";
 
 function AllCategories() {
@@ -12,6 +12,10 @@ function AllCategories() {
     
     setAllCategories(dataResponse)
   }
+
+  useEffect(()=>{
+    fetchAllCategories()
+  },[])
   return (
     <div className="bg-white pb-4 border overflow-y-scroll">
       <table className="w-full userTable">
