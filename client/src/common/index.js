@@ -38,15 +38,15 @@ const SummaryApi = {
         method  : 'post'
     },
     allCategories: {
-        url: `${backendDomin}/getCategory`,
+        url: `${backendDomin}/api/getCategory`,
         method: "get",
       },
     updateCategory: {
-        url: `${backendDomin}/updateCategory`,
+        url: `${backendDomin}/api/updateCategory`,
         method: "put",
       },
     deleteCategory: {
-        url: `${backendDomin}/deleteCategory`,
+        url: `${backendDomin}/api/deleteCategory`,
         method: "delete",
     },
     categoryProduct : {
