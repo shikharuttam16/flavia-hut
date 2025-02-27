@@ -135,13 +135,13 @@ const ProductDetails = () => {
   
 
   const handleAddToCart = async (e, id) => {
-    await addToCart(e, id);
+    await addToCart(e, id,quantity);
     fetchUserAddToCart();
     fetchCartData();
   };
 
   const handleBuyProduct = async (e, id) => {
-    await addToCart(e, id);
+    await addToCart(e, id,quantity);
     fetchUserAddToCart();
     fetchCartData();
     navigate("/cart");
