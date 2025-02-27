@@ -13,6 +13,7 @@ function CategoryItem({ data, index, onUpdate }) {
       const response = await fetch(`${SummaryApi.updateCategory.url}/${data._id}`, {
         method: SummaryApi.updateCategory.method,
         headers: { "Content-Type": "application/json" },
+        credentials:'include',
         body: JSON.stringify({
           name: categoryName,
           visibleInHeader,
@@ -38,6 +39,7 @@ function CategoryItem({ data, index, onUpdate }) {
     try {
       const response = await fetch(`${SummaryApi.deleteCategory.url}/${data._id}`, {
         method: SummaryApi.deleteCategory.method,
+        credentials:'include'
       });
 
       if (response.ok) {

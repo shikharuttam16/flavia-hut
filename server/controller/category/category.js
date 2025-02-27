@@ -33,6 +33,25 @@ const getCategory = async (req, res) => {
   }
 };
 
+const getCategoryConditionally = async (req, res)=>{
+   try {
+     const renderIn = req.body.renderIn;
+     let categories='';
+     if(renderIn === "header"){
+        categories = await Category.find({
+          visibleInHeader: true
+        })
+     }else{
+        categories = await Category.find({
+          visibleOnHomePage:true
+        })
+     }
+     res.status(200).json(categories)
+   } catch (error) {
+     res.status(500).json({ message: "Server Error",error })    
+   }
+}
+
 // Update a category by ID
 const updateCategory = async (req, res) => {
   try {
@@ -76,4 +95,4 @@ const deleteCategory = async (req, res) => {
   }
 };
 
-module.exports = { addCategory, getCategory, updateCategory, deleteCategory };
+module.exports = { addCategory, getCategory, updateCategory, deleteCategory, getCategoryConditionally };

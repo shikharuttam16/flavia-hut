@@ -15,11 +15,11 @@ const SummaryApi = {
     },
     logout_user : {
         url : `${backendDomin}/api/userLogout`,
-        method : 'get'
+        method : "get"
     },
     allUser : {
         url : `${backendDomin}/api/all-user`,
-        method : 'get'
+        method : "get"
     },
     updateUser : {
         url : `${backendDomin}/api/update-user`,
@@ -27,20 +27,28 @@ const SummaryApi = {
     },
     uploadProduct : {
         url : `${backendDomin}/api/upload-product`,
-        method : 'post'
+        method : "post"
     },
     allProduct : {
         url : `${backendDomin}/api/get-product`,
-        method : 'get'
+        method : "get"
     },
     updateProduct : {
         url : `${backendDomin}/api/update-product`,
-        method  : 'post'
+        method  : "post"
+    },
+    getConditionalCategory: {
+        url : `${backendDomin}/api/getCategoryConditionally`,
+        method : "post"
     },
     allCategories: {
         url: `${backendDomin}/api/getCategory`,
         method: "get",
       },
+    addCategory:{
+        url: `${backendDomin}/api/addCategory`,
+        method: "post",
+    },
     updateCategory: {
         url: `${backendDomin}/api/updateCategory`,
         method: "put",
