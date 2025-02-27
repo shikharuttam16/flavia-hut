@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { CgClose } from "react-icons/cg";
 import productCategory from '../helpers/productCategory';
 import { FaCloudUploadAlt } from "react-icons/fa";
@@ -26,7 +26,20 @@ const AdminEditProduct = ({
   })
   const [openFullScreenImage,setOpenFullScreenImage] = useState(false)
   const [fullScreenImage,setFullScreenImage] = useState("")
+  const [categories, setCategories] = useState([])
 
+  useEffect(()=>{
+    async function fetchCategoryData(){
+      const fetchData = await fetch(SummaryApi.allCategories.url,{
+        method:SummaryApi.allCategories.method,
+        credentials:'include'
+      })
+      const data = await fetchData.json()
+      // console.log("Data ",data);
+      setCategories(data)
+    }
+    fetchCategoryData()
+  },[])
 
   const handleOnChange = (e)=>{
       const { name, value} = e.target
@@ -139,9 +152,9 @@ const AdminEditProduct = ({
            <select required value={data.category} name='category' onChange={handleOnChange} className='p-2 bg-slate-100 border rounded'>
                <option value={""}>Select Category</option>
                {
-                 productCategory?.map((el,index)=>{
+                 categories?.map((el,index)=>{
                    return(
-                     <option value={el.value} key={el.value+index}>{el.label}</option>
+                     <option value={el.slug} key={el.slug+index}>{el.name}</option>
                    )
                  })
                }

@@ -40,6 +40,7 @@ const Header = ({ onFAQClick }) => {
   const searchQuery = URLSearch.getAll("q");
   const [search, setSearch] = useState(searchQuery);
   const [isProductsDropdownOpen, setIsProductsDropdownOpen] = useState(false);
+  const [categories, setCategories] = useState([])
   const [categoryProduct, setCategoryProduct] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -61,16 +62,31 @@ const Header = ({ onFAQClick }) => {
     setToggle(!toggle);
   };
 
-  const fetchCategoryProduct = async () => {
-    setLoading(true);
-    const response = await fetch(SummaryApi.categoryProduct.url);
-    const dataResponse = await response.json();
-    setLoading(false);
-    setCategoryProduct(dataResponse.data);
-  };
+  // const fetchCategoryProduct = async () => {
+  //   setLoading(true);
+  //   const response = await fetch(SummaryApi.categoryProduct.url);
+  //   const dataResponse = await response.json();
+  //   setLoading(false);
+  //   setCategoryProduct(dataResponse.data);
+  // };
+
+  const fetchCategories = async () =>{
+    const response = await fetch(SummaryApi.getConditionalCategory.url,{
+          method : SummaryApi.getConditionalCategory.method,
+          headers: {
+            "content-type": "application/json",
+          },
+          body:JSON.stringify({
+            renderIn : 'header'
+          })
+    })
+    const data = await response.json()
+    setCategories(data)
+    console.log("Categories Data",data);
+  }
 
   useEffect(() => {
-    fetchCategoryProduct();
+    fetchCategories()
   }, []);
 
   const toggleProductsDropdown = () => {
@@ -260,10 +276,11 @@ const Header = ({ onFAQClick }) => {
                 <Link to="/" className="">
                   Home
                 </Link>
-                <Link to="/" className="">
-                  BestSellers's
-                </Link>
-                <Link to="/" className="">
+                {
+                  categories?.map((data)=><Link to={`/product-category?category=${data.slug}`}  className="">{data.name}</Link>) 
+                }
+                
+                {/* <Link to="/" className="">
                   Combo's
                 </Link>
                 <Link to="/" className="">
@@ -277,7 +294,7 @@ const Header = ({ onFAQClick }) => {
                 </Link>
                 <Link to="/" className="">
                   Bulk Orders
-                </Link>
+                </Link> */}
                 <Link to="/" className="">
                   Contact Us
                 </Link>
@@ -385,52 +402,6 @@ const Header = ({ onFAQClick }) => {
                         Home
                       </a>
                     </li>
-
-                    {/* Products Dropdown */}
-                    <li
-                      className="flex items-center space-x-2 cursor-pointer"
-                      onClick={toggleProductDropdown}
-                    >
-                      <span>
-                        <GiChipsBag size={25} />
-                      </span>
-                      <span className="hover:text-gray-400">Products</span>
-                      {isProductDropdownOpen ? (
-                        <FiChevronUp />
-                      ) : (
-                        <FiChevronDown />
-                      )}
-                    </li>
-                    {isProductDropdownOpen && (
-                      <div className="ml-8 space-y-2">
-                        {loading
-                          ? categoryLoading?.map((_, index) => (
-                              <div
-                                className="h-16 w-16 bg-slate-200 animate-pulse"
-                                key={index}
-                              />
-                            ))
-                          : categoryProduct?.map((product, index) => (
-                              <ul
-                                className="py-2"
-                                key={index}
-                                onClick={toggleDrawer}
-                              >
-                                <li className="px-4 py-2 text-[#999999]">
-                                  <Link
-                                    to={`/product-category?category=${product?.category}`}
-                                    onClick={() =>
-                                      setIsProductsDropdownOpen(false)
-                                    }
-                                  >
-                                    {product?.category}
-                                  </Link>
-                                </li>
-                              </ul>
-                            ))}
-                      </div>
-                    )}
-
                     <li
                       className="flex items-center space-x-2"
                       onClick={toggleDrawer}
