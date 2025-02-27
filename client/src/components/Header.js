@@ -87,7 +87,7 @@ const Header = ({ onFAQClick }) => {
         </Link>
 
         {/* Search Bar */}
-        <div className="hidden md:flex items-center border border-gray-400 rounded overflow-hidden w-1/2 bg-gray-700">
+        <div className="hidden md:flex items-center border border-gray-400 rounded overflow-hidden w-3/2 bg-gray-700">
           <input
             type="text"
             className="px-4 py-2 w-full outline-none bg-white"
