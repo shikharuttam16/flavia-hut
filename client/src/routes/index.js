@@ -16,7 +16,7 @@ import AllOrders from '../pages/AllOrders'
 import AboutUs from '../pages/AboutUs'
 import NotFoundPage from '../pages/NotFoundPage'
 import AllCategories from '../pages/AllCategories'
-import MyCart from "../pages/MyCart";
+import MainCartPage from '../pages/MainCartPage'
 
 const router = createBrowserRouter([
   {
@@ -96,7 +96,7 @@ const router = createBrowserRouter([
       },
       {
         path: "my-cart",
-        element: <MyCart />,
+        element: <MainCartPage />,
       },
     ],
   },

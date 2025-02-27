@@ -115,9 +115,9 @@ const MyCart = () => {
         )}
       </div>
       {/* Right side */}
-      <div className="border border-solid m-4 p-4 w-1/5 rounded-lg">
+      {/* <div className="border border-solid m-4 p-4 w-1/5 rounded-lg">
         Right Side
-      </div>
+      </div> */}
     </div>
   );
 };
