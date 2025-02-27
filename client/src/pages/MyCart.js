@@ -2,23 +2,25 @@ import { useCallback, useEffect, useState } from "react";
 import { debounce } from "lodash";
 import ItemCart from "../components/ItemCart";
 import SummaryApi from "../common";
+import { toast } from "react-toastify";
 
 const MyCart = () => {
   const [cartProduct, setCartProduct] = useState([]);
 
+  const fetchCartData = useCallback(async () => {
+    try {
+      const response = await fetch(SummaryApi.addToCartProductView.url, {
+        method: SummaryApi.addToCartProductView.method,
+        credentials: "include",
+      });
+      const data = await response.json();
+      setCartProduct(data?.data || []);
+    } catch (error) {
+      console.error("Error fetching cart data:", error);
+    }
+  }, []);
+
   useEffect(() => {
-    const fetchCartData = async () => {
-      try {
-        const response = await fetch(SummaryApi.addToCartProductView.url, {
-          method: SummaryApi.addToCartProductView.method,
-          credentials: "include",
-        });
-        const data = await response.json();
-        setCartProduct(data?.data || []);
-      } catch (error) {
-        console.error("Error fetching cart data:", error);
-      }
-    };
     fetchCartData();
   }, []);
 
@@ -52,6 +54,36 @@ const MyCart = () => {
     });
   };
 
+  const deleteCartProduct = async (id) => {
+    try {
+      const response = await fetch(SummaryApi.deleteCartProduct.url, {
+        method: SummaryApi.deleteCartProduct.method,
+        credentials: "include",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({ _id: id }),
+      });
+  
+      const responseData = await response.json();
+      if (responseData.success) {
+        // toast.success("Product Removed Successfully!", { position: "top-right" });
+        toast.success("Product Removed Successfully!", {
+          position: 'top-right',
+        });
+        fetchCartData();
+      } else {
+        // toast.error("Failed to remove product!", { position: "top-right" });
+        toast.error("Failed to remove product!", {
+          position: 'top-right',
+        });
+      }
+    } catch (error) {
+      console.error("Error deleting product:", error);
+      toast.error("An error occurred!", { position: "top-right" });
+    }
+  };
+
   return (
     <div className="my-orders flex">
       {/* Left side */}
@@ -68,13 +100,14 @@ const MyCart = () => {
             key={item._id}
             id={item._id}
             name={item.productId.productName}
-            image={item.productId.productImage[0]} 
+            image={item.productId.productImage[0]}
             description={item.productId.description}
             price={item.productId.price}
             sellingPrice={item.productId.sellingPrice}
             quantity={item.quantity}
             onPlusButton={() => handleQuantityChange(item._id, 1)}
             onMinusButton={() => handleQuantityChange(item._id, -1)}
+            onDeleteButton={() => deleteCartProduct(item._id)}
           />
         ))}
       </div>
