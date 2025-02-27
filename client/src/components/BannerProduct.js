@@ -60,7 +60,7 @@ const BannerProduct = () => {
         <Swiper
           ref={swiperRef}
           modules={[Navigation, Pagination, Autoplay]}
-          navigation
+          navigation={false}
           pagination={{ clickable: true }}
           autoplay={true}
           loop

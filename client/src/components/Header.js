@@ -1,456 +1,183 @@
 import React, { useContext, useEffect, useState } from "react";
-import Logo from "./Logo";
-import { GrSearch } from "react-icons/gr";
-import { FaRegCircleUser } from "react-icons/fa6";
-import { FaHamburger, FaShoppingCart } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import SummaryApi from "../common";
 import { toast } from "react-toastify";
 import { setUserDetails } from "../store/userSlice";
-import ROLE from "../common/role";
 import Context from "../context";
 import CartDrawer from "./CartDrawer";
-import logos from "../assest/images/logo.png";
-
 import WishlistDrawer from "./WishlistDrawer";
-import { FiAlignJustify } from "react-icons/fi";
-import { FaRegUser } from "react-icons/fa6";
+import logos from "../assest/images/logo.png";
+import { FiAlignJustify, FiShoppingBag } from "react-icons/fi";
+import { FaRegUser, FaSearch } from "react-icons/fa";
 import { CgSearch } from "react-icons/cg";
-import { FiChevronDown, FiChevronUp } from "react-icons/fi";
 import { IoHomeOutline } from "react-icons/io5";
-import { GiChipsBag } from "react-icons/gi";
 import { AiFillInfoCircle } from "react-icons/ai";
 import { MdLocalPhone } from "react-icons/md";
 import { FaQuestion } from "react-icons/fa6";
-import { FaSearch } from "react-icons/fa";
-import { FiShoppingBag } from "react-icons/fi";
-
-
-
 
 const Header = ({ onFAQClick }) => {
   const user = useSelector((state) => state?.user?.user);
   const dispatch = useDispatch();
-  const [menuDisplay, setMenuDisplay] = useState(false);
-  const context = useContext(Context);
   const navigate = useNavigate();
-  const searchInput = useLocation();
-  const URLSearch = new URLSearchParams(searchInput?.search);
-  const searchQuery = URLSearch.getAll("q");
-  const [search, setSearch] = useState(searchQuery);
-  const [isProductsDropdownOpen, setIsProductsDropdownOpen] = useState(false);
-  const [categories, setCategories] = useState([])
-  const [categoryProduct, setCategoryProduct] = useState([]);
-  const [loading, setLoading] = useState(false);
-
-  const categoryLoading = new Array(13).fill(null);
-  const [toggle, setToggle] = useState(false);
   const location = useLocation();
-
-  const [isOpen, setIsOpen] = useState(false);
-  const [isProductDropdownOpen, setIsProductDropdownOpen] = useState(false);
-
-  const toggleDrawer = () => {
-    setIsOpen(!isOpen);
-  };
-
-  const toggleProductDropdown = () => {
-    setIsProductDropdownOpen(!isProductDropdownOpen);
-  };
-  const showNav = () => {
-    setToggle(!toggle);
-  };
-
-  // const fetchCategoryProduct = async () => {
-  //   setLoading(true);
-  //   const response = await fetch(SummaryApi.categoryProduct.url);
-  //   const dataResponse = await response.json();
-  //   setLoading(false);
-  //   setCategoryProduct(dataResponse.data);
-  // };
-
-  const fetchCategories = async () =>{
-    const response = await fetch(SummaryApi.getConditionalCategory.url,{
-          method : SummaryApi.getConditionalCategory.method,
-          headers: {
-            "content-type": "application/json",
-          },
-          body:JSON.stringify({
-            renderIn : 'header'
-          })
-    })
-    const data = await response.json()
-    setCategories(data)
-    console.log("Categories Data",data);
-  }
+  const searchParams = new URLSearchParams(location?.search);
+  const searchQuery = searchParams.get("q") || "";
+  const [search, setSearch] = useState(searchQuery);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    fetchCategories()
+    const fetchCategories = async () => {
+      const response = await fetch(SummaryApi.getConditionalCategory.url, {
+        method: SummaryApi.getConditionalCategory.method,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ renderIn: "header" }),
+      });
+      const data = await response.json();
+      setCategories(data);
+    };
+    fetchCategories();
   }, []);
-
-  const toggleProductsDropdown = () => {
-    setIsProductsDropdownOpen(!isProductsDropdownOpen);
-  };
 
   const handleLogout = async () => {
     const fetchData = await fetch(SummaryApi.logout_user.url, {
       method: SummaryApi.logout_user.method,
       credentials: "include",
     });
-
     const data = await fetchData.json();
-
     if (data.success) {
       toast.success(data.message);
       dispatch(setUserDetails(null));
       navigate("/");
       window.location.reload();
-    }
-
-    if (data.error) {
+    } else {
       toast.error(data.message);
     }
   };
 
-  const handleSearch = (e) => {
-    const { value } = e.target;
-    setSearch(value);
-  };
+  const handleSearch = (e) => setSearch(e.target.value);
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
-    if (search) {
-      navigate(`/search?q=${search}`);
-    } else {
-      navigate("/search");
-    }
+    navigate(search ? `/search?q=${search}` : "/search");
     setSearch("");
   };
+
   const handleFAQClick = () => {
-    // Navigate to home page
-    navigate("/"); // Adjust the path if necessary
-
-    // After navigating, scroll to the FAQ section
-    setTimeout(onFAQClick, 0); // Using a timeout to ensure navigation completes before scrolling
+    navigate("/");
+    setTimeout(onFAQClick, 0);
   };
-  const isOnAdminPanel = location.pathname.startsWith("/admin-panel");
+
   return (
-    <header className="shadow-md bg-white w-full z-40   sticky top-0">
-      <div className="w-full">
-        {/* Top Store Location Bar */}
-        <div className="bg-[#FFB255] bg-[#FFB255]-700 text-white text-xs md:text-sm py-2  flex justify-center items-center">
-          <div >
-            {/* <span className="mr-1 hidden sm:inline">📍 Store Location:</span>  */}
-            <span className="mr-1 hidden sm:inline text-black ">
-              {/* #985/986 Housing Board Colony Sector 10 Ambala */}
-              Get 8% Discount on Purchase of 899 and Above With Code <span className="font-bold">"SAVER8"</span>
-            </span>
-          </div>
-          
-        </div>
+    <header className="bg-white shadow-md w-full sticky top-0 z-50">
+      {/* Promo Bar */}
+      <div className="bg-[#FFB255] text-white text-sm py-2 text-center">
+        <span className="text-black">
+          Get 8% Discount on Purchase of 899 and Above With Code
+          <span className="font-bold"> "SAVER8"</span>
+        </span>
+      </div>
 
-        <div className="bg-white shadow-md px-4  ">
-          <div
-            className="flex   items-center w-[100%] "
-            style={{ whiteSpace: "nowrap" }}
+      {/* Main Header */}
+      <div className="bg-white px-4 py-3 flex items-center justify-between w-[95%] mx-auto">
+        {/* Logo */}
+        <Link to="/" className="flex-shrink-0">
+          <img src={logos} alt="logo" className="h-14 w-auto" />
+        </Link>
+
+        {/* Search Bar */}
+        <div className="hidden md:flex items-center border border-gray-400 rounded overflow-hidden w-1/2 bg-gray-700">
+          <input
+            type="text"
+            className="px-4 py-2 w-full outline-none bg-white"
+            value={search}
+            onChange={handleSearch}
+            placeholder="Search products..."
+          />
+          <button
+            onClick={handleSearchSubmit}
+            className="text-white px-4 flex items-center"
           >
-            {/* Logo Section */}
-            <div className="w-[10%]">
-              <Link to="/">
-                <div className="flex-grow flex justify-center">
-                  <img src={logos} alt="logo" className="h-18 w-25" />{" "}
-                </div>
-              </Link>
-            </div>
-
-            {/* Search Section */}
-            <div className="flex items-center space-x-2  mt-2 w-[90%] ">
-              <div className="relative border border-gray-400 rounded w-[65%] ">
-                <input
-                  type="text"
-                  className="pl-5 pr-4 py-2 w-44  h-10 bg-white border-none rounded w-[100%]"
-                  value={search}
-                  onChange={handleSearch}
-                  placeholder="Search products..."
-                />
-              </div>
-
-              <button
-                onClick={handleSearchSubmit}
-                className="bg-[#424750] text-white px-4 sm:px-6 py-2 rounded h-10 hidden lg:block"
-                style={{marginLeft:0}}
-              >
-                <FaSearch  style={{ fill: 'white' }}/>
-              </button>
-              <button
-                onClick={handleSearchSubmit}
-                className="bg-red-700 text-white px-4 sm:px-6 py-2 rounded h-10  lg:hidden mr-2"
-              >
-                <CgSearch />
-              </button>
-
-              {/* Phone Icon and Number */}
-              {/* <div className="hidden sm:flex items-center space-x-2">
-                <span className="text-black text-sm">+91-8307252108</span>
-              </div> */}
-
-              {/* <div className="flex gap-2 items-center"> */}
-            {/* {user?._id && (
-              <div
-                className="text-3xl cursor-pointer relative"
-                onClick={() => setMenuDisplay((prev) => !prev)}
-              >
-                {user?.profilePic ? (
-                  <img
-                    src={user?.profilePic}
-                    className="w-10 h-10 rounded-full"
-                    alt={user?.name}
-                  />
-                ) : (
-                  <FaRegCircleUser />
-                )}
-              </div>
-            )} */}
-            <div>
-              {user?._id ? (
-                <button
-                  onClick={handleLogout}
-                  className="px-3 py-1 hover:bg-red-700"
-                >
-                  Logout
-                </button>
-              ) : (
-                <div className="flex ml-1 items-center text-[#424750] ">
-                  {/* <FaRegUser /> */}
-                  <Link to={"/login"} className="px-1 py-1 text-sm">
-                    Login
-                  </Link>
-                  <span className="text-sm">/</span>
-                  <Link to={"/sign-up"} className="px-1 py-1 text-sm">
-                    SignUp
-                  </Link>
-                </div>
-              )}
-            </div>
-            <div className="hidden md:flex items-center gap-4 flex items-center">
-                {/* <WishlistDrawer /> */}
-                {/* <CartDrawer /> */}
-                <button className="flex justify-center">
-                <FiShoppingBag
-                size={30}
-                />
-                <span className="ml-3 text-sm font-bold flex items-center">Cart</span>
-                </button>
-            </div>
-
-
-
-            {/* {menuDisplay && (
-              <div className="absolute bg-white bottom-0 top-11 h-fit p-2 shadow-lg rounded text-[#1A1A1A] font-semibold">
-                <nav>
-                  {user?.role === ROLE.ADMIN ? (
-                    <Link
-                      to={"/admin-panel/all-products"}
-                      className="whitespace-nowrap  md:block hover:bg-slate-100 p-2"
-                      onClick={() => setMenuDisplay((prev) => !prev)}
-                    >
-                      Admin Panel
-                    </Link>
-                  ) : (
-                    <p>{user?.name}</p>
-                  )}
-                </nav>
-              </div>
-            )} */}
-          {/* </div> */}
-            </div>
-          </div>
+            <FaSearch/>
+          </button>
         </div>
 
-        <div className="bg-[#fff] text-[#283B53] shadow-md  sm:px-15 py-4" style={{paddingInline:65}}>
-          <div className="flex justify-between items-center">
-            {/* Left Section: Logo and Links */}
-            <div className="flex items-center">
-              <ul className="hidden md:flex space-x-8 ">
-                <Link to="/" className="">
-                  Home
-                </Link>
-                {
-                  categories?.map((data)=><Link to={`/product-category?category=${data.slug}`}  className="">{data.name}</Link>) 
-                }
-                
-                {/* <Link to="/" className="">
-                  Combo's
-                </Link>
-                <Link to="/" className="">
-                  Featured Products
-                </Link>
-                <Link to="/" className="">
-                  Makhana's
-                </Link>
-                <Link to="/" className="">
-                  New Arrivals
-                </Link>
-                <Link to="/" className="">
-                  Bulk Orders
-                </Link> */}
-                <Link to="/" className="">
-                  Contact Us
-                </Link>
-                {/* <div className="relative">
-                  <button
-                    className="flex items-center gap-x-1  font-semibold "
-                    aria-expanded="false"
-                    onClick={toggleProductsDropdown}
-                  >
-                    Products
-                    {/* <svg
-                      className="h-5 w-5 flex-none text-gray-400"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                      aria-hidden="true"
-                      data-slot="icon"
-                    > */}
-                      {/* <path
-                        fill-rule="evenodd"
-                        d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z"
-                        clip-rule="evenodd"
-                      /> */}
-                    {/* </svg> */}
-                  {/* </button> */}
-                  {/* {isProductsDropdownOpen && (
-                    <div className="absolute mt-2 w-48 bg-white border shadow-lg rounded-lg text-black">
-                      {loading
-                        ? categoryLoading?.map((_, index) => (
-                            <div
-                              className="h-16 w-16 bg-slate-200 animate-pulse"
-                              key={index}
-                            />
-                          ))
-                        : categoryProduct?.map((product, index) => (
-                            <ul className="py-2" key={index}>
-                              <li className="px-4 py-2 hover:bg-gray-100">
-                                <Link
-                                  to={`/product-category?category=${product?.category}`}
-                                  onClick={() =>
-                                    setIsProductsDropdownOpen(false)
-                                  }
-                                >
-                                  {product?.category}
-                                </Link>
-                              </li>
-                            </ul>
-                          ))}
-                    </div>
-                  )} 
-                </div>
-                {/* <Link to="/about" className="font-semibold">
-                  About Us
-                </Link>
-                <p
-                  className="font-semibold cursor-pointer"
-                  onClick={handleFAQClick}
-                >
-                  FAQ
-                </p>  */}
-              </ul>
+        {/* User & Cart */}
+        <div className="flex items-center gap-4">
+          {user?._id ? (
+            <button onClick={handleLogout} className="text-gray-700 text-sm">
+              Logout
+            </button>
+          ) : (
+            <div className="flex text-gray-700 text-sm">
+              <Link to="/login" className="px-2">Login</Link> /
+              <Link to="/sign-up" className="px-2">SignUp</Link>
             </div>
-
-            {/* Right Section: Search and Icons */}
-            <div className="flex items-center gap-4 sm:gap-7">
-              <div className="hidden md:flex items-center gap-4">
-                {/* <WishlistDrawer /> */}
-                {/* <CartDrawer /> */}
-              </div>
-            </div>
-          </div>
-
-          {/* Mobile Menu Toggle */}
-          <div className="md:hidden flex justify-between items-center  bg-[#333333] text-white ">
-            <FiAlignJustify onClick={toggleDrawer} size={25} />
-
-            {/* Drawer */}
-            <div
-              className={`fixed top-0 left-0 h-full w-60 bg-gray-900 text-white z-40 transform ${
-                isOpen ? "translate-x-0" : "-translate-x-full"
-              } transition-transform duration-300 ease-in-out`}
-            >
-              <div className="p-4 ">
-                <div className="flex items-center justify-between">
-                  <h2 className="text-xl font-semibold mb-4 text-white">
-                    Menu
-                  </h2>
-                  <button
-                    onClick={toggleDrawer}
-                    className="text-black bg-[#AA0000] p-2 rounded-full  w-10 h-10 "
-                  >
-                    &#10094;
-                  </button>
-                </div>
-
-                <div className="mt-6 ">
-                  <ul className="space-y-12">
-                    <li
-                      className="flex items-center space-x-2"
-                      onClick={toggleDrawer}
-                    >
-                      <span>
-                        <IoHomeOutline size={25} />
-                      </span>
-                      <a href="/" className="hover:text-gray-400">
-                        Home
-                      </a>
-                    </li>
-                    <li
-                      className="flex items-center space-x-2"
-                      onClick={toggleDrawer}
-                    >
-                      <span>
-                        <AiFillInfoCircle size={25} />
-                      </span>
-                      <a href="/about" className="hover:text-gray-400">
-                        About Us
-                      </a>
-                    </li>
-                    <li
-                      className="flex items-center space-x-2"
-                      onClick={toggleDrawer}
-                    >
-                      <span>
-                        <MdLocalPhone size={25} />
-                      </span>
-                      <a href="/about" className="hover:text-gray-400">
-                        Contact Us
-                      </a>
-                    </li>
-                    <li
-                      className="flex items-center space-x-2"
-                      onClick={toggleDrawer}
-                    >
-                      <span>
-                        <FaQuestion size={25} />
-                      </span>
-                      <a
-                        href="#"
-                        className="hover:text-gray-400"
-                        onClick={handleFAQClick}
-                      >
-                        FAQ's
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            <div className="flex  gap-4">
-              <WishlistDrawer />
-              <CartDrawer />
-            </div>
-          </div>
+          )}
+          <FiShoppingBag size={28} className="cursor-pointer" />
+          <FiAlignJustify
+            size={28}
+            className="cursor-pointer md:hidden"
+            onClick={() => setIsMobileMenuOpen(true)}
+          />
         </div>
       </div>
+
+      {/* Navigation Links */}
+      <nav className="hidden md:flex justify-center md:justify-start px-4 bg-white py-2 w-[95%] mx-auto">
+        <ul className="flex space-x-6 text-gray-700">
+          <Link to="/">Home</Link>
+          {categories.map((cat) => (
+            <Link key={cat.slug} to={`/product-category?category=${cat.slug}`}>
+              {cat.name}
+            </Link>
+          ))}
+          <Link to="/contact">Contact Us</Link>
+        </ul>
+      </nav>
+
+      {/* Mobile Menu Drawer */}
+      {isMobileMenuOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50">
+          <div className="fixed top-0 left-0 w-3/4 h-full bg-white p-5 shadow-lg">
+            <button
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="text-red-700 w-5 h-5 text-[40px]"
+            >
+              &times;
+            </button>
+            <ul className="mt-6 space-y-2 text-gray-800">
+              <li className="border-b border-gray-200">
+                <Link to="/" onClick={() => setIsMobileMenuOpen(false)} className="block px-4 py-3 text-lg hover:bg-gray-100">
+                  Home
+                </Link>
+              </li>
+              {categories.map((cat) => (
+                <li key={cat.slug} className="border-b border-gray-200">
+                  <Link
+                    to={`/product-category?category=${cat.slug}`}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="block px-4 py-3 text-lg hover:bg-gray-100"
+                  >
+                    {cat.name}
+                  </Link>
+                </li>
+              ))}
+              <li className="border-b border-gray-200">
+                <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)} className="block px-4 py-3 text-lg hover:bg-gray-100">
+                  Contact Us
+                </Link>
+              </li>
+              <li className="border-b border-gray-200">
+                <Link onClick={handleFAQClick} className="block px-4 py-3 text-lg hover:bg-gray-100">
+                  FAQ's
+                </Link>
+              </li>
+            </ul>
+          </div>
+        </div>
+      )}
     </header>
   );
 };

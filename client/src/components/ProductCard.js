@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import { FaHeart, FaShoppingCart } from "react-icons/fa"; // Import FaHeart
+import { FaHeart, FaShoppingCart } from "react-icons/fa"; 
 import displayINRCurrency from "../helpers/displayCurrency";
 import { IoMdHeartEmpty } from "react-icons/io";
 import Context from "../context";
@@ -15,10 +15,8 @@ const ProductCard = ({ product, handleAddToCart, wishlistHandler }) => {
   const amountSaved = product.price - product.sellingPrice;
 
   const toggleWishlist = (e) => {
-    e.stopPropagation(); // Prevent triggering the link's onClick
+    e.stopPropagation();
   };
- 
-
   const deleteWishlistProduct = async (id) => {
     const response = await fetch(SummaryApi.deleteWishlist.url, {
       method: SummaryApi.deleteWishlist.method,
@@ -40,8 +38,7 @@ const ProductCard = ({ product, handleAddToCart, wishlistHandler }) => {
   const wishlistItem = wishlist?.find(item => item.productId?._id === product?._id);
   
   return (
-    // <div className="w-full min-w-[230px] md:min-w-[220px] max-w-[230px] md:max-w-[220px] h-[310px] bg-white rounded-md shadow-lg overflow-hidden relative hover:scale-105 transition-transform rounded hover:border hover:border-[#AA0000] border border-[#EDEDED]">
-    <div className="w-full min-w-[248px] max-w-[248px] h-[410px] md:h-[410px] bg-white rounded-md shadow-lg overflow-hidden relative md:hover:scale-105 transition-transform rounded md:hover:border md:hover:border-[#CDD1D6] border border-[#CDD1D6]">
+    <div className="w-full min-w-[248px] max-w-[248px] h-[410px] md:h-[410px] bg-white rounded-md shadow-lg overflow-hidden relative  transition-transform rounded md:hover:border md:hover:border-[#CDD1D6] border border-[#CDD1D6]">
       <Link to={"/product/" + product?._id}>
         {/* Discount Label */}
       {/* Discount Savings */}
@@ -50,7 +47,7 @@ const ProductCard = ({ product, handleAddToCart, wishlistHandler }) => {
           Save - {displayINRCurrency(amountSaved)}
         </p>
         {/* Product Image */}
-        <div className="bg-slate-200 h-[170px] min-w-[170px] vertical-product-card mt-2">
+        <div className="bg-slate-200 h-[170px] min-w-[170px] vertical-product-card mt-2 mx-auto">
           <img
             src={product?.productImage[0]}
             className="object-fill h-full w-full"
