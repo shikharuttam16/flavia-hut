@@ -297,7 +297,10 @@ const ProductDetails = () => {
               <p className="font-barlow font-semibold text-[22px] leading-[26px] tracking-[0%] text-[#424750] mb-3">Description</p>
               <ul className="list-none">
                 {data?.description?.split('/').map((item, index) => (
-                  <li key={index} className="font-barlow text-[12px] leading-[20px] tracking-[0%] font-normal flex items-center text-[#424750] before:content-['•'] before:text-[#424750] before:mr-2 before:text-[16px]">
+                  <li 
+                    key={index} 
+                    className="font-barlow text-[12px] leading-[20px] tracking-[0%] font-normal flex items-start text-[#424750] before:content-['•'] before:text-[#424750] before:mr-2 before:text-[16px]"
+                  >
                     {item.trim()}
                   </li>
                 ))}
