@@ -12,6 +12,7 @@ const ItemCart = ({
   quantity,
   onMinusButton,
   onPlusButton,
+  onDeleteButton
 }) => {
 
   const truncateText = (text, maxLength) => {
@@ -83,7 +84,7 @@ const ItemCart = ({
 
         {/* Remove Button */}
         <div className="mt-1">
-          <button>
+          <button onClick={onDeleteButton}>
             <CgTrash size={24} />
           </button>
         </div>
