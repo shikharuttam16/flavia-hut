@@ -64,18 +64,18 @@ const MyCart = () => {
         },
         body: JSON.stringify({ _id: id }),
       });
-  
+
       const responseData = await response.json();
       if (responseData.success) {
         // toast.success("Product Removed Successfully!", { position: "top-right" });
         toast.success("Product Removed Successfully!", {
-          position: 'top-right',
+          position: "top-right",
         });
         fetchCartData();
       } else {
         // toast.error("Failed to remove product!", { position: "top-right" });
         toast.error("Failed to remove product!", {
-          position: 'top-right',
+          position: "top-right",
         });
       }
     } catch (error) {
@@ -94,24 +94,26 @@ const MyCart = () => {
           </span>
           <span className="text-white font-medium">Order Summary</span>
         </div>
-
-        {cartProduct?.map((item) => (
-          <ItemCart
-            key={item._id}
-            id={item._id}
-            name={item.productId.productName}
-            image={item.productId.productImage[0]}
-            description={item.productId.description}
-            price={item.productId.price}
-            sellingPrice={item.productId.sellingPrice}
-            quantity={item.quantity}
-            onPlusButton={() => handleQuantityChange(item._id, 1)}
-            onMinusButton={() => handleQuantityChange(item._id, -1)}
-            onDeleteButton={() => deleteCartProduct(item._id)}
-          />
-        ))}
+        {cartProduct.length > 0 ? (
+          cartProduct.map((item) => (
+            <ItemCart
+              key={item._id}
+              id={item._id}
+              name={item.productId.productName}
+              image={item.productId.productImage[0]}
+              description={item.productId.description}
+              price={item.productId.price}
+              sellingPrice={item.productId.sellingPrice}
+              quantity={item.quantity}
+              onPlusButton={() => handleQuantityChange(item._id, 1)}
+              onMinusButton={() => handleQuantityChange(item._id, -1)}
+              onDeleteButton={() => deleteCartProduct(item._id)}
+            />
+          ))
+        ) : (
+          <p className="text-center p-4 text-gray-500">Your cart is empty.</p>
+        )}
       </div>
-
       {/* Right side */}
       <div className="border border-solid m-4 p-4 w-1/5 rounded-lg">
         Right Side
