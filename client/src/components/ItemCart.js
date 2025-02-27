@@ -13,6 +13,14 @@ const ItemCart = ({
   onMinusButton,
   onPlusButton,
 }) => {
+
+  const truncateText = (text, maxLength) => {
+    if (text.length > maxLength) {
+      return text.substring(0, maxLength) + "...";
+    }
+    return text;
+  };
+
   return (
     <>
       <div className="flex my-4 mx-4">
@@ -53,7 +61,7 @@ const ItemCart = ({
 
           {/* Description */}
           <div className="mt-2 description">
-            <p className="text-sm text-gray-500">{description}</p>
+            <p className="text-sm text-gray-500">{truncateText(description, 250)}</p>
           </div>
 
           {/* Price */}
