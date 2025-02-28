@@ -17,6 +17,7 @@ import AboutUs from '../pages/AboutUs'
 import NotFoundPage from '../pages/NotFoundPage'
 import AllCategories from '../pages/AllCategories'
 import MainCartPage from '../pages/MainCartPage'
+import AddFooterDescription from '../components/AddFooterDescription'
 
 const router = createBrowserRouter([
   {
@@ -88,6 +89,10 @@ const router = createBrowserRouter([
             path: "all-categories",
             element: <AllOrders />,
           },
+          {
+            path: "add-footer-description",
+            element: <AddFooterDescription/>,
+          }
         ],
       },
       {

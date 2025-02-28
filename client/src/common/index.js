@@ -185,6 +185,14 @@ const SummaryApi = {
     paymentValidate:{
          url : `${backendDomin}/order/validate`,
         method  : 'post'
+    },
+    AddFooterDescription:{
+        url:`${backendDomin}/api/add-offer`,
+        method  : 'post'
+    },
+    showFooterDescription:{
+        url:`${backendDomin}/api/get-offer`,
+        method: 'get',
     }
 }
 

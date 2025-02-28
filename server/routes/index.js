@@ -32,6 +32,7 @@ const updateWishlist = require('../controller/user/updateWishlist')
 const deleteWishlistProduct = require('../controller/user/deleteWishlistProduct')
 const deleteProductController = require('../controller/product/deleteProductController')
 const { addCategory, getCategory, updateCategory, deleteCategory, getCategoryConditionally } = require('../controller/category/category')
+const { addOffer, getOffer } = require('../controller/footer/footerController')
 
 
 
@@ -89,5 +90,8 @@ router.get('/getwishlist',authToken, getWishlistController);
 router.post('/update-wishlist',authToken, updateWishlist);
 router.delete('/delete-wishlist',authToken, deleteWishlistProduct);
 router.delete('/delete-product',authToken, deleteProductController);
+
+router.post("/add-offer", addOffer);
+router.get("/get-offer", getOffer);
 module.exports = router;
 

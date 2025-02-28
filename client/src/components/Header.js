@@ -1,20 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { motion, AnimatePresence } from "framer-motion";
 import SummaryApi from "../common";
 import { toast } from "react-toastify";
 import { setUserDetails } from "../store/userSlice";
 import Context from "../context";
-import CartDrawer from "./CartDrawer";
-import WishlistDrawer from "./WishlistDrawer";
 import logos from "../assest/images/logo.png";
 import { FiAlignJustify, FiShoppingBag } from "react-icons/fi";
-import { FaRegUser, FaSearch } from "react-icons/fa";
-import { CgSearch } from "react-icons/cg";
-import { IoHomeOutline } from "react-icons/io5";
-import { AiFillInfoCircle } from "react-icons/ai";
-import { MdLocalPhone } from "react-icons/md";
-import { FaQuestion } from "react-icons/fa6";
+import { FaSearch } from "react-icons/fa";
 
 const Header = ({ onFAQClick }) => {
   const user = useSelector((state) => state?.user?.user);
@@ -40,38 +34,8 @@ const Header = ({ onFAQClick }) => {
     fetchCategories();
   }, []);
 
-  const handleLogout = async () => {
-    const fetchData = await fetch(SummaryApi.logout_user.url, {
-      method: SummaryApi.logout_user.method,
-      credentials: "include",
-    });
-    const data = await fetchData.json();
-    if (data.success) {
-      toast.success(data.message);
-      dispatch(setUserDetails(null));
-      navigate("/");
-      window.location.reload();
-    } else {
-      toast.error(data.message);
-    }
-  };
-
-  const handleSearch = (e) => setSearch(e.target.value);
-
-  const handleSearchSubmit = (e) => {
-    e.preventDefault();
-    navigate(search ? `/search?q=${search}` : "/search");
-    setSearch("");
-  };
-
-  const handleFAQClick = () => {
-    navigate("/");
-    setTimeout(onFAQClick, 0);
-  };
-
   return (
     <header className="bg-white shadow-md w-full sticky top-0 z-50">
-      {/* Promo Bar */}
       <div className="bg-[#FFB255] text-white text-sm py-2 text-center">
         <span className="text-black">
           Get 8% Discount on Purchase of 899 and Above With Code
@@ -79,34 +43,30 @@ const Header = ({ onFAQClick }) => {
         </span>
       </div>
 
-      {/* Main Header */}
       <div className="bg-white px-4 py-3 flex items-center justify-between w-[95%] mx-auto">
-        {/* Logo */}
         <Link to="/" className="flex-shrink-0">
           <img src={logos} alt="logo" className="h-14 w-auto" />
         </Link>
 
-        {/* Search Bar */}
         <div className="hidden md:flex items-center border border-gray-400 rounded overflow-hidden w-3/4 mx-4 bg-gray-700">
           <input
             type="text"
             className="px-4 py-2 w-full outline-none bg-white"
             value={search}
-            onChange={handleSearch}
+            onChange={(e) => setSearch(e.target.value)}
             placeholder="Search products..."
           />
           <button
-            onClick={handleSearchSubmit}
+            onClick={() => navigate(search ? `/search?q=${search}` : "/search")}
             className="text-white px-4 flex items-center"
           >
-            <FaSearch/>
+            <FaSearch />
           </button>
         </div>
 
-        {/* User & Cart */}
         <div className="flex items-center gap-4">
           {user?._id ? (
-            <button onClick={handleLogout} className="text-gray-700 text-sm">
+            <button onClick={() => dispatch(setUserDetails(null))} className="text-gray-700 text-sm">
               Logout
             </button>
           ) : (
@@ -124,23 +84,15 @@ const Header = ({ onFAQClick }) => {
         </div>
       </div>
 
-      {/* Navigation Links */}
-      <nav className="hidden md:flex justify-center md:justify-start px-4 bg-white py-2 w-[95%] mx-auto">
-        <ul className="flex space-x-6 text-gray-700">
-          <Link to="/">Home</Link>
-          {categories.map((cat) => (
-            <Link key={cat.slug} to={`/product-category?category=${cat.slug}`}>
-              {cat.name}
-            </Link>
-          ))}
-          <Link to="/contact">Contact Us</Link>
-        </ul>
-      </nav>
-
-      {/* Mobile Menu Drawer */}
-      {isMobileMenuOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-50">
-          <div className="fixed top-0 left-0 w-3/4 h-full bg-white p-5 shadow-lg">
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ x: "-100%", opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: "-100%", opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed top-0 left-0 w-3/4 h-full bg-white shadow-lg p-5 z-50"
+          >
             <button
               onClick={() => setIsMobileMenuOpen(false)}
               className="text-red-700 w-5 h-5 text-[40px]"
@@ -169,15 +121,10 @@ const Header = ({ onFAQClick }) => {
                   Contact Us
                 </Link>
               </li>
-              <li className="border-b border-gray-200">
-                <Link onClick={handleFAQClick} className="block px-4 py-3 text-lg hover:bg-gray-100">
-                  FAQ's
-                </Link>
-              </li>
             </ul>
-          </div>
-        </div>
-      )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 };
