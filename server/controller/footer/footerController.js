@@ -1,0 +1,1 @@
+const footerModel= require("../../models/footerModel");
