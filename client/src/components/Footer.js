@@ -29,8 +29,7 @@ const Footer = () => {
         <div className="mb-10 flex flex-col gap-x-20 lg:flex-row lg:w-full w-full">
           {/* Company Info */}
           <p className="w-[70%] lg:w-full sm:w-full xs:w-full w-full font-barlow text-[12px] leading-[20px] tracking-[0%] text-customBlue font-normal mt-6">
-            © 2025 Farmley | ConneDit Business Solutions Private Limited
-            Powered by Shopify
+          © 2025 FlaviaHut  Limited
           </p>
 
           {/* Social Media Icons */}
