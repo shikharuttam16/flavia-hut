@@ -6,6 +6,7 @@ import VerticalCardProduct from "../components/VerticalCardProduct";
 import FAQAccordion from "../components/FAQAccordion";
 import Context from "../context";
 import SummaryApi from "../common";
+import Offerings from "../components/Offerings";
 
 const Home = () => {
   const { faqRef } = useContext(Context);
@@ -37,6 +38,7 @@ const Home = () => {
           />
         ))}
       </div>
+      <Offerings/>
     </div>
   );
 };
