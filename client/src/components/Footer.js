@@ -12,13 +12,11 @@ const Footer = () => {
           method: SummaryApi.showFooterDescription.method,
         });
         const data = await response.json();
-        if (data.success) {
           console.log(data);
           setFooterData({
             title: data[0].offer.title,
             description: data[0].offer.description, 
           });
-        }
       } catch (error) {
         console.error("Error fetching footer data:", error);
       }
