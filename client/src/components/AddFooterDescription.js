@@ -79,67 +79,48 @@ const AddFooterDescription = () => {
     };
 
     return (
-        <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-gray-100">
-            <div className="w-full max-w-4xl p-6 bg-white shadow-md rounded-lg">
-                <h2 className="text-2xl font-bold text-center text-gray-800 mb-4">Manage Footer Description</h2>
-                {message && <p className="text-center font-semibold mb-4 text-red-600">{message}</p>}
-                <div className="overflow-x-auto">
-                    <table className="w-full border-collapse border border-gray-300 text-left">
-                        <thead>
-                            <tr className="bg-gray-100">
-                                <th className="border p-2">Title</th>
-                                <th className="border p-2">Description</th>
-                                <th className="border p-2 text-center">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td className="border p-2 w-1/3">
-                                    <input
-                                        type="text"
-                                        name="title"
-                                        value={formData.title}
-                                        onChange={handleChange}
-                                        required
-                                        className="w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
-                                    />
-                                </td>
-                                <td className="border p-2 w-1/3">
-                                    <textarea
-                                        name="description"
-                                        value={formData.description}
-                                        onChange={handleChange}
-                                        required
-                                        className="w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
-                                    ></textarea>
-                                </td>
-                                <td className="border p-2 text-center">
-                                    <button
-                                        onClick={handleSubmit}
-                                        className="bg-green-600 text-white font-semibold py-2 px-4 rounded-lg shadow-lg hover:bg-green-700 transition-all"
-                                    >
-                                        {editingId ? "✏️ Update" : "🚀 Submit"}
-                                    </button>
-                                </td>
-                            </tr>
-                            {footerDescriptions.length === 0 ? (
-                                <tr>
-                                    <td colSpan="3" className="border p-4 text-center">No descriptions available.</td>
-                                </tr>
-                            ) : (
-                                footerDescriptions.map((desc) => (
-                                    <tr key={desc.id} className="border">
-                                        <td className="border p-2 break-words max-w-xs">{desc.title}</td>
-                                        <td className="border p-2 break-words max-w-xs">{desc.description}</td>
-                                        <td className="border p-2 flex flex-wrap justify-center space-x-2">
-                                            <button onClick={() => handleEdit(desc)} className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-700 transition">Edit</button>
-                                            <button onClick={() => handleDelete(desc.id)} className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-700 transition">Delete</button>
-                                        </td>
-                                    </tr>
-                                ))
-                            )}
-                        </tbody>
-                    </table>
+        <div className="min-h-screen flex flex-col items-center p-6 ">
+            <div className="w-full p-6 bg-white shadow-lg rounded-xl">
+                <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">Manage Footer Description</h2>
+                {message && <p className="text-center font-semibold mb-4 text-red-600 bg-red-100 p-2 rounded-lg">{message}</p>}
+                <div className="space-y-4">
+                    <input
+                        type="text"
+                        name="title"
+                        value={formData.title}
+                        onChange={handleChange}
+                        placeholder="Enter title"
+                        className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    />
+                    <textarea
+                        name="description"
+                        value={formData.description}
+                        onChange={handleChange}
+                        placeholder="Enter description"
+                        className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    ></textarea>
+                    <button
+                        onClick={handleSubmit}
+                        className="w-fit px-6 bg-green-500 text-white font-semibold py-3 rounded-lg shadow-md hover:bg-green-600 transition-all"
+                    >
+                        {editingId ? "✏️ Update" : "🚀 Submit"}
+                    </button>
+                </div>
+                <div className="mt-6 space-y-4">
+                    {footerDescriptions.length === 0 ? (
+                        <p className="text-center text-gray-500">No descriptions available.</p>
+                    ) : (
+                        footerDescriptions.map((desc) => (
+                            <div key={desc.id} className="p-4 bg-gray-100 rounded-lg shadow flex flex-col space-y-2">
+                                <h3 className="text-lg font-semibold text-gray-800">{desc.title}</h3>
+                                <p className="text-gray-600">{desc.description}</p>
+                                <div className="flex justify-end space-x-2">
+                                    <button onClick={() => handleEdit(desc)} className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition">Edit</button>
+                                    <button onClick={() => handleDelete(desc.id)} className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition">Delete</button>
+                                </div>
+                            </div>
+                        ))
+                    )}
                 </div>
             </div>
         </div>
