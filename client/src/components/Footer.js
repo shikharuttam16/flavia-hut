@@ -14,8 +14,8 @@ const Footer = () => {
         const data = await response.json();
         if (data.success) {
           setFooterData({
-            title: data.offer.title,
-            description: data.offer.description, 
+            title: data[0].offer.title,
+            description: data[0].offer.description, 
           });
         }
       } catch (error) {

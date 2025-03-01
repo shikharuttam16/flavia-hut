@@ -29,7 +29,7 @@ const addOffer = async (req, res) => {
   // Get Latest Offers (Fix: Return as an array)
   const getOffer = async (req, res) => {
     try {
-      const offer = await FooterDescription.find().sort({ _id: -1 }).limit(5); // Get latest 5 entries
+      const offer = await FooterDescription.find().sort({ _id: -1 }).limit(1); // Get latest 5 entries
       if (!offer || offer.length === 0) {
         return res.status(404).json({ error: "No data found!" });
       }
