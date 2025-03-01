@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import { FaFacebook, FaTwitter, FaInstagram } from "react-icons/fa";
 import SummaryApi from "../common";
 
@@ -10,8 +10,6 @@ const Footer = () => {
       try {
         const response = await fetch(SummaryApi.showFooterDescription.url,{
           method: SummaryApi.showFooterDescription.method,
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ renderIn: "header" }),
         });
         const data = await response.json();
         if (data.success) {
