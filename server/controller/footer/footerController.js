@@ -41,5 +41,25 @@ const addOffer = async (req, res) => {
     }
   };
   
-  module.exports = { addOffer, getOffer };
+  const updateOffer = async (req, res) => {
+    try {
+        const { id, ...updateData } = req.body; // Extract ID and update data
+
+        if (!id) {
+            return res.status(400).json({ message: "Offer ID is required for updating" });
+        }
+
+        const updatedOffer = await OfferModel.findByIdAndUpdate(id, updateData, { new: true });
+
+        if (!updatedOffer) {
+            return res.status(404).json({ message: "Offer not found" });
+        }
+
+        res.status(200).json({ message: "Offer updated successfully", updatedOffer });
+    } catch (error) {
+        res.status(500).json({ message: "Server error", error });
+    }
+};
+
+  module.exports = { addOffer, getOffer ,updateOffer};
   
