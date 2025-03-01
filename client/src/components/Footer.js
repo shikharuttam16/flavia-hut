@@ -14,8 +14,8 @@ const Footer = () => {
         const data = await response.json();
           console.log(data);
           setFooterData({
-            title: data[0].offer.title,
-            description: data[0].offer.description, 
+            title: data[0].title,
+            description: data[0].description, 
           });
       } catch (error) {
         console.error("Error fetching footer data:", error);
