@@ -193,6 +193,10 @@ const SummaryApi = {
     showFooterDescription:{
         url:`${backendDomin}/api/get-offer`,
         method: 'get',
+    },
+    updateFooterDescription:{
+        url:`${backendDomin}/api/update-offer`,
+        method: 'put',
     }
 }
 
