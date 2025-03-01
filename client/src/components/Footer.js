@@ -13,6 +13,7 @@ const Footer = () => {
         });
         const data = await response.json();
         if (data.success) {
+          console.log(data);
           setFooterData({
             title: data[0].offer.title,
             description: data[0].offer.description, 
@@ -32,7 +33,7 @@ const Footer = () => {
           <div className="w-[70%] lg:w-full sm:w-full xs:w-full w-full">
             <p className="font-barlow text-[14px] leading-[20px] tracking-[0%] text-customBlue font-600 mt-6">{footerData.title || "You've Hit Rock Bottom!"}</p>
             <p className="font-barlow text-[12px] leading-[20px] tracking-[0%] text-customBlue font-normal">
-            {footerData.description ? (
+            {footerData ?.description ? (
                 footerData.description
               ) : (
                 <>
