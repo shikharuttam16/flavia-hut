@@ -1,18 +1,48 @@
 import React from "react";
 import { FaFacebook, FaTwitter, FaInstagram } from "react-icons/fa";
+import SummaryApi from "../common";
 
 const Footer = () => {
+  const [footerData, setFooterData] = useState({ title: "", description: "" });
+
+  useEffect(() => {
+    const fetchFooterData = async () => {
+      try {
+        const response = await fetch(SummaryApi.showFooterDescription.url,{
+          method: SummaryApi.showFooterDescription.method,
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ renderIn: "header" }),
+        });
+        const data = await response.json();
+        if (data.success) {
+          setFooterData({
+            title: data.offer.title,
+            description: data.offer.description, 
+          });
+        }
+      } catch (error) {
+        console.error("Error fetching footer data:", error);
+      }
+    };
+    fetchFooterData();
+  }, []);
   return (
     <div className="bg-[#F2F2F2] py-10 px-6">
       <div className="container mx-auto text-gray-700 text-sm w-[95%]">
         {/* Discount Message */}
         <div className="mb-10 flex flex-col gap-x-20 lg:flex-row lg:w-full">
           <div className="w-[70%] lg:w-full sm:w-full xs:w-full w-full">
-            <p className="font-barlow text-[14px] leading-[20px] tracking-[0%] text-customBlue font-600 mt-6">You've Hit Rock Bottom!</p>
+            <p className="font-barlow text-[14px] leading-[20px] tracking-[0%] text-customBlue font-600 mt-6">{footerData.title || "You've Hit Rock Bottom!"}</p>
             <p className="font-barlow text-[12px] leading-[20px] tracking-[0%] text-customBlue font-normal">
-              You’ve been doing some scrolling - so here’s a reward for that overworked thumb.
-              Get <strong>10% discount</strong> with code <strong>"SECRET"</strong>. Apply it at checkout.
-              Don’t wait! Complete the order - you can thank us later dumdum.
+            {footerData.description ? (
+                footerData.description
+              ) : (
+                <>
+                  You’ve been doing some scrolling - so here’s a reward for that overworked thumb.
+                  Get <strong>10% discount</strong> with code <strong>"SECRET"</strong>. Apply it at checkout.
+                  Don’t wait! Complete the order - you can thank us later dumdum.
+                </>
+              )}
             </p>
           </div>
           {/* Our Story and Policies */}
