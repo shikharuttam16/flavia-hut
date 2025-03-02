@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import SummaryApi from "../common";
+import noorders from "../../src/assest/images/no_orders_yet.svg"
 
 const Orders = () => {
   const [orders, setOrders] = useState([]); // Ensure it's always an array
@@ -116,7 +117,7 @@ const Orders = () => {
       ) : (
         <div className="mt-6 flex flex-col items-center mb-6">
           <img
-            src="https://cdn-icons-png.flaticon.com/512/408/408796.png"
+            src={noorders}
             alt="Empty Box"
             className="w-24 h-24"
           />
