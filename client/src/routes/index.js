@@ -18,6 +18,7 @@ import NotFoundPage from '../pages/NotFoundPage'
 import AllCategories from '../pages/AllCategories'
 import MainCartPage from '../pages/MainCartPage'
 import AddFooterDescription from '../components/AddFooterDescription'
+import MyAccount from '../pages/MyAccount'
 
 const router = createBrowserRouter([
   {
@@ -64,6 +65,10 @@ const router = createBrowserRouter([
       {
         path: "about",
         element: <AboutUs />,
+      },
+      {
+        path:"my-account",
+        element:<MyAccount/>
       },
       {
         path: "admin-panel",
