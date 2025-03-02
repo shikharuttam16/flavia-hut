@@ -103,7 +103,7 @@ const SummaryApi = {
         method : 'post'
     },
     fetchAddress : {
-        url : `${backendDomin}/api/get/:userId`,
+        url : `${backendDomin}/api/get`,
         method : 'get'
     },
     deleteAddress : {
@@ -135,7 +135,7 @@ const SummaryApi = {
         method: 'put',
     },
     orderListByUser: {
-        url: `${backendDomin}/api/order-list/:userId`,
+        url: `${backendDomin}/api/order-list`,
         method: 'get',
     },
     orderDetailsById: {

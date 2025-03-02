@@ -70,10 +70,10 @@ router.put("/updateCategory/:id", authToken, updateCategory);
 router.delete("/deleteCategory/:id",authToken, deleteCategory)
 
 
-router.post("/add",authToken,addAddress);
-router.get("/get/:userId", authToken, fetchAllAddress);
-router.delete("/delete/:userId/:addressId", authToken, deleteAddress);
-router.put("/update/:userId/:addressId",authToken, editAddress);
+router.post("/add",addAddress);
+router.get("/get/:userId", fetchAllAddress);
+router.delete("/delete/:userId/:addressId", deleteAddress);
+router.put("/update/:userId/:addressId", editAddress);
 router.get("/get", getAllOrdersOfAllUsers);
 router.get("/order-details/:id", getOrderDetailsForAdmin);
 router.put("/order-update/:id", updateOrderStatus);
