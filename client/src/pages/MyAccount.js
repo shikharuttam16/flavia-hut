@@ -114,18 +114,18 @@ const MyAccount = () => {
       <div className="w-full md:w-1/4 bg-white p-6 shadow rounded-lg h-fit">
         <ul className="space-y-4">
           <li
-            className={`cursor-pointer p-2 rounded-lg ${selectedSection === "orders" ? "font-barlow font-semibold text-[14px] leading-[22px] tracking-normal text-[#7E8693]" : "font-barlow font-semibold text-[14px] leading-[22px] tracking-normal text-[#424750]"}`}
+            className={`cursor-pointer mt-0 p-2 rounded-lg ${selectedSection === "orders" ? "font-barlow font-semibold text-[14px] leading-[22px] tracking-normal text-[#7E8693]" : "font-barlow font-semibold text-[14px] leading-[22px] tracking-normal text-[#424750]"}`}
             onClick={() => setSelectedSection("orders")}
           >
             My Orders
           </li>
           <li
-            className={`cursor-pointer p-2 rounded-lg ${selectedSection === "addresses" ? "font-barlow font-semibold text-[14px] leading-[22px] tracking-normal text-[#7E8693]" : "font-barlow font-semibold text-[14px] leading-[22px] tracking-normal text-[#424750]"}`}
+            className={`cursor-pointer mt-0 p-2 rounded-lg ${selectedSection === "addresses" ? "font-barlow font-semibold text-[14px] leading-[22px] tracking-normal text-[#7E8693]" : "font-barlow font-semibold text-[14px] leading-[22px] tracking-normal text-[#424750]"}`}
             onClick={() => setSelectedSection("addresses")}
           >
             My Addresses
           </li>
-          <li className="font-barlow font-semibold text-[14px] leading-[22px] p-2 tracking-normal text-[#424750] cursor-pointer">Logout</li>
+          <li className="font-barlow mt-0 font-semibold text-[14px] leading-[22px] p-2 tracking-normal text-[#424750] cursor-pointer">Logout</li>
         </ul>
       </div>
       {/* Content Section */}
