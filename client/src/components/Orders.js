@@ -72,20 +72,20 @@ const Orders = () => {
           <table className="w-full border-collapse">
             <thead>
               <tr className="text-left text-gray-500 text-sm border-b">
-                <th className="py-2 px-4 whitespace-nowrap">Order Id</th>
-                <th className="py-2 px-4 whitespace-nowrap">Date</th>
-                <th className="py-2 px-4 whitespace-nowrap">Payment Status</th>
-                <th className="py-2 px-4 whitespace-nowrap">Items</th>
-                <th className="py-2 px-4 whitespace-nowrap">Total Amount</th>
-                <th className="py-2 px-4 whitespace-nowrap">Order Status</th>
+                <th className="py-2 px-4 whitespace-nowrap font-barlow text-[14px] leading-[22px] tracking-normal font-normal text-[#7E8693]">Order Id</th>
+                <th className="py-2 px-4 whitespace-nowrap font-barlow text-[14px] leading-[22px] tracking-normal font-normal text-[#7E8693]">Date</th>
+                <th className="py-2 px-4 whitespace-nowrap font-barlow text-[14px] leading-[22px] tracking-normal font-normal text-[#7E8693]">Payment Status</th>
+                <th className="py-2 px-4 whitespace-nowrap font-barlow text-[14px] leading-[22px] tracking-normal font-normal text-[#7E8693]">Items</th>
+                <th className="py-2 px-4 whitespace-nowrap font-barlow text-[14px] leading-[22px] tracking-normal font-normal text-[#7E8693]">Total Amount</th>
+                <th className="py-2 px-4 whitespace-nowrap font-barlow text-[14px] leading-[22px] tracking-normal font-normal text-[#7E8693]">Order Status</th>
               </tr>
             </thead>
             <tbody>
               {orders.map((order, index) => (
                 <tr key={index} className="border-b text-gray-700">
-                  <td className="py-3 px-4 whitespace-nowrap">{order._id || "N/A"}</td>
-                  <td className="py-3 px-4 whitespace-nowrap">{order.orderDate || "N/A"}</td>
-                  <td className="py-3 px-4 whitespace-nowrap">
+                  <td className="py-3 px-4 whitespace-nowrap font-barlow text-[16px] leading-[26px] tracking-normal font-normal text-black">{order._id || "N/A"}</td>
+                  <td className="py-3 px-4 whitespace-nowrap font-barlow text-[16px] leading-[26px] tracking-normal font-normal text-black">{order.orderDate || "N/A"}</td>
+                  <td className="py-3 px-4 whitespace-nowrap font-barlow text-[16px] leading-[26px] tracking-normal font-normal text-black">
                     <span
                       className={`px-3 py-1 rounded-lg text-sm font-medium ${getStatusColor(
                         order.paymentStatus
@@ -99,7 +99,7 @@ const Orders = () => {
                       ? order.cartItems.map((item) => `${item.productName} (x${item.quantity})`).join(", ")
                       : "No items"}
                   </td>
-                  <td className="py-3 px-4 whitespace-nowrap">{order.totalAmount || "N/A"}</td>
+                  <td className="py-3 px-4 whitespace-nowrap font-barlow text-[16px] leading-[26px] tracking-normal font-normal text-black">{order.totalAmount || "N/A"}</td>
                   <td className="py-3 px-4">
                     <span
                       className={`px-3 py-1 border rounded-lg text-sm font-medium ${getOrderStatusColor(
