@@ -59,12 +59,11 @@ const SavedAddresses = ({ setAddressToOrder }) => {
         }
       );
       const result = await response.json();
-      console.log(result,"result");
-      
       if (result.success) {
         setAddresses(result.data);
         if (result.data.length > 0) {
           setSelectedAddress(result.data[0]._id);
+          setAddressToOrder(result.data[0]._id);
         }
       } else {
         toast.error(result.message || "Failed to load addresses");
