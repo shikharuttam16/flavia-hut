@@ -59,6 +59,8 @@ const SavedAddresses = ({ setAddressToOrder }) => {
         }
       );
       const result = await response.json();
+      console.log(result,"result");
+      
       if (result.success) {
         setAddresses(result.data);
         if (result.data.length > 0) {
