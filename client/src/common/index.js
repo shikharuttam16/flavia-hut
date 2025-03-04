@@ -1,4 +1,4 @@
-const backendDomin = "https://flavia-hut.vercel.app"
+const backendDomin = "https://flavia-hut.vercel.app";
 
 const SummaryApi = {
     signUP : {
@@ -118,10 +118,6 @@ const SummaryApi = {
          url : `${backendDomin}/api/create-order`,
         method : 'post'
     },
-    createOrder: {
-        url: `${backendDomin}/api/create-order`,
-        method: 'post',
-    },
     getAllOrdersOfAllUsers: {
         url: `${backendDomin}/api/get`,
         method: 'get',
@@ -173,10 +169,6 @@ const SummaryApi = {
    deleteProductById: {
         url: `${backendDomin}/api/delete-product`,
         method: 'delete',
-    },
-    deleteProductById : {
-        url : `${backendDomin}/api/delete-product`,
-        method  : 'delete'
     },
     paymentOrder:{
          url : `${backendDomin}/order`,

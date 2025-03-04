@@ -12,7 +12,9 @@ const ItemCart = ({
   quantity,
   onMinusButton,
   onPlusButton,
-  onDeleteButton
+  onDeleteButton,
+  cartLength,
+  index
 }) => {
 
   const truncateText = (text, maxLength) => {
@@ -89,7 +91,8 @@ const ItemCart = ({
           </button>
         </div>
       </div>
-      <hr className="border-t-2 border-black mx-8" />
+      {/* Conditionally render <hr> */}
+      {index !== cartLength - 1 && <hr className="border-t-2 border-gray-500" />}
     </>
   );
 };
