@@ -50,7 +50,7 @@ const ProductCard = ({ product, handleAddToCart, wishlistHandler }) => {
         <div className="bg-slate-200 h-[170px] min-w-[170px] vertical-product-card mt-2 mx-auto">
           <img
             src={product?.productImage[0]}
-            className="object-fill h-full w-full"
+            className="object-contain bg-white h-full w-full"
             loading="lazy"
             alt={product?.productName}
           />
