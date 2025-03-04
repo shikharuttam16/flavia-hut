@@ -136,11 +136,9 @@ const MyAccount = () => {
         <div>
           <div className="flex justify-between items-center border-b-2">
             <h2 className="font-barlow font-bold text-[24px] px-4 py-6">My Addresses</h2>
-            {addresses.length === 0 && ( // Show "Add New Address" only if there are no addresses
               <button className="text-blue-500 px-4 py-6" onClick={() => setSelectedSection("addAddress")}>
                 Add a New Address
               </button>
-            )}
           </div>
           <div className="rounded-lg px-4">
             {addresses.length > 0 ? (
