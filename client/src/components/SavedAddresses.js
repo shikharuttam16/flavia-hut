@@ -145,7 +145,7 @@ const SavedAddresses = ({ setAddressToOrder }) => {
                               , {address.city}, {address.state}
                               <strong>
                                 {" "}
-                                {address.city.toUpperCase()}{" "}
+                                {address.city?.toUpperCase()}{" "}
                               </strong> - {address.pincode}
                               <br />
                               <span className="text-sm">
