@@ -6,23 +6,28 @@ import { IoMdHeartEmpty } from "react-icons/io";
 import Context from "../context";
 import SummaryApi from "../common";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 
 const ProductCard = ({ product, handleAddToCart, wishlistHandler,localItems, getCartItemCountLocal, cartProduct }) => {
-  const { wishlist, fetchWishListData } = useContext(Context);
+  const { wishlist, fetchWishListData, cartProductCount } = useContext(Context);
   const [addedToCart, setAddedToCart] = useState(false)
   const user = useSelector((state) => state.user)
+  const navigate = useNavigate();
+
 
   function isProductInCart(productId, cartProducts) {
+            console.log("productId",productId);
+            console.log("cartProducts",cartProducts);
     return cartProducts.some(cartItem => cartItem.productId._id === productId);
   }
 
   useEffect(()=>{
-    console.log("user-------M",user.user);
-    console.log("this is card data",cartProduct);
+    // console.log("user-------M",user.user);
+    // console.log("this is card data",cartProduct);
     
     if(localItems!=null && localItems.length){
-      console.log("This is products in product",product);
+      // console.log("This is products in product",product);
       if(localItems.includes(product._id)){
         setAddedToCart(true)
       }
@@ -31,7 +36,7 @@ const ProductCard = ({ product, handleAddToCart, wishlistHandler,localItems, get
         setAddedToCart(true)
       }
     }
-  },[])
+  },[cartProductCount])
 
   const discountPercentage = (
     ((product.price - product.sellingPrice) / product.price) *
@@ -99,16 +104,16 @@ const ProductCard = ({ product, handleAddToCart, wishlistHandler,localItems, get
             {/* Add to Cart */}
             { !addedToCart ?
             <button onClick={ async (e) =>{
+              setAddedToCart(true)
               const itemAddedToCart = await  handleAddToCart(e, product?._id)
-              console.log("Item added or not ",itemAddedToCart);
+              // console.log("Item added or not ",itemAddedToCart);
               if(itemAddedToCart){
                 if(user.user == null){
                 getCartItemCountLocal()
                 }
-                setAddedToCart(true)
               }
             } } className="cursor-pointer bg-[#28AD00] text-white px-4 py-2 rounded-[6px] font-barlow font-semibold text-[16px] leading-[26px] tracking-[0%] text-center mt-4">Add to Cart</button>
-            : <Link to='/my-cart'><button className="w-[100%] cursor-pointer bg-[#FFB255] text-white px-4 py-2 rounded-[6px] font-barlow font-semibold text-[16px] leading-[26px] tracking-[0%] text-center mt-4">{"Go to cart"}</button></Link>
+            :<button onClick={() => navigate("/my-cart")} className="w-[100%] cursor-pointer bg-[#FFB255] text-white px-4 py-2 rounded-[6px] font-barlow font-semibold text-[16px] leading-[26px] tracking-[0%] text-center mt-4">{"Go to cart"}</button>
           }
           </div>
 

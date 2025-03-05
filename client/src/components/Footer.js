@@ -12,7 +12,7 @@ const Footer = () => {
           method: SummaryApi.showFooterDescription.method,
         });
         const data = await response.json();
-          console.log(data);
+          // console.log(data);
           setFooterData({
             title: data[0].title,
             description: data[0].description, 

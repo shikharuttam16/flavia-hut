@@ -45,12 +45,12 @@ const SavedAddresses = ({ setAddressToOrder, addressAvailable }) => {
 
 
   const fetchAddresses = async () => {
-    console.log("This is user data stored------------------->",user);
+    // console.log("This is user data stored------------------->",user);
     
     const userId = user.user?._id;
 
     if (!userId) return;
-    console.log("user id  ooon address component",userId);
+    // console.log("user id  ooon address component",userId);
     
     try {
       const response = await fetch(
@@ -62,7 +62,7 @@ const SavedAddresses = ({ setAddressToOrder, addressAvailable }) => {
       );
       
       const result = await response.json();
-      console.log("This is fetched address ",result.data);
+      // console.log("This is fetched address ",result.data);s
 
       if (result.success) {
         setAddresses(result.data);
@@ -79,10 +79,10 @@ const SavedAddresses = ({ setAddressToOrder, addressAvailable }) => {
   };
 
   useEffect(() => {
-    console.log("This is avail address in address component -----------------------",addressAvailable);
+    // console.log("This is avail address in address component -----------------------",addressAvailable);
     
     if (addressAvailable) {
-    console.log("This is avail address in address component iiiinside if -----------------------",addressAvailable);
+    // console.log("This is avail address in address component iiiinside if -----------------------",addressAvailable);
 
        fetchAddresses();
        setExpanded(true)

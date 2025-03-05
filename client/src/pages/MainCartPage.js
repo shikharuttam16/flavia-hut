@@ -15,7 +15,7 @@ const MainCartPage = () => {
   const [addressAvailable,setAddressAvailable] = useState(user.user == null?false:true)
   const [orderSummaryAvailable,setOrderSummaryAvailable] = useState(false)
 
-  console.log("Address avail is",addressAvailable);
+  // console.log("Address avail is",addressAvailable);
   
   
   return (

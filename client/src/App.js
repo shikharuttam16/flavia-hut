@@ -77,10 +77,13 @@ function App() {
 
   const storeLocalItems = async () => {
     let cart = localStorage.getItem("cart"); // Get cart from localStorage
-
+    // console.log("In store local items",cart);
+    // console.log("This is user ",user);
+    
+    
     if (cart) {
         cart = JSON.parse(cart); // Parse the JSON string to an object/array
-        console.log("Local Cart Items:", cart);
+        // console.log("Local Cart Items:", cart);
 
         if (cart.length === 0) return; // If cart is empty, do nothing
         
@@ -88,13 +91,16 @@ function App() {
             console.error("User not found in localStorage.");
             return;
         }
-        console.log("Local storare user id",user);
+        // console.log("Local storare user id",user);
         
         const requestBody = {
-            productIds: cart.map(item => item.productId), // Extract product IDs from cart
+            productIds: cart.map(item => item), // Extract product IDs from cart
             userId: user._id, // User ID from localStorage
             quantity: 1, // Always 1 as per requirement
         };
+
+        console.log("Requested body",requestBody);
+        
 
         try {
             const response = await fetch(SummaryApi.addToCartFromLocal.url, {
@@ -115,9 +121,14 @@ function App() {
     }
   };
 
+  useEffect(()=>{
 
-  useEffect(() => {
     storeLocalItems();
+  },[user])
+
+ 
+  useEffect(() => {
+   
     /**user Details */
     fetchUserDetails();
     /**user Details cart product */

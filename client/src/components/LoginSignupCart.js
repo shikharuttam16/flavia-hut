@@ -51,7 +51,7 @@ const LoginSignupCart = ({setAddressAvailable}) => {
 
     if (dataApi.success) {
       // toast.success(dataApi.message);
-      console.log("---------------UUUUUUUUserrr data",dataApi);
+      // console.log("---------------UUUUUUUUserrr data",dataApi);
       
       // navigate("/admin-panel/all-products");
       await fetchUserDetails();
@@ -73,7 +73,7 @@ const LoginSignupCart = ({setAddressAvailable}) => {
   };
 
   const handleContinue = async () => {
-    console.log("Email:", email);
+    // console.log("Email:", email);
     try {
       const response = await fetch(`${SummaryApi.checkEmail.url}`, {
         method: `${SummaryApi.checkEmail.method}`,
@@ -87,14 +87,14 @@ const LoginSignupCart = ({setAddressAvailable}) => {
       const data = await response.json();
   
       if (response.ok) {
-        console.log("Data on e");
+        // console.log("Data on e");
         setUserMeta({
           name:data.name,
           email:email
         })
         setEmailFound(true)
 
-        console.log("Login successful:", data);
+        // console.log("Login successful:", data);
         // Store token in localStorage or state if needed
         // localStorage.setItem("token", data.data);
         // alert("Login Successful!");
@@ -110,7 +110,7 @@ const LoginSignupCart = ({setAddressAvailable}) => {
   
 
   const handleGoogleLogin = () => {
-    console.log("Continue with Google");
+    // console.log("Continue with Google");
   };
 
   return (

@@ -9,7 +9,7 @@ const addToCartLocally = async (req, res) => {
         if (!productIds || !Array.isArray(productIds) || productIds.length === 0) {
             return res.status(400).json({ message: "Invalid product IDs." });
         }
-        console.log("product ids",productIds);
+        // console.log("product ids",productIds);
         
         const validProducts = await ProductModel.find({ _id: { $in: productIds } });
         const validProductIds = validProducts.map((product) => product._id.toString());
