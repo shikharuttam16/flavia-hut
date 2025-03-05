@@ -87,11 +87,7 @@ const Orders = () => {
                   <td className="py-3 px-4 whitespace-nowrap font-barlow text-[16px] leading-[26px] tracking-normal font-normal text-black">{order.orderDate ? new Date(order.orderDate).toLocaleString("en-US", { 
                     year: "numeric", 
                     month: "long", 
-                    day: "numeric", 
-                    hour: "2-digit", 
-                    minute: "2-digit", 
-                    second: "2-digit",
-                    hour12: true 
+                    day: "numeric"
                   }) : "N/A"}</td>
                   <td className="py-3 px-4 whitespace-nowrap font-barlow text-[16px] leading-[26px] tracking-normal font-normal text-black">
                     <span
