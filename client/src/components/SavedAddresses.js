@@ -7,8 +7,6 @@ import {
   FormControlLabel,
   Radio,
   Button,
-  Modal,
-  Box,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import SummaryApi from "../common";
@@ -16,21 +14,8 @@ import { toast } from "react-toastify";
 import AddAddressForm from "./AddAddressForm";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
-import CustomTextField from "./CustomTextField";
 import EditAddressModal from "./EditAddressModal";
 import { useSelector } from "react-redux";
-import { add } from "lodash";
-
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: "65%",
-  bgcolor: "background.paper",
-  boxShadow: 24,
-  p: 4,
-};
 
 const SavedAddresses = ({ setAddressToOrder, addressAvailable }) => {
   const [expanded, setExpanded] = useState(false);
@@ -41,17 +26,11 @@ const SavedAddresses = ({ setAddressToOrder, addressAvailable }) => {
   const [selectedAddressData, setSelectedAddressData] = useState(null);
   const [addressChanged, setAddressChanged] = useState(false);
 
-  const user = useSelector((state) => state.user)
-
+  const user = useSelector((state) => state.user);
 
   const fetchAddresses = async () => {
-    // console.log("This is user data stored------------------->",user);
-    
     const userId = user.user?._id;
-
     if (!userId) return;
-    // console.log("user id  ooon address component",userId);
-    
     try {
       const response = await fetch(
         SummaryApi.fetchAddress.url.replace(":userId", userId),
@@ -60,15 +39,13 @@ const SavedAddresses = ({ setAddressToOrder, addressAvailable }) => {
           credentials: "include",
         }
       );
-      
       const result = await response.json();
-      // console.log("This is fetched address ",result.data);s
-
       if (result.success) {
         setAddresses(result.data);
         if (result.data.length > 0) {
           setSelectedAddress(result.data[0]._id);
-          setAddressToOrder(result.data[0]._id);
+          const defaultAddress = result?.data[0];
+          setAddressToOrder(defaultAddress);
         }
       } else {
         toast.error(result.message || "Failed to load addresses");
@@ -79,17 +56,11 @@ const SavedAddresses = ({ setAddressToOrder, addressAvailable }) => {
   };
 
   useEffect(() => {
-    // console.log("This is avail address in address component -----------------------",addressAvailable);
-    
     if (addressAvailable) {
-    // console.log("This is avail address in address component iiiinside if -----------------------",addressAvailable);
-
-       fetchAddresses();
-       setExpanded(true)
+      fetchAddresses();
+      setExpanded(true);
     }
   }, [addressChanged, addressAvailable]);
-
- 
 
   const handleAddressChange = (event) => {
     const addressId = event.target.value;
@@ -165,9 +136,8 @@ const SavedAddresses = ({ setAddressToOrder, addressAvailable }) => {
                               , {address.city}, {address.state}
                               <strong>
                                 {" "}
-                                {address.city?.toUpperCase()} {" "}
-                              </strong>{" "}
-                              - {address.pincode}
+                                {address.city?.toUpperCase()}{" "}
+                              </strong> - {address.pincode}
                               <br />
                               <span className="text-sm">
                                 {address.email} - {address.phone}
