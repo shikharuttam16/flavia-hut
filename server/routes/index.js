@@ -3,7 +3,8 @@ const express = require('express')
 const router = express.Router()
 
 const userSignUpController = require("../controller/user/userSignUp")
-const userSignInController = require('../controller/user/userSignIn')
+const { userSignInController, checkEmailExistence, logout } = require("../controller/user/userSignIn");
+
 const userDetailsController = require('../controller/user/userDetails')
 const authToken = require('../middleware/authToken')
 const userLogout = require('../controller/user/userLogout')
@@ -32,14 +33,17 @@ const updateWishlist = require('../controller/user/updateWishlist')
 const deleteWishlistProduct = require('../controller/user/deleteWishlistProduct')
 const deleteProductController = require('../controller/product/deleteProductController')
 const { addCategory, getCategory, updateCategory, deleteCategory, getCategoryConditionally } = require('../controller/category/category')
-const { addOffer, getOffer, updateOffer } = require('../controller/footer/footerController')
+const { addOffer, getOffer, updateOffer } = require('../controller/footer/footerController');
+const addToCartLocally = require('../controller/user/addToCartLocalProducts');
 
 
 
 router.post("/signup",userSignUpController)
 router.post("/signin",userSignInController)
+// router.get("/logout",authToken,logout)
+
 router.get("/user-details",authToken,userDetailsController)
-router.get("/userLogout",userLogout)
+router.post("/userLogout",authToken,userLogout)
 
 //admin panel 
 router.get("/all-user",authToken,allUsers)
@@ -61,6 +65,8 @@ router.get("/countAddToCartProduct",authToken,countAddToCartProduct)
 router.get("/view-card-product",authToken,addToCartViewProduct)
 router.post("/update-cart-product",authToken,updateAddToCartProduct)
 router.post("/delete-cart-product",authToken,deleteAddToCartProduct)
+router.post("/add-to-cart-local-products",authToken,addToCartLocally)
+
 
 //category
 router.post("/addCategory",authToken, addCategory)
@@ -94,5 +100,9 @@ router.delete('/delete-product',authToken, deleteProductController);
 router.post("/add-offer", addOffer);
 router.get("/get-offer", getOffer);
 router.put("/update-offer", updateOffer);
+
+
+
+router.post("/check-email", checkEmailExistence);
 module.exports = router;
 

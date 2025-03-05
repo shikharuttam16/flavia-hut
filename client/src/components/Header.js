@@ -9,6 +9,8 @@ import Context from "../context";
 import logos from "../assest/images/logo.png";
 import { FiAlignJustify, FiShoppingBag } from "react-icons/fi";
 import { FaSearch } from "react-icons/fa";
+import { FaChevronDown, FaCrown } from "react-icons/fa";
+import { FaSignInAlt, FaUserPlus } from "react-icons/fa";
 
 const Header = ({ onFAQClick }) => {
   const user = useSelector((state) => state?.user?.user);
@@ -20,6 +22,9 @@ const Header = ({ onFAQClick }) => {
   const [search, setSearch] = useState(searchQuery);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [categories, setCategories] = useState([]);
+  const { cartProductCount } = useContext(Context);
+  const { localProductCount } = useContext(Context);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -34,8 +39,34 @@ const Header = ({ onFAQClick }) => {
     fetchCategories();
   }, []);
 
+  const handleLogout = async () => {
+    try {
+      const response = await fetch(SummaryApi.logout_user.url, {
+        method: SummaryApi.logout_user.method,
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Logout failed: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      console.log("Logout successful", data);
+
+      // Perform additional actions like clearing tokens and redirecting
+      localStorage.removeItem("authToken"); // Adjust based on your auth mechanism
+      sessionStorage.clear();
+      // window.location.reload();
+      localStorage.removeItem('cart');
+      window.location.href = "/"; // Redirect to login page
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
+  };
+
   return (
-    <header className="bg-white shadow-md w-full sticky top-0 z-50">
+    <header className="bg-white border-b-2 border-b-[#E1E3E4] w-full sticky top-0 z-50">
       <div className="bg-[#FFB255] text-white text-sm py-2 text-center">
         <span className="text-black">
           Get 8% Discount on Purchase of 899 and Above With Code
@@ -66,16 +97,70 @@ const Header = ({ onFAQClick }) => {
 
         <div className="flex items-center gap-4">
           {user?._id ? (
-            <button onClick={() => dispatch(setUserDetails(null))} className="text-gray-700 text-sm">
-              Logout
-            </button>
+            <div className="relative">
+              <div className="flex flex-col">
+                <span className="text-gray-500 text-sm">{user.name}</span>
+                <button
+                  className="flex items-center text-lg font-bold text-gray-900"
+                  onClick={() => setIsOpen(!isOpen)}
+                >
+                  My account
+                  <FaChevronDown className="ml-1 text-gray-700" />
+                </button>
+              </div>
+
+              {isOpen && (
+                <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg">
+                  <ul className="py-2 text-gray-800">
+                    <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                      <Link to="/my-account">My Orders</Link>
+                    </li>
+                    <li
+                      onClick={() => {
+                        handleLogout();
+                        dispatch(setUserDetails(null));
+                      }}
+                      className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                    >
+                      Logout
+                    </li>
+                  </ul>
+                </div>
+              )}
+            </div>
           ) : (
-            <div className="flex text-gray-700 text-sm">
-              <Link to="/login" className="px-2">Login</Link> /
-              <Link to="/sign-up" className="px-2">SignUp</Link>
+            // <button
+            //   onClick={() => dispatch(setUserDetails(null))}
+            //   className="text-gray-700 text-sm"
+            // >
+            //   {user.name}
+            //   Logout
+            // </button>
+            <div className="flex items-center">
+              <Link to="/login">
+                <button className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg text-lg font-medium hover:bg-gray-100">
+                  <FaSignInAlt size={22} /> {/* Increased icon size */}
+                  <span className="text-lg">Login</span>{" "}
+                  {/* Increased text size */}
+                </button>
+              </Link>
             </div>
           )}
-          <FiShoppingBag size={28} className="cursor-pointer" />
+          <span className="relative mr-0">
+            <Link to="/my-cart">
+              <span className="flex">
+                <FiShoppingBag size={28} className="cursor-pointer" />
+                <span className="w-[20px] h-[20px] bg-[#424750] rounded-full py-1 px-2 absolute flex justify-center items-center top-[-7px] left-3 ">
+                  <span className="text-white">
+                    {user != null ? cartProductCount : localProductCount}
+                  </span>
+                </span>
+
+                <span className="ml-2">Cart</span>
+              </span>
+            </Link>
+          </span>
+
           <FiAlignJustify
             size={28}
             className="cursor-pointer md:hidden"
@@ -101,7 +186,11 @@ const Header = ({ onFAQClick }) => {
             </button>
             <ul className="mt-6 space-y-2 text-gray-800">
               <li className="border-b border-gray-200">
-                <Link to="/" onClick={() => setIsMobileMenuOpen(false)} className="block px-4 py-3 text-lg hover:bg-gray-100">
+                <Link
+                  to="/"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="block px-4 py-3 text-lg hover:bg-gray-100"
+                >
                   Home
                 </Link>
               </li>
@@ -117,7 +206,11 @@ const Header = ({ onFAQClick }) => {
                 </li>
               ))}
               <li className="border-b border-gray-200">
-                <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)} className="block px-4 py-3 text-lg hover:bg-gray-100">
+                <Link
+                  to="/contact"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="block px-4 py-3 text-lg hover:bg-gray-100"
+                >
                   Contact Us
                 </Link>
               </li>

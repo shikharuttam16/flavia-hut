@@ -21,6 +21,7 @@ const addToCart = async(e,id,quantity = 1) =>{
 
     if(responseData.success){
         toast.success(responseData.message)
+        return true
     }
 
     if(responseData.error){

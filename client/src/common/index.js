@@ -15,7 +15,7 @@ const SummaryApi = {
     },
     logout_user : {
         url : `${backendDomin}/api/userLogout`,
-        method : "get"
+        method : "post"
     },
     allUser : {
         url : `${backendDomin}/api/all-user`,
@@ -189,7 +189,21 @@ const SummaryApi = {
     updateFooterDescription:{
         url:`${backendDomin}/api/update-offer`,
         method: 'put',
-    }
+    },
+    checkEmail: {
+        url: `${backendDomin}/api/check-email`,
+        method: "POST",
+    },
+    logout: {
+        url: `${backendDomin}/api/logout`,
+        method: "POST",
+    },
+    addToCartFromLocal: {
+        url: `${backendDomin}/api/add-to-cart-local-products`,
+        method: "POST",
+    },
+
+   
 }
 
 

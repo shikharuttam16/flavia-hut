@@ -1,13 +1,38 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FaHeart, FaShoppingCart } from "react-icons/fa"; 
 import displayINRCurrency from "../helpers/displayCurrency";
 import { IoMdHeartEmpty } from "react-icons/io";
 import Context from "../context";
 import SummaryApi from "../common";
+import { useSelector } from "react-redux";
 
-const ProductCard = ({ product, handleAddToCart, wishlistHandler }) => {
+
+const ProductCard = ({ product, handleAddToCart, wishlistHandler,localItems, getCartItemCountLocal, cartProduct }) => {
   const { wishlist, fetchWishListData } = useContext(Context);
+  const [addedToCart, setAddedToCart] = useState(false)
+  const user = useSelector((state) => state.user)
+
+  function isProductInCart(productId, cartProducts) {
+    return cartProducts.some(cartItem => cartItem.productId._id === productId);
+  }
+
+  useEffect(()=>{
+    console.log("user-------M",user.user);
+    console.log("this is card data",cartProduct);
+    
+    if(localItems!=null && localItems.length){
+      console.log("This is products in product",product);
+      if(localItems.includes(product._id)){
+        setAddedToCart(true)
+      }
+    }else{
+      if (cartProduct && isProductInCart(product._id, cartProduct)) {
+        setAddedToCart(true)
+      }
+    }
+  },[])
+
   const discountPercentage = (
     ((product.price - product.sellingPrice) / product.price) *
     100
@@ -72,7 +97,19 @@ const ProductCard = ({ product, handleAddToCart, wishlistHandler }) => {
               </p>
             </div>
             {/* Add to Cart */}
-            <button onClick={(e) => handleAddToCart(e, product?._id)} className="cursor-pointer bg-[#28AD00] text-white px-4 py-2 rounded-[6px] font-barlow font-semibold text-[16px] leading-[26px] tracking-[0%] text-center mt-4"> Add to Cart</button>
+            { !addedToCart ?
+            <button onClick={ async (e) =>{
+              const itemAddedToCart = await  handleAddToCart(e, product?._id)
+              console.log("Item added or not ",itemAddedToCart);
+              if(itemAddedToCart){
+                if(user.user == null){
+                getCartItemCountLocal()
+                }
+                setAddedToCart(true)
+              }
+            } } className="cursor-pointer bg-[#28AD00] text-white px-4 py-2 rounded-[6px] font-barlow font-semibold text-[16px] leading-[26px] tracking-[0%] text-center mt-4">Add to Cart</button>
+            : <Link to='/my-cart'><button className="w-[100%] cursor-pointer bg-[#FFB255] text-white px-4 py-2 rounded-[6px] font-barlow font-semibold text-[16px] leading-[26px] tracking-[0%] text-center mt-4">{"Go to cart"}</button></Link>
+          }
           </div>
 
           <div>

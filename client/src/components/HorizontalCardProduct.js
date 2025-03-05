@@ -2,7 +2,9 @@ import React, { useContext, useEffect, useState, useRef } from "react";
 import fetchCategoryWiseProduct from "../helpers/fetchCategoryWiseProduct";
 import { Link } from "react-router-dom";
 import addToCart from "../helpers/addToCart";
+import addToCartLocally from "../helpers/addToCartLocally";
 import Context from "../context";
+import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import SummaryApi from "../common";
 import ProductCard from "./ProductCard";
@@ -16,6 +18,10 @@ const HorizontalCardProduct = ({ category, heading1, heading2 }) => {
   const { fetchUserAddToCart, fetchCartData, fetchWishListData } = useContext(Context);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [localItems, setLocalItems] = useState([]);
+  const { cartProduct } = useContext(Context);
+  const { getCartItemCountLocal } = useContext(Context);  
+  const user = useSelector((state) => state.user)
   
   // Create unique refs for navigation buttons
   const prevRef = useRef(null);
@@ -38,9 +44,16 @@ const HorizontalCardProduct = ({ category, heading1, heading2 }) => {
   };
 
   const handleAddToCart = async (e, id) => {
-    await addToCart(e, id);
-    fetchUserAddToCart();
-    fetchCartData();
+    if(user.user == null){
+      console.log("Add to cart ID : ",id);
+      const added =  await addToCartLocally(e, id);
+      return added
+    }else{ 
+      const result =  await addToCart(e, id);
+      await fetchUserAddToCart();
+      await fetchCartData();
+      return result
+    }
   };
 
   const fetchData = async () => {
@@ -48,6 +61,8 @@ const HorizontalCardProduct = ({ category, heading1, heading2 }) => {
     const categoryProduct = await fetchCategoryWiseProduct(category);
     setLoading(false);
     setData(categoryProduct?.data || []);
+    let cartItems = JSON.parse(localStorage.getItem("cart"))
+    setLocalItems(cartItems)
   };
 
   useEffect(() => {
@@ -123,6 +138,9 @@ const HorizontalCardProduct = ({ category, heading1, heading2 }) => {
                     product={product}
                     handleAddToCart={handleAddToCart}
                     wishlistHandler={addToWishlist}
+                    localItems={localItems}
+                    getCartItemCountLocal = {getCartItemCountLocal}
+                    cartProduct = {cartProduct}
                   />
                 </div>
               </SwiperSlide>

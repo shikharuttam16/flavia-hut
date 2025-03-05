@@ -18,6 +18,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import CustomTextField from "./CustomTextField";
 import EditAddressModal from "./EditAddressModal";
+import { useSelector } from "react-redux";
 import { add } from "lodash";
 
 const style = {
@@ -31,7 +32,7 @@ const style = {
   p: 4,
 };
 
-const SavedAddresses = ({ setAddressToOrder }) => {
+const SavedAddresses = ({ setAddressToOrder, addressAvailable }) => {
   const [expanded, setExpanded] = useState(false);
   const [addresses, setAddresses] = useState([]);
   const [selectedAddress, setSelectedAddress] = useState("");
@@ -40,16 +41,17 @@ const SavedAddresses = ({ setAddressToOrder }) => {
   const [selectedAddressData, setSelectedAddressData] = useState(null);
   const [addressChanged, setAddressChanged] = useState(false);
 
-  const savedUserId = localStorage.getItem("user");
-  const parsedUserId = JSON.parse(savedUserId);
+  const user = useSelector((state) => state.user)
 
-  useEffect(() => {
-    fetchAddresses();
-  }, [addressChanged]);
 
   const fetchAddresses = async () => {
-    const userId = parsedUserId?._id;
+    console.log("This is user data stored------------------->",user);
+    
+    const userId = user.user?._id;
+
     if (!userId) return;
+    console.log("user id  ooon address component",userId);
+    
     try {
       const response = await fetch(
         SummaryApi.fetchAddress.url.replace(":userId", userId),
@@ -58,7 +60,10 @@ const SavedAddresses = ({ setAddressToOrder }) => {
           credentials: "include",
         }
       );
+      
       const result = await response.json();
+      console.log("This is fetched address ",result.data);
+
       if (result.success) {
         setAddresses(result.data);
         if (result.data.length > 0) {
@@ -72,6 +77,19 @@ const SavedAddresses = ({ setAddressToOrder }) => {
       toast.error("Failed to load addresses.");
     }
   };
+
+  useEffect(() => {
+    console.log("This is avail address in address component -----------------------",addressAvailable);
+    
+    if (addressAvailable) {
+    console.log("This is avail address in address component iiiinside if -----------------------",addressAvailable);
+
+       fetchAddresses();
+       setExpanded(true)
+    }
+  }, [addressChanged, addressAvailable]);
+
+ 
 
   const handleAddressChange = (event) => {
     const addressId = event.target.value;
@@ -96,6 +114,7 @@ const SavedAddresses = ({ setAddressToOrder }) => {
         <Accordion
           expanded={expanded}
           onChange={(_, isExpanded) => setExpanded(isExpanded)}
+          disabled={!addressAvailable}
         >
           <AccordionSummary
             sx={{
@@ -146,8 +165,9 @@ const SavedAddresses = ({ setAddressToOrder }) => {
                               , {address.city}, {address.state}
                               <strong>
                                 {" "}
-                                {address.city?.toUpperCase()}{" "}
-                              </strong> - {address.pincode}
+                                {address.city?.toUpperCase()} {" "}
+                              </strong>{" "}
+                              - {address.pincode}
                               <br />
                               <span className="text-sm">
                                 {address.email} - {address.phone}
@@ -183,9 +203,6 @@ const SavedAddresses = ({ setAddressToOrder }) => {
           </AccordionDetails>
         </Accordion>
       </div>
-      <div className="mt-4">
-        <AddAddressForm setAddressChanged={setAddressChanged} />
-      </div>
       <div>
         <EditAddressModal
           open={open}
@@ -194,6 +211,7 @@ const SavedAddresses = ({ setAddressToOrder }) => {
           setAddressChanged={setAddressChanged}
         />
       </div>
+      {addressAvailable && <AddAddressForm />}
     </>
   );
 };
