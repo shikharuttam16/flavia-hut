@@ -84,7 +84,15 @@ const Orders = () => {
               {orders.map((order, index) => (
                 <tr key={index} className="border-b text-gray-700">
                   <td className="py-3 px-4 whitespace-nowrap font-barlow text-[16px] leading-[26px] tracking-normal font-normal text-black">{order._id || "N/A"}</td>
-                  <td className="py-3 px-4 whitespace-nowrap font-barlow text-[16px] leading-[26px] tracking-normal font-normal text-black">{order.orderDate || "N/A"}</td>
+                  <td className="py-3 px-4 whitespace-nowrap font-barlow text-[16px] leading-[26px] tracking-normal font-normal text-black">{order.orderDate ? new Date(order.orderDate).toLocaleString("en-US", { 
+                    year: "numeric", 
+                    month: "long", 
+                    day: "numeric", 
+                    hour: "2-digit", 
+                    minute: "2-digit", 
+                    second: "2-digit",
+                    hour12: true 
+                  }) : "N/A"}</td>
                   <td className="py-3 px-4 whitespace-nowrap font-barlow text-[16px] leading-[26px] tracking-normal font-normal text-black">
                     <span
                       className={`px-3 py-1 rounded-lg text-sm font-medium ${getStatusColor(
