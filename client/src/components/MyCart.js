@@ -12,13 +12,13 @@ import {
 } from "@mui/material";
 
 const MyCart = ({
-  setCartProduct,
-  cartProduct,
+  setProductCart,
+  productCart,
   addressToOrder,
   addressAvailable,
 }) => {
   const [expanded, setExpanded] = useState(false);
-  const { fetchUserAddToCart } = useContext(Context);
+  const { fetchUserAddToCart, setCartProduct } = useContext(Context);
 
   const fetchCartData = useCallback(async () => {
     if (!addressAvailable) return;
@@ -28,7 +28,7 @@ const MyCart = ({
         credentials: "include",
       });
       const data = await response.json();
-      setCartProduct(data?.data || []);
+      setProductCart(data?.data || []);
       setTimeout(() => {
         setExpanded(true);
       }, 600);
@@ -58,7 +58,7 @@ const MyCart = ({
   );
 
   const handleQuantityChange = (id, change) => {
-    setCartProduct((prevCart) =>
+    setProductCart((prevCart) =>
       prevCart.map((item) =>
         item._id === id
           ? { ...item, quantity: Math.max(1, item.quantity + change) }
@@ -69,7 +69,7 @@ const MyCart = ({
       id,
       Math.max(
         1,
-        cartProduct.find((item) => item._id === id)?.quantity + change
+        productCart.find((item) => item._id === id)?.quantity + change
       )
     );
   };
@@ -92,6 +92,7 @@ const MyCart = ({
         });
         fetchCartData();
         fetchUserAddToCart();
+        setCartProduct((prevCart) => prevCart.filter((item) => item._id !== id));
       } else {
         toast.error("Failed to remove product!", { position: "top-right" });
       }
@@ -115,13 +116,13 @@ const MyCart = ({
         toast.error("Please select an address before proceeding to checkout!");
         return;
       }
-      if (cartProduct.length === 0) {
+      if (productCart.length === 0) {
         toast.error("Your cart is empty!", { position: "top-right" });
         return;
       }
       const orderData = {
         userId: parsedUserId?._id,
-        cartItems: cartProduct?.map((item) => ({
+        cartItems: productCart?.map((item) => ({
           productId: item.productId._id,
           quantity: item.quantity,
           price: item.productId.price,
@@ -138,7 +139,7 @@ const MyCart = ({
           email: addressToOrder.email,
         },
         orderStatus: "Pending",
-        totalAmount: cartProduct.reduce(
+        totalAmount: productCart.reduce(
           (total, item) => total + item.quantity * item.productId.sellingPrice,
           0
         ),
@@ -197,13 +198,13 @@ const MyCart = ({
             >
               3
             </span>{" "}
-            Order Summary ({cartProduct.length})
+            Order Summary ({productCart.length})
           </Typography>
         </AccordionSummary>
         <AccordionDetails sx={{ width: "100%" }}>
-          {addressAvailable && cartProduct?.length > 0 ? (
+          {addressAvailable && productCart?.length > 0 ? (
             <>
-              {cartProduct?.map((item, index) => (
+              {productCart?.map((item, index) => (
                 <ItemCart
                   key={item._id}
                   id={item._id}
@@ -217,14 +218,14 @@ const MyCart = ({
                   onMinusButton={() => handleQuantityChange(item._id, -1)}
                   onDeleteButton={() => deleteCartProduct(item._id)}
                   index={index}
-                  cartLength={cartProduct?.length}
+                  cartLength={productCart?.length}
                 />
               ))}
               <div className="flex justify-start mt-4">
                 <button
                   className="bg-[#ff8d01] text-white py-2 px-4 font-semibold rounded-sm"
                   onClick={placeOrder}
-                  disabled={cartProduct.length === 0}
+                  disabled={productCart.length === 0}
                 >
                   Place Your Order
                 </button>

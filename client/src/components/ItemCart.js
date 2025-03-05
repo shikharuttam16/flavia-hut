@@ -88,7 +88,7 @@ const ItemCart = ({
         {/* Remove Button */}
         <div className="mt-6">
           <button onClick={onDeleteButton}>
-            <CgTrash size={24} />
+            <CgTrash size={24} color="red"/>
           </button>
         </div>
       </div>

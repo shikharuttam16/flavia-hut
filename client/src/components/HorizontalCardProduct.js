@@ -45,7 +45,6 @@ const HorizontalCardProduct = ({ category, heading1, heading2 }) => {
 
   const handleAddToCart = async (e, id) => {
     if(user.user == null){
-      // console.log("Add to cart ID : ",id);
       const added =  await addToCartLocally(e, id);
       return added
     }else{ 
@@ -59,8 +58,6 @@ const HorizontalCardProduct = ({ category, heading1, heading2 }) => {
   const fetchData = async () => {
     setLoading(true);
     const categoryProduct = await fetchCategoryWiseProduct(category);
-    console.log("Catergory product",categoryProduct);
-    
     setLoading(false);
     setData(categoryProduct?.data || []);
     let cartItems = JSON.parse(localStorage.getItem("cart"))
@@ -69,8 +66,6 @@ const HorizontalCardProduct = ({ category, heading1, heading2 }) => {
 
 
   useEffect(() => {
-    console.log("Change in cart change count",cartProductCount);
-    
     fetchData();
   }, [category,cartProductCount]);
 

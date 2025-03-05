@@ -1,19 +1,19 @@
 import { useMemo } from "react";
 
-const PriceRightSide = ({ cartProduct }) => {
+const PriceRightSide = ({ productCart }) => {
   const totalOriginalPrice = useMemo(() => {
-    return cartProduct.reduce(
+    return productCart.reduce(
       (acc, item) => acc + item.productId.price * item.quantity,
       0
     );
-  }, [cartProduct]);
+  }, [productCart]);
 
   const totalSellingPrice = useMemo(() => {
-    return cartProduct.reduce(
+    return productCart.reduce(
       (acc, item) => acc + item.productId.sellingPrice * item.quantity,
       0
     );
-  }, [cartProduct]);
+  }, [productCart]);
 
   const totalSavings = totalOriginalPrice - totalSellingPrice;
 
@@ -29,7 +29,7 @@ const PriceRightSide = ({ cartProduct }) => {
 
       <div className="flex justify-between text-gray-600 py-2">
         <span className="font-semibold">
-          Price ({cartProduct.length} item{cartProduct.length > 1 ? "s" : ""})
+          Price ({productCart.length} item{productCart.length > 1 ? "s" : ""})
         </span>
         <span>Rs. {totalOriginalPrice.toFixed(2)}</span>
       </div>

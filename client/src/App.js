@@ -154,6 +154,7 @@ function App() {
           cartProductCount, // current user add to cart product count,
           fetchUserAddToCart,
           cartProduct,
+          setCartProduct,
           fetchCartData,
           selectedProduct, // Pass selectedProduct to the context
           setSelectedProduct, // Provide a way to update selectedProduct

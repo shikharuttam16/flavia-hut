@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { FaHeart, FaShoppingCart } from "react-icons/fa"; 
+import { FaHeart } from "react-icons/fa";
 import displayINRCurrency from "../helpers/displayCurrency";
 import { IoMdHeartEmpty } from "react-icons/io";
 import Context from "../context";
@@ -8,35 +8,36 @@ import SummaryApi from "../common";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-
-const ProductCard = ({ product, handleAddToCart, wishlistHandler,localItems, getCartItemCountLocal, cartProduct }) => {
+const ProductCard = ({
+  product,
+  handleAddToCart,
+  wishlistHandler,
+  localItems,
+  getCartItemCountLocal,
+  cartProduct,
+}) => {
   const { wishlist, fetchWishListData, cartProductCount } = useContext(Context);
-  const [addedToCart, setAddedToCart] = useState(false)
-  const user = useSelector((state) => state.user)
+  const [addedToCart, setAddedToCart] = useState(false);
+  const user = useSelector((state) => state.user);
   const navigate = useNavigate();
 
-
   function isProductInCart(productId, cartProducts) {
-            console.log("productId",productId);
-            console.log("cartProducts",cartProducts);
-    return cartProducts.some(cartItem => cartItem.productId._id === productId);
+    return cartProducts.some(
+      (cartItem) => cartItem.productId._id === productId
+    );
   }
 
-  useEffect(()=>{
-    // console.log("user-------M",user.user);
-    // console.log("this is card data",cartProduct);
-    
-    if(localItems!=null && localItems.length){
-      // console.log("This is products in product",product);
-      if(localItems.includes(product._id)){
-        setAddedToCart(true)
+  useEffect(() => {
+    if (localItems != null && localItems.length) {
+      if (localItems.includes(product._id)) {
+        setAddedToCart(true);
       }
-    }else{
+    } else {
       if (cartProduct && isProductInCart(product._id, cartProduct)) {
-        setAddedToCart(true)
+        setAddedToCart(true);
       }
     }
-  },[cartProductCount])
+  }, [cartProductCount]);
 
   const discountPercentage = (
     ((product.price - product.sellingPrice) / product.price) *
@@ -65,15 +66,19 @@ const ProductCard = ({ product, handleAddToCart, wishlistHandler,localItems, get
       fetchWishListData();
     }
   };
-  const wishlistItem = wishlist?.find(item => item.productId?._id === product?._id);
-  
+  const wishlistItem = wishlist?.find(
+    (item) => item.productId?._id === product?._id
+  );
+
   return (
     <div className="w-full min-w-[248px] max-w-[248px] h-[410px] md:h-[410px] bg-white rounded-md shadow-lg overflow-hidden relative  transition-transform rounded md:hover:border md:hover:border-[#CDD1D6] border border-[#CDD1D6]">
       <Link to={"/product/" + product?._id}>
         {/* Discount Label */}
-      {/* Discount Savings */}
-        <p className="bg-[#326FFF] text-white font-titillium font-semibold text-[12px] 
-                    leading-[12px] tracking-[0%] w-[95px] h-[27px] rounded-tl-[6px] rounded-br-[6px] flex items-center justify-center">
+        {/* Discount Savings */}
+        <p
+          className="bg-[#326FFF] text-white font-titillium font-semibold text-[12px] 
+                    leading-[12px] tracking-[0%] w-[95px] h-[27px] rounded-tl-[6px] rounded-br-[6px] flex items-center justify-center"
+        >
           Save - {displayINRCurrency(amountSaved)}
         </p>
         {/* Product Image */}
@@ -102,19 +107,32 @@ const ProductCard = ({ product, handleAddToCart, wishlistHandler,localItems, get
               </p>
             </div>
             {/* Add to Cart */}
-            { !addedToCart ?
-            <button onClick={ async (e) =>{
-              setAddedToCart(true)
-              const itemAddedToCart = await  handleAddToCart(e, product?._id)
-              // console.log("Item added or not ",itemAddedToCart);
-              if(itemAddedToCart){
-                if(user.user == null){
-                getCartItemCountLocal()
-                }
-              }
-            } } className="cursor-pointer bg-[#28AD00] text-white px-4 py-2 rounded-[6px] font-barlow font-semibold text-[16px] leading-[26px] tracking-[0%] text-center mt-4">Add to Cart</button>
-            :<button onClick={() => navigate("/my-cart")} className="w-[100%] cursor-pointer bg-[#FFB255] text-white px-4 py-2 rounded-[6px] font-barlow font-semibold text-[16px] leading-[26px] tracking-[0%] text-center mt-4">{"Go to cart"}</button>
-          }
+            {!addedToCart ? (
+              <button
+                onClick={async (e) => {
+                  setAddedToCart(true);
+                  const itemAddedToCart = await handleAddToCart(
+                    e,
+                    product?._id
+                  );
+                  if (itemAddedToCart) {
+                    if (user.user == null) {
+                      getCartItemCountLocal();
+                    }
+                  }
+                }}
+                className="cursor-pointer bg-[#28AD00] text-white px-4 py-2 rounded-[6px] font-barlow font-semibold text-[16px] leading-[26px] tracking-[0%] text-center mt-4"
+              >
+                Add to Cart
+              </button>
+            ) : (
+              <button
+                onClick={() => navigate("/my-cart")}
+                className="w-[100%] cursor-pointer bg-[#FFB255] text-white px-4 py-2 rounded-[6px] font-barlow font-semibold text-[16px] leading-[26px] tracking-[0%] text-center mt-4"
+              >
+                {"Go to cart"}
+              </button>
+            )}
           </div>
 
           <div>

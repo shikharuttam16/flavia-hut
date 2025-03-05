@@ -7,7 +7,7 @@ import LoggedInUserCart from "../components/LoggedInUserCart";
 import { useSelector } from "react-redux";
 
 const MainCartPage = () => {
-  const [cartProduct, setCartProduct] = useState([]);
+  const [productCart, setProductCart] = useState([]);
   const [addressToOrder, setAddressToOrder] = useState(null);
   const user = useSelector((state) => state.user);
   const [login, setLogin] = useState(false);
@@ -35,9 +35,9 @@ const MainCartPage = () => {
           </div>
           <div className="cart-items">
             <MyCart
-              setCartProduct={setCartProduct}
+              setProductCart={setProductCart}
               addressAvailable={addressAvailable}
-              cartProduct={cartProduct}
+              productCart={productCart}
               addressToOrder={addressToOrder}
             />
           </div>
@@ -45,7 +45,7 @@ const MainCartPage = () => {
 
         {/* Side panel moves to bottom on mobile */}
         <div className="m-2 w-full md:w-1/3">
-          <PriceRightSide cartProduct={cartProduct} />
+          <PriceRightSide productCart={productCart} />
         </div>
       </div>
     </>
