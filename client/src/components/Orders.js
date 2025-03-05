@@ -83,7 +83,7 @@ const Orders = () => {
             <tbody>
               {orders.map((order, index) => (
                 <tr key={index} className="border-b text-gray-700">
-                  <td className="py-3 px-4 whitespace-nowrap font-barlow text-[16px] leading-[26px] tracking-normal font-normal text-black">  {order._id ? order._id.match(/.{1,4}/g)?.join("-") : "N/A"}</td>
+                  <td className="py-3 px-4 whitespace-nowrap font-barlow text-[16px] leading-[26px] tracking-normal font-normal text-black"> {order._id ? order._id.match(/.{1,4}/g)?.join("-") : "N/A"}</td>
                   <td className="py-3 px-4 whitespace-nowrap font-barlow text-[16px] leading-[26px] tracking-normal font-normal text-black">{order.orderDate ? new Date(order.orderDate).toLocaleString("en-US", { 
                     year: "numeric", 
                     month: "long", 
