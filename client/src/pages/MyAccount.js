@@ -22,7 +22,7 @@ const userId = user?._id;
   useEffect(() => {
     const fetchAddress = async () => {
       try {
-        const response = await fetch(`${SummaryApi.fetchAllAddress.url}/${userId}`, {
+        const response = await fetch(SummaryApi.fetchAllAddress.url.replace(":userId",userId), {
           method: SummaryApi.fetchAllAddress.method
         });
         if (!response.ok) throw new Error("Failed to fetch addresses");
