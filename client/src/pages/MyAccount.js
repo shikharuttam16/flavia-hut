@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import SummaryApi from "../common";
 import Orders from "../components/Orders";
+import {useSelector} from "react-redux";
+
 
 const MyAccount = () => {
   const [selectedSection, setSelectedSection] = useState("orders");
@@ -14,8 +16,8 @@ const MyAccount = () => {
     phone: "",
     email: ""
   });
-
-  const userId = "675969087f2bbe19f5df7ed3"; // Replace with dynamic user ID
+const user=useSelector((state)=>state?.user?.user);
+  const userId = user; // Replace with dynamic user ID
 
   useEffect(() => {
     const fetchAddress = async () => {
