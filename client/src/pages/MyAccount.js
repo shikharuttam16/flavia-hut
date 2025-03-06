@@ -17,6 +17,7 @@ const MyAccount = () => {
     email: ""
   });
 const user=useSelector((state)=>state?.user?.user);
+console.log('useriD',user);
   const userId = user; // Replace with dynamic user ID
 
   useEffect(() => {
