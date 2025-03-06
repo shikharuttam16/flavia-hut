@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import SummaryApi from "../common";
 import noorders from "../../src/assest/images/no_orders_yet.svg"
+import {useSelector} from "react-redux";
 
 const Orders = () => {
   const [orders, setOrders] = useState([]); // Ensure it's always an array
@@ -32,12 +33,13 @@ const Orders = () => {
         return "text-gray-500 border-gray-500";
     }
   };
-
+  const user=useSelector((state)=>state?.user?.user);
+  const userId = user?._id;
   useEffect(() => {
     const fetchOrders = async () => {
       try {
         const response = await fetch(
-          `${SummaryApi.orderListByUser.url}/675969087f2bbe19f5df7ed3`,
+          `${SummaryApi.orderListByUser.url}/${userId}`,
           { method: SummaryApi.orderListByUser.method }
         );
         if (!response.ok) {
