@@ -28,56 +28,8 @@ const ProductDetails = () => {
   const {
     fetchUserAddToCart,
     fetchCartData,
-    wishlist,
     fetchWishListData,
   } = useContext(Context);
-  const deleteWishlistProduct = async (id) => {
-    const response = await fetch(SummaryApi.deleteWishlist.url, {
-      method: SummaryApi.deleteWishlist.method,
-      credentials: "include",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({
-        _id: id,
-      }),
-    });
-
-    const responseData = await response.json();
-
-    if (responseData.success) {
-      fetchWishListData();
-    }
-  };
-  const toggleWishlist = (e) => {
-    e.stopPropagation(); // Prevent triggering the link's onClick
-  };
-  const addToWishlist = async (e, id) => {
-    e?.stopPropagation();
-    e?.preventDefault();
-
-    const response = await fetch(SummaryApi.addToWishlist.url, {
-      method: SummaryApi.addToWishlist.method,
-      credentials: "include",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({ productId: id }),
-    });
-
-    const responseData = await response.json();
-
-    if (responseData.success) {
-      toast.success(responseData.message);
-      fetchWishListData()
-    }
-
-    if (responseData.error) {
-      toast.error(responseData.message);
-    }
-
-    return responseData;
-  };
 
   const fetchProductDetails = async () => {
     setLoading(true);
@@ -133,33 +85,35 @@ const ProductDetails = () => {
     setZoomStyle({ display: "none" });
   };
   
-
-  const handleAddToCart = async (e, id) => {
-    await addToCart(e, id,quantity);
-    fetchUserAddToCart();
-    fetchCartData();
-  };
-
-  const handleBuyProduct = async (e, id) => {
-    await addToCart(e, id,quantity);
-    fetchUserAddToCart();
-    fetchCartData();
-    navigate("/cart");
-  };
-  const wishlistItem = wishlist?.find(
-    (item) => item.productId?._id === data?._id
-  );
-
   const [quantity, setQuantity] = useState(1);
+  const updateCartAPI = useCallback(
+    debounce(async (id, newQty) => {
+      try {
+        await fetch(SummaryApi.updateCartProduct.url, {
+          method: SummaryApi.updateCartProduct.method,
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ _id: id, quantity: newQty }),
+        });
+      } catch (error) {
+        console.error("Error updating cart:", error);
+      }
+    }, 500),
+    []
+  );
     const increaseQuantity = () => {
-      setQuantity(quantity + 1);
+      setQuantity((prevQty) => prevQty + 1);
     };
     const decreaseQuantity = () => {
       if (quantity > 1) {
-        setQuantity(quantity - 1);
+        setQuantity((prevQty) => prevQty - 1);
       }
     };
-
+    const handleAddToCart = async (e, id) => {
+      await addToCart(e, id,quantity);
+      fetchUserAddToCart();
+      fetchCartData();
+    };
   
   return (
     <div className="w-[95%] mx-auto p-4 flex flex-col gap-4">
