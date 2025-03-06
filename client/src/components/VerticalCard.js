@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import scrollTop from '../helpers/scrollTop';
 import displayINRCurrency from '../helpers/displayCurrency';
 import Context from '../context';
@@ -6,9 +6,11 @@ import addToCart from '../helpers/addToCart';
 import { Link } from 'react-router-dom';
 import ProductCard from './ProductCard';
 
-const VerticalCard = ({ loading, data = [] }) => {
+const VerticalCard = ({ loading, data = [], localItems }) => {
   const loadingList = new Array(13).fill(null);
   const { fetchUserAddToCart,fetchCartData } = useContext(Context);
+  const { getCartItemCountLocal } = useContext(Context);  
+  const { cartProduct } = useContext(Context);
 
   const handleAddToCart = async (e, id) => {
     await addToCart(e, id);
@@ -43,6 +45,9 @@ const VerticalCard = ({ loading, data = [] }) => {
               key={product?._id}
               product={product}
               handleAddToCart={handleAddToCart} className="verticalss"
+              localItems={localItems}
+              getCartItemCountLocal = {getCartItemCountLocal}
+              cartProduct = {cartProduct}
             />
           ))}
     </div>

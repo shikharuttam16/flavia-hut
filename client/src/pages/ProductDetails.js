@@ -6,6 +6,8 @@ import addToCart from "../helpers/addToCart";
 import Context from "../context";
 import HorizontalCardProduct from "../components/HorizontalCardProduct";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
+import addToCartLocally from "../helpers/addToCartLocally";
 
 const ProductDetails = () => {
   const navigate = useNavigate();
@@ -21,10 +23,16 @@ const ProductDetails = () => {
   });
   const params = useParams();
   const [loading, setLoading] = useState(true);
+  const [addedToCart, setAddedToCart] = useState(false);
+  const [localItems, setLocalItems] = useState([]);
   const productImageListLoading = new Array(4).fill(null);
   const [activeImage, setActiveImage] = useState("");
+  const [quantity, setQuantity] = useState(1);
   const [clickedImage, setClickedImage] = useState(null);
+  const { getCartItemCountLocal, cartProductCount, cartProduct } = useContext(Context);  
+  const user = useSelector((state) => state.user)
   const imageRef = useRef(null);
+  
   const {
     fetchUserAddToCart,
     fetchCartData,
@@ -96,6 +104,8 @@ const ProductDetails = () => {
     setData(dataReponse?.data);
     setActiveImage(dataReponse?.data?.productImage[0]);
     setClickedImage(dataReponse?.data?.productImage[0])
+    let cartItems = JSON.parse(localStorage.getItem("cart"))
+    setLocalItems(cartItems)
   };
 
   useEffect(() => {
@@ -135,9 +145,16 @@ const ProductDetails = () => {
   
 
   const handleAddToCart = async (e, id) => {
-    await addToCart(e, id,quantity);
-    fetchUserAddToCart();
-    fetchCartData();
+
+    if(user.user == null){
+      const added =  await addToCartLocally(e, id);
+      return added
+    }else{ 
+      const result =  await addToCart(e, id);
+      await fetchUserAddToCart();
+      await fetchCartData();
+      return result
+    }
   };
 
   const handleBuyProduct = async (e, id) => {
@@ -150,7 +167,7 @@ const ProductDetails = () => {
     (item) => item.productId?._id === data?._id
   );
 
-  const [quantity, setQuantity] = useState(1);
+  
     const increaseQuantity = () => {
       setQuantity(quantity + 1);
     };
@@ -159,7 +176,28 @@ const ProductDetails = () => {
         setQuantity(quantity - 1);
       }
     };
+  function isProductInCart(productId, cartProducts) {
+    console.log("this is product id",productId);
+    console.log("this is cart products",cartProducts);
 
+    
+    return cartProducts.some(
+      (cartItem) => cartItem.productId._id === productId
+    );
+  }
+
+  useEffect(() => {
+    if (localItems != null && localItems.length) {
+      if (localItems.includes(data._id)) {
+        setAddedToCart(true);
+      }
+    } else {
+      if (cartProduct && data?._id && isProductInCart(data?._id, cartProduct)) {
+        setQuantity(cartProduct[0]?.quantity)
+        setAddedToCart(true);
+      }
+    }
+  }, [data,cartProduct]);
   
   return (
     <div className="w-[95%] mx-auto p-4 flex flex-col gap-4">
@@ -275,12 +313,32 @@ const ProductDetails = () => {
                 </div>
               </div>
               <div className="flex flex-col sm:flex-row sm:items-center gap-3 my-2 w-[100%]">
-              <button 
-                className="w-fit h-[48px] rounded-[4px] px-6 py-2 font-barlow font-bold text-[16px] leading-[26px] text-center text-white bg-[#FF8C00] hover:bg-[#FF8C00] transition duration-300"
-                onClick={(e) => handleAddToCart(e, data?._id)}
+              {!addedToCart ? (
+              <button
+                onClick={async (e) => {
+                  setAddedToCart(true);
+                  const itemAddedToCart = await handleAddToCart(
+                    e,
+                    data?._id
+                  );
+                  if (itemAddedToCart) {
+                    if (user.user == null) {
+                      getCartItemCountLocal();
+                    }
+                  }
+                }}
+                className="cursor-pointer bg-[#28AD00] text-white px-4 py-2 rounded-[6px] font-barlow font-semibold text-[16px] leading-[26px] tracking-[0%] text-center mt-4"
               >
-                Add To Cart
+                Add to Cart
               </button>
+            ) : (
+              <button
+                onClick={() => navigate("/my-cart")}
+                className="w-[100%] cursor-pointer bg-[#FFB255] text-white px-4 py-2 rounded-[6px] font-barlow font-semibold text-[16px] leading-[26px] tracking-[0%] text-center mt-4"
+              >
+                {"Go to cart"}
+              </button>
+            )}
             </div>
 
 
