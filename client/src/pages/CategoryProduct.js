@@ -22,7 +22,7 @@ const CategoryProduct = () => {
         body: JSON.stringify({ category }),
       });
       const dataResponse = await response.json();
-      console.log("Fetched category data:", dataResponse);
+      // console.log("Fetched category data:", dataResponse);
       setData(dataResponse?.data || []);
     } catch (error) {
       console.error("Error fetching data:", error);

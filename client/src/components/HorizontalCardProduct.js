@@ -15,7 +15,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 
 const HorizontalCardProduct = ({ category, heading1, heading2 }) => {
-  const { fetchUserAddToCart, fetchCartData, fetchWishListData } = useContext(Context);
+  const { fetchUserAddToCart, fetchCartData, fetchWishListData, cartProductCount } = useContext(Context);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [localItems, setLocalItems] = useState([]);
@@ -45,7 +45,6 @@ const HorizontalCardProduct = ({ category, heading1, heading2 }) => {
 
   const handleAddToCart = async (e, id) => {
     if(user.user == null){
-      console.log("Add to cart ID : ",id);
       const added =  await addToCartLocally(e, id);
       return added
     }else{ 
@@ -65,9 +64,10 @@ const HorizontalCardProduct = ({ category, heading1, heading2 }) => {
     setLocalItems(cartItems)
   };
 
+
   useEffect(() => {
     fetchData();
-  }, [category]);
+  }, [category,cartProductCount]);
 
   return (
     <div className="w-full mx-auto px-4 my-6 relative">
@@ -114,24 +114,7 @@ const HorizontalCardProduct = ({ category, heading1, heading2 }) => {
         }}
         className="my-4 lg:justify-center"
       >
-        {loading
-          ? new Array(5).fill(null).map((_, index) => (
-              <SwiperSlide key={index} className="!flex justify-center">
-                <div className="w-64 h-40 bg-white rounded-md shadow-md flex animate-pulse mx-auto">
-                  <div className="bg-slate-200 h-full w-1/3 p-4"></div>
-                  <div className="p-4 grid w-2/3 gap-2">
-                    <div className="bg-slate-200 p-2 rounded"></div>
-                    <div className="bg-slate-200 p-2 rounded"></div>
-                    <div className="flex gap-3">
-                      <div className="bg-slate-200 p-2 w-full rounded"></div>
-                      <div className="bg-slate-200 p-2 w-full rounded"></div>
-                    </div>
-                    <div className="bg-slate-200 p-2 w-full rounded"></div>
-                  </div>
-                </div>
-              </SwiperSlide>
-            ))
-          : data.map((product) => (
+        {data.length && data.map((product) => (
               <SwiperSlide key={product?._id} className="!flex justify-center">
                 <div className="mx-auto my-5">
                   <ProductCard

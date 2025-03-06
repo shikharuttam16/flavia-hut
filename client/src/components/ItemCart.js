@@ -14,9 +14,8 @@ const ItemCart = ({
   onPlusButton,
   onDeleteButton,
   cartLength,
-  index
+  index,
 }) => {
-
   const truncateText = (text, maxLength) => {
     if (text.length > maxLength) {
       return text.substring(0, maxLength) + "...";
@@ -26,7 +25,7 @@ const ItemCart = ({
 
   return (
     <>
-      <div className="flex my-4 mx-4">
+      <div className="flex">
         <div className="min-h-40 flex flex-col items-center justify-center p-4">
           {/* Image area */}
           <div className="">
@@ -53,7 +52,7 @@ const ItemCart = ({
           </div>
         </div>
 
-        <div className="w-full px-6">
+        <div className="w-full px-6 py-6">
           {/* Product Title */}
           <div className="title flex items-center justify-between">
             <p className="font-semibold text-lg">{name}</p>
@@ -64,7 +63,9 @@ const ItemCart = ({
 
           {/* Description */}
           <div className="mt-2 description">
-            <p className="text-sm text-gray-500">{truncateText(description, 250)}</p>
+            <p className="text-sm text-gray-500">
+              {truncateText(description, 190)}
+            </p>
           </div>
 
           {/* Price */}
@@ -85,14 +86,16 @@ const ItemCart = ({
         </div>
 
         {/* Remove Button */}
-        <div className="mt-1">
+        <div className="mt-6">
           <button onClick={onDeleteButton}>
-            <CgTrash size={24} />
+            <CgTrash size={24} color="red"/>
           </button>
         </div>
       </div>
       {/* Conditionally render <hr> */}
-      {index !== cartLength - 1 && <hr className="border-t-2 border-gray-500" />}
+      {index !== cartLength - 1 && (
+        <hr className="border-t-2 border-gray-500" />
+      )}
     </>
   );
 };

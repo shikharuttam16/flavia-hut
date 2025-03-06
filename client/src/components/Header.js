@@ -52,7 +52,7 @@ const Header = ({ onFAQClick }) => {
       }
 
       const data = await response.json();
-      console.log("Logout successful", data);
+      // console.log("Logout successful", data);
 
       // Perform additional actions like clearing tokens and redirecting
       localStorage.removeItem("authToken"); // Adjust based on your auth mechanism

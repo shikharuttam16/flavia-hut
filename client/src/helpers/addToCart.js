@@ -2,7 +2,7 @@ import SummaryApi from "../common"
 import { toast } from 'react-toastify'
 
 const addToCart = async(e,id,quantity = 1) =>{
-    console.log("Received Quantity:", quantity);
+    // console.log("Received Quantity:", quantity);
     e?.stopPropagation()
     e?.preventDefault()
 

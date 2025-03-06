@@ -18,7 +18,7 @@ const SignUp = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("User Data:", data);
+    // console.log("User Data:", data);
   };
 
   return (

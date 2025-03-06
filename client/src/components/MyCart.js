@@ -11,9 +11,15 @@ import {
   Typography,
 } from "@mui/material";
 
-const MyCart = ({ setCartProduct, cartProduct, addressToOrder, addressAvailable }) => {
+const MyCart = ({
+  setProductCart,
+  productCart,
+  addressToOrder,
+  addressAvailable,
+}) => {
   const [expanded, setExpanded] = useState(false);
-  const {fetchUserAddToCart} = useContext(Context)
+  const { fetchUserAddToCart, setCartProduct } = useContext(Context);
+
   const fetchCartData = useCallback(async () => {
     if (!addressAvailable) return;
     try {
@@ -22,10 +28,10 @@ const MyCart = ({ setCartProduct, cartProduct, addressToOrder, addressAvailable 
         credentials: "include",
       });
       const data = await response.json();
-      setCartProduct(data?.data || []);
-      setTimeout(()=>{
-        setExpanded(true)
-      },600)
+      setProductCart(data?.data || []);
+      setTimeout(() => {
+        setExpanded(true);
+      }, 600);
     } catch (error) {
       console.error("Error fetching cart data:", error);
     }
@@ -52,7 +58,7 @@ const MyCart = ({ setCartProduct, cartProduct, addressToOrder, addressAvailable 
   );
 
   const handleQuantityChange = (id, change) => {
-    setCartProduct((prevCart) =>
+    setProductCart((prevCart) =>
       prevCart.map((item) =>
         item._id === id
           ? { ...item, quantity: Math.max(1, item.quantity + change) }
@@ -63,7 +69,7 @@ const MyCart = ({ setCartProduct, cartProduct, addressToOrder, addressAvailable 
       id,
       Math.max(
         1,
-        cartProduct.find((item) => item._id === id)?.quantity + change
+        productCart.find((item) => item._id === id)?.quantity + change
       )
     );
   };
@@ -85,7 +91,8 @@ const MyCart = ({ setCartProduct, cartProduct, addressToOrder, addressAvailable 
           position: "top-right",
         });
         fetchCartData();
-        fetchUserAddToCart()
+        fetchUserAddToCart();
+        setCartProduct((prevCart) => prevCart.filter((item) => item._id !== id));
       } else {
         toast.error("Failed to remove product!", { position: "top-right" });
       }
@@ -101,11 +108,71 @@ const MyCart = ({ setCartProduct, cartProduct, addressToOrder, addressAvailable 
     }
   };
 
+  const placeOrder = async () => {
+    try {
+      const savedUserId = localStorage.getItem("user");
+      const parsedUserId = JSON.parse(savedUserId);
+      if (!addressToOrder) {
+        toast.error("Please select an address before proceeding to checkout!");
+        return;
+      }
+      if (productCart.length === 0) {
+        toast.error("Your cart is empty!", { position: "top-right" });
+        return;
+      }
+      const orderData = {
+        userId: parsedUserId?._id,
+        cartItems: productCart?.map((item) => ({
+          productId: item.productId._id,
+          quantity: item.quantity,
+          price: item.productId.price,
+          sellingPrice: item.productId.sellingPrice,
+          category: item.productId.category,
+          productName: item.productId.productName,
+        })),
+        addressInfo: {
+          address: addressToOrder.address,
+          city: addressToOrder.city,
+          pincode: addressToOrder.pincode,
+          phone: addressToOrder.phone,
+          notes: addressToOrder.notes,
+          email: addressToOrder.email,
+        },
+        orderStatus: "Pending",
+        totalAmount: productCart.reduce(
+          (total, item) => total + item.quantity * item.productId.sellingPrice,
+          0
+        ),
+        orderDate: new Date().toISOString(),
+        orderUpdateDate: new Date().toISOString(),
+        paymentId: null,
+      };
+      const dataResponse = await fetch(SummaryApi.createOrder.url, {
+        method: SummaryApi.createOrder.method,
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(orderData),
+      });
+      const dataApi = await dataResponse.json();
+      if (dataResponse.ok && dataApi.success) {
+        toast.success(dataApi.message);
+        toast.success("Order placed successfully!", { position: "top-right" });
+        // fetchCartData();  // Uncomment if you want to refresh the cart after placing an order
+      } else {
+        toast.error(dataApi.message || "Failed to place the order!");
+      }
+    } catch (error) {
+      console.error("Error placing order:", error);
+      toast.error("An unexpected error occurred. Please try again later.");
+    }
+  };
+
   return (
     <div className="my-orders w-full">
-      <Accordion 
-        expanded={expanded} 
-        onChange={handleAccordionChange} 
+      <Accordion
+        expanded={expanded}
+        onChange={handleAccordionChange}
         disabled={!addressAvailable}
       >
         <AccordionSummary
@@ -131,31 +198,46 @@ const MyCart = ({ setCartProduct, cartProduct, addressToOrder, addressAvailable 
             >
               3
             </span>{" "}
-            Order Summary ({cartProduct.length})
+            Order Summary ({productCart.length})
           </Typography>
         </AccordionSummary>
         <AccordionDetails sx={{ width: "100%" }}>
-          {addressAvailable && cartProduct?.length > 0 ? (
-            cartProduct?.map((item, index) => (
-              <ItemCart
-                key={item._id}
-                id={item._id}
-                name={item.productId.productName}
-                image={item.productId.productImage[0]}
-                description={item.productId.description}
-                price={item.productId.price}
-                sellingPrice={item.productId.sellingPrice}
-                quantity={item.quantity}
-                onPlusButton={() => handleQuantityChange(item._id, 1)}
-                onMinusButton={() => handleQuantityChange(item._id, -1)}
-                onDeleteButton={() => deleteCartProduct(item._id)}
-                index={index}
-                cartLength={cartProduct?.length}
-              />
-            ))
+          {addressAvailable && productCart?.length > 0 ? (
+            <>
+              {productCart?.map((item, index) => (
+                <ItemCart
+                  key={item._id}
+                  id={item._id}
+                  name={item.productId.productName}
+                  image={item.productId.productImage[0]}
+                  description={item.productId.description}
+                  price={item.productId.price}
+                  sellingPrice={item.productId.sellingPrice}
+                  quantity={item.quantity}
+                  onPlusButton={() => handleQuantityChange(item._id, 1)}
+                  onMinusButton={() => handleQuantityChange(item._id, -1)}
+                  onDeleteButton={() => deleteCartProduct(item._id)}
+                  index={index}
+                  cartLength={productCart?.length}
+                />
+              ))}
+              <div className="flex justify-start mt-4">
+                <button
+                  className="bg-[#ff8d01] text-white py-2 px-4 font-semibold rounded-sm"
+                  onClick={placeOrder}
+                  disabled={productCart.length === 0}
+                >
+                  Place Your Order
+                </button>
+              </div>
+            </>
           ) : (
-            <Typography sx={{ textAlign: "center", color: "gray", py: 2, width: "100%" }}>
-              {addressAvailable ? "Your cart is empty." : "Please add an address to view your cart."}
+            <Typography
+              sx={{ textAlign: "center", color: "gray", py: 2, width: "100%" }}
+            >
+              {addressAvailable
+                ? "Your cart is empty."
+                : "Please add an address to view your cart."}
             </Typography>
           )}
         </AccordionDetails>
