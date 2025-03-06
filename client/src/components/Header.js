@@ -58,7 +58,7 @@ const Header = ({ onFAQClick }) => {
       localStorage.removeItem("authToken"); // Adjust based on your auth mechanism
       sessionStorage.clear();
       // window.location.reload();
-      localStorage.removeItem('cart');
+      localStorage.removeItem("cart");
       window.location.href = "/"; // Redirect to login page
     } catch (error) {
       console.error("Logout error:", error);
@@ -74,7 +74,7 @@ const Header = ({ onFAQClick }) => {
         </span>
       </div>
 
-      <div className="bg-white px-4 py-3 flex items-center justify-between w-[95%] mx-auto">
+      <div className="bg-white px-4 py-3 flex items-center justify-between w-[95%] mx-auto mb-[12px]">
         <Link to="/" className="flex-shrink-0">
           <img src={logos} alt="logo" className="h-14 w-auto" />
         </Link>
@@ -168,6 +168,19 @@ const Header = ({ onFAQClick }) => {
           />
         </div>
       </div>
+
+       {/* Navigation Links */}
+       <nav className="hidden md:flex justify-center md:justify-start px-4 bg-white py-2 w-[95%] mx-auto">
+        <ul className="flex space-x-6 text-gray-700">
+          <Link to="/">Home</Link>
+          {categories.map((cat) => (
+            <Link key={cat.slug} to={`/product-category?category=${cat.slug}`}>
+              {cat.name}
+            </Link>
+          ))}
+          <Link to="/contact">Contact Us</Link>
+        </ul>
+      </nav>
 
       <AnimatePresence>
         {isMobileMenuOpen && (
