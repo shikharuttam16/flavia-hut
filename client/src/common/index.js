@@ -102,7 +102,7 @@ const SummaryApi = {
         url : `${backendDomin}/api/add`,
         method : 'post'
     },
-    fetchAddress : {
+    fetchAllAddress : {
         url : `${backendDomin}/api/get/:userId`,
         method : 'get'
     },
