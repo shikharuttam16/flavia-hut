@@ -23,7 +23,7 @@ const userId = user?._id;
     const fetchAddress = async () => {
       try {
         const response = await fetch(`${SummaryApi.fetchAllAddress.url}/${userId}`, {
-          method: SummaryApi.fetchAddress.method
+          method: SummaryApi.fetchAllAddress.method
         });
         if (!response.ok) throw new Error("Failed to fetch addresses");
 
