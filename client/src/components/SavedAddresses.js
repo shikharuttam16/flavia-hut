@@ -25,6 +25,7 @@ const SavedAddresses = ({ setAddressToOrder, addressAvailable }) => {
   const [open, setOpen] = useState(false);
   const [selectedAddressData, setSelectedAddressData] = useState(null);
   const [addressChanged, setAddressChanged] = useState(false);
+  const [addressKey, setAddressKey] = useState(0);
 
   const user = useSelector((state) => state.user);
 
@@ -56,7 +57,7 @@ const SavedAddresses = ({ setAddressToOrder, addressAvailable }) => {
   };
 
   useEffect(() => {
-    if (addressAvailable) {
+    if (addressAvailable || addressChanged) {
       fetchAddresses();
       setExpanded(true);
     }
@@ -76,6 +77,7 @@ const SavedAddresses = ({ setAddressToOrder, addressAvailable }) => {
       (address) => address._id === addressId
     );
     setSelectedAddressData(addressToEdit);
+    setAddressKey((prevKey) => prevKey + 1);
     setOpen(true);
   };
 
@@ -173,15 +175,20 @@ const SavedAddresses = ({ setAddressToOrder, addressAvailable }) => {
           </AccordionDetails>
         </Accordion>
       </div>
+      <div className="mt-4">
+        {addressAvailable && (
+          <AddAddressForm setAddressChanged={setAddressChanged} />
+        )}
+      </div>
       <div>
         <EditAddressModal
+          key={addressKey}
           open={open}
           setOpen={setOpen}
           selectedAddressData={selectedAddressData}
           setAddressChanged={setAddressChanged}
         />
       </div>
-      {addressAvailable && <AddAddressForm />}
     </>
   );
 };

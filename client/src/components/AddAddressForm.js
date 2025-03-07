@@ -52,7 +52,7 @@ const AddAddressForm = ({ setAddressChanged }) => {
     state: "",
     landmark: "",
     alternatePhone: "",
-    deliveryType: "home",
+    // deliveryType: "home",
   });
   const [errors, setErrors] = useState({});
   const savedUserId = localStorage.getItem("user");
@@ -115,12 +115,12 @@ const AddAddressForm = ({ setAddressChanged }) => {
     }
   };
 
-  const handleRadioChange = (e) => {
-    setFormData((prev) => ({
-      ...prev,
-      deliveryType: e.target.value,
-    }));
-  };
+  // const handleRadioChange = (e) => {
+  //   setFormData((prev) => ({
+  //     ...prev,
+  //     deliveryType: e.target.value,
+  //   }));
+  // };
 
   const onCancelSave = () => {
     setFormData({
@@ -133,7 +133,7 @@ const AddAddressForm = ({ setAddressChanged }) => {
       state: "",
       landmark: "",
       alternatePhone: "",
-      deliveryType: "home",
+      // deliveryType: "home",
     });
     setErrors({});
     setShowAddressForm(false);
@@ -279,7 +279,7 @@ const AddAddressForm = ({ setAddressChanged }) => {
             />
           </div>
 
-          <div className="flex gap-4 mb-4">
+          {/* <div className="flex gap-4 mb-4">
             <label className="flex items-center gap-2">
               <input
                 type="radio"
@@ -300,7 +300,7 @@ const AddAddressForm = ({ setAddressChanged }) => {
               />
               <p className="font-bold">Work (Delivery between 10AM - 5PM)</p>
             </label>
-          </div>
+          </div> */}
 
           <div className="flex gap-x-2 mt-4">
             <button

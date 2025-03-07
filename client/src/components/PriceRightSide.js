@@ -16,9 +16,7 @@ const PriceRightSide = ({ productCart }) => {
   }, [productCart]);
 
   const totalSavings = totalOriginalPrice - totalSellingPrice;
-
-  const deliveryCharge = totalSellingPrice > 500 ? 0 : 59;
-
+  const deliveryCharge = totalSellingPrice > 500 || totalSellingPrice === 0 ? 0 : 59;
   const totalPayable = totalSellingPrice + deliveryCharge;
 
   return (
@@ -49,9 +47,11 @@ const PriceRightSide = ({ productCart }) => {
         <span>Rs. {totalPayable.toFixed(2)}</span>
       </div>
 
-      <p className="text-green-500 text-sm font-medium mt-4 text-center">
-        You're saving Rs. {totalSavings.toFixed(2)} on this order!
-      </p>
+      {totalSavings > 0 && (
+        <p className="text-green-500 text-sm font-medium mt-4 text-center">
+          You're saving Rs. {totalSavings.toFixed(2)} on this order!
+        </p>
+      )}
     </div>
   );
 };

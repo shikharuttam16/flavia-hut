@@ -57,7 +57,7 @@ const EditAddressModal = ({ open, setOpen, selectedAddressData, setAddressChange
     state: "",
     landmark: "",
     alternatePhone: "",
-    deliveryType: "home",
+    // deliveryType: "home",
   });
   const [errors, setErrors] = useState({});
 
@@ -88,12 +88,12 @@ const EditAddressModal = ({ open, setOpen, selectedAddressData, setAddressChange
     setErrors((prev) => ({ ...prev, [name]: "" }));
   };
 
-  const handleRadioChange = (e) => {
-    setFormData((prev) => ({
-      ...prev,
-      deliveryType: e.target.value,
-    }));
-  };
+  // const handleRadioChange = (e) => {
+  //   setFormData((prev) => ({
+  //     ...prev,
+  //     deliveryType: e.target.value,
+  //   }));
+  // };
 
   const validateForm = () => {
     let newErrors = {};
@@ -265,7 +265,7 @@ const EditAddressModal = ({ open, setOpen, selectedAddressData, setAddressChange
                 onChange={handleInputChange}
               />
             </div>
-            <div className="flex gap-4 mb-4">
+            {/* <div className="flex gap-4 mb-4">
               <label className="flex items-center gap-2">
                 <input
                   type="radio"
@@ -286,7 +286,7 @@ const EditAddressModal = ({ open, setOpen, selectedAddressData, setAddressChange
                 />
                 <p className="font-bold">Work (Delivery between 10AM - 5PM)</p>
               </label>
-            </div>
+            </div> */}
             <div className="flex gap-x-2 mt-4">
               <button
                 className="bg-orange-500 py-3 px-5 rounded-sm text-white font-bold"
