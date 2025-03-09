@@ -183,9 +183,9 @@ function App() {
             </>
           )}
 
-          <main className="flex-grow ">
+          <main className="flex-grow max-2xl:w-[1400px] m-auto">
             <ScrollTop />
-            <Outlet context={{ faqRef, id: "faqAccordion" }} />
+            <Outlet context={{ faqRef, id: "faqAccordion" }}/>
           </main>
 
           {!isOnAdminPanel && (
