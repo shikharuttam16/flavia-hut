@@ -183,7 +183,7 @@ function App() {
             </>
           )}
 
-          <main className="flex-grow max-2xl:w-[1400px]">
+          <main className="flex-grow">
             <ScrollTop />
             <Outlet context={{ faqRef, id: "faqAccordion" }}/>
           </main>
