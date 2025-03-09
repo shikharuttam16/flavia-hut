@@ -42,9 +42,6 @@ const Orders = () => {
           `${SummaryApi.orderListByUser.url}/${userId}`,
           { method: SummaryApi.orderListByUser.method }
         );
-        if (!response.ok) {
-          throw new Error("Failed to fetch orders");
-        }
         const result = await response.json();
         // console.log(result);
         setOrders(Array.isArray(result.data) ? result.data : []);
