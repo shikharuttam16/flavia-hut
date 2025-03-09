@@ -78,7 +78,7 @@ const ItemCart = ({
           {/* Price */}
           <div className="mt-5 flex gap-x-8 items-center max-sm:items-start max-sm:flex-col">
              <span className="text-xs text-white  bg-[#56CF01] rounded-md px-3 py-[3px]">Save<span>Rs.{price - sellingPrice}</span> </span>
-            <div className="flex items-center">
+            <div className="flex items-center gap-4">
               <div className="font-light">
                 <span className="line-through max-sm:text-sm font-extralight">Rs.{price}</span>
               </div>
