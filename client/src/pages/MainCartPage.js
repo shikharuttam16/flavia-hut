@@ -18,8 +18,8 @@ const MainCartPage = () => {
 
   return (
     <>
-      <div className="main-cart-page flex flex-col md:flex-row mx-2 space-y-2 my-6 lg:flex-col">
-        <div className="w-full md:w-4/5 mt-2">
+      <div className="main-cart-page flex flex-col md:flex-col mx-2 space-y-2 my-6 lg:flex-row gap-4">
+        <div className="w-full md:w-5/5 mt-2 lg:w-4/5">
           <div className="login pb-4">
             {user?.user == null ? (
               <LoginSignupCart setAddressAvailable={setAddressAvailable} />
@@ -44,7 +44,7 @@ const MainCartPage = () => {
         </div>
 
         {/* Side panel moves to bottom on mobile */}
-        <div className="w-full md:w-1/3">
+        <div className="w-full md:w-3/3 lg:w-1/3">
           <PriceRightSide productCart={productCart} />
         </div>
       </div>
