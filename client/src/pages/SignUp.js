@@ -22,7 +22,7 @@ const SignUp = () => {
   };
 
   return (
-    <div className="flex items-center px-4 py-4 bg-[#fff]">
+    <div className="flex items-center justify-center px-4 py-4 bg-[#fff]">
       <div className="bg-white p-6 rounded-lg shadow-md w-96">
         <h2 className="text-2xl font-bold text-center mb-4">Create my account</h2>
         <p className="text-center text-gray-600 mb-6">Fill in all the details below for account</p>
