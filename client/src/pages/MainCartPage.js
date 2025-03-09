@@ -18,7 +18,7 @@ const MainCartPage = () => {
 
   return (
     <>
-      <div className="main-cart-page flex flex-col md:flex-row mx-2 space-y-2 my-6">
+      <div className="main-cart-page flex flex-col md:flex-row mx-2 space-y-2 my-6 lg:flex-col">
         <div className="w-full md:w-4/5 mt-2">
           <div className="login pb-4">
             {user?.user == null ? (
