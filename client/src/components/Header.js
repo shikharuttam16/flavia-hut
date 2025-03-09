@@ -11,7 +11,7 @@ import { FiAlignJustify, FiShoppingBag } from "react-icons/fi";
 import { FaSearch } from "react-icons/fa";
 import { FaChevronDown, FaCrown } from "react-icons/fa";
 import { FaSignInAlt, FaUserPlus } from "react-icons/fa";
-import { FaUser } from "react-icons/fa";
+import { FaRegUser } from "react-icons/fa";
 
 const Header = ({ onFAQClick }) => {
   const user = useSelector((state) => state?.user?.user);
@@ -107,7 +107,8 @@ const Header = ({ onFAQClick }) => {
                 >
                   <span className="block max-md:hidden">My account
                   <FaChevronDown className="ml-1 text-gray-700" /></span>
-                  <span className="hidden max-md:block"><FaUser size={24} color="black" /></span>
+                  <span className="hidden max-md:block"><FaRegUser size={24} color="black" />
+                  </span>
                 </button>
               </div>
 
