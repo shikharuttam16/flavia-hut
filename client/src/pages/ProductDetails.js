@@ -334,7 +334,7 @@ const ProductDetails = () => {
             ) : (
               <button
                 onClick={() => navigate("/my-cart")}
-                className="w-[100%] cursor-pointer bg-[#FFB255] text-white px-4 py-2 rounded-[6px] font-barlow font-semibold text-[16px] leading-[26px] tracking-[0%] text-center mt-4"
+                className="w-[70%] cursor-pointer bg-[#FFB255] text-white px-4 py-2 rounded-[6px] font-barlow font-semibold text-[16px] leading-[26px] tracking-[0%] text-center mt-4"
               >
                 {"Go to cart"}
               </button>
