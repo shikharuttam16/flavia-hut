@@ -40,7 +40,7 @@ const ItemCart = ({
           </div>
 
           {/* Counter Section */}
-          <div className="flex items-center gap-x-4 mt-3 self-start">
+          <div className="flex items-center gap-x-4 mt-3 self-start max-sm:gap-x-2">
             <button
               className="w-8 h-8 flex items-center justify-center text-lg font-bold block "
               onClick={onMinusButton}
@@ -80,13 +80,13 @@ const ItemCart = ({
              <span className="text-xs text-white  bg-[#56CF01] rounded-md px-3 py-[3px]">Save<span>Rs.{price - sellingPrice}</span> </span>
             <div className="flex items-center gap-4">
               <div className="font-light">
-                <span className="line-through max-sm:text-sm font-extralight">Rs.{price}</span>
+                <span className="line-through max-sm:text-sm font-extralight whitespace-nowrap">Rs.{price}</span>
               </div>
               <div className="flex items-center gap-x-2 max-sm:ml-[12px]">
-                <span className="text-2xl text-[#56CF01] font-semibold max-sm:text-sm">
+                <span className="text-2xl text-[#56CF01] font-semibold max-sm:text-sm whitespace-nowrap">
                   Rs. {sellingPrice}
                 </span>
-                <p className="text-sm font-light max-sm:text-[.5rem]">(incl. of all taxes)</p>
+                <p className="text-sm font-light max-sm:text-[.5rem] whitespace-nowrap">(incl. of all taxes)</p>
               </div>
             </div>
           </div>
