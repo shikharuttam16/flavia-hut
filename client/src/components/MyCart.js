@@ -37,6 +37,7 @@ const MyCart = ({
     }
   }, [addressAvailable]);
 
+  
   useEffect(() => {
     fetchCartData();
   }, [fetchCartData]);
