@@ -105,7 +105,7 @@ const Header = ({ onFAQClick }) => {
                   className="flex items-center text-lg font-bold text-gray-900"
                   onClick={() => setIsOpen(!isOpen)}
                 >
-                  <span className="block max-md:hidden">My account
+                  <span className="max-md:hidden flex items-center justify-center">My account
                   <FaChevronDown className="ml-1 text-gray-700" /></span>
                   <span className="hidden max-md:block"><FaRegUser size={24} color="black" />
                   </span>
