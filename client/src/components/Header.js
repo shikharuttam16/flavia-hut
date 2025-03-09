@@ -100,7 +100,7 @@ const Header = ({ onFAQClick }) => {
           {user?._id ? (
             <div className="relative">
               <div className="flex flex-col">
-                <span className="text-gray-500 text-sm">{user.name}</span>
+                <span className="text-gray-500 text-sm block max-md:hidden">{user.name}</span>
                 <button
                   className="flex items-center text-lg font-bold text-gray-900"
                   onClick={() => setIsOpen(!isOpen)}
