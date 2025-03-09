@@ -44,7 +44,7 @@ const MainCartPage = () => {
         </div>
 
         {/* Side panel moves to bottom on mobile */}
-        <div className="m-2 w-full md:w-1/3">
+        <div className="w-full md:w-1/3">
           <PriceRightSide productCart={productCart} />
         </div>
       </div>
