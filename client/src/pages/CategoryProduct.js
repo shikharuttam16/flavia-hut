@@ -4,6 +4,7 @@ import VerticalCard from "../components/VerticalCard";
 import SummaryApi from "../common";
 import ReactSlider from "react-slider";
 import Context from "../context";
+import HorizontalCardProduct from "../components/HorizontalCardProduct";
 import "./Slider.css";
 
 const CategoryProduct = () => {
@@ -16,7 +17,6 @@ const CategoryProduct = () => {
   const urlSearch = new URLSearchParams(location.search);
   const category = urlSearch.get("category");
   const { fetchCartData } = useContext(Context);
-
 
   const fetchData = async () => {
     if (!category) return;
@@ -34,8 +34,8 @@ const CategoryProduct = () => {
       });
       const dataResponse = await response.json();
       setData(dataResponse?.data || []);
-      let cartItems = JSON.parse(localStorage.getItem("cart"))
-      setLocalItems(cartItems)
+      let cartItems = JSON.parse(localStorage.getItem("cart"));
+      setLocalItems(cartItems);
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
@@ -54,56 +54,72 @@ const CategoryProduct = () => {
   }, [category, priceRange, sort, fetchCartData]);
 
   return (
-    <div className="w-[95%] mx-auto p-4">
-      {/* Sorting */}
-      <div className="flex items-center justify-end space-x-2">
-        <span className="text-gray-700">Sort by:</span>
-        <select
-          className="px-3 py-1 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          value={sort}
-          onChange={(e) => setSort(e.target.value)}
-        >
-          <option value="latest">Latest</option>
-          <option value="price_high">Price - High to Low</option>
-          <option value="price_low">Price - Low to High</option>
-        </select>
-      </div>
+    <div>
+      <div className="w-[95%] mx-auto p-4">
+        {/* Sorting */}
+        <div className="flex items-center justify-end space-x-2">
+          <span className="text-gray-700">Sort by:</span>
+          <select
+            className="px-3 py-1 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={sort}
+            onChange={(e) => setSort(e.target.value)}
+          >
+            <option value="latest">Latest</option>
+            <option value="price_high">Price - High to Low</option>
+            <option value="price_low">Price - Low to High</option>
+          </select>
+        </div>
 
-      <div className="lg:grid grid-cols-[250px,1fr] mt-4">
-        {/* Filters */}
-        <div className="bg-white p-2 lg:block hidden lg:relative lg:w-full lg:min-h-full">
-          <h2>Filters</h2>
-          {/* Price Filter */}
-          <div className="mt-[18px]">
-            <div className="flex-col">
-              <div className="text-sm font-semibold">Price</div>
-              <ReactSlider
-                className="horizontal-slider"
-                thumbClassName="example-thumb"
-                trackClassName="example-track"
-                step={50}
-                min={0}
-                max={500}
-                value={priceRange}
-                onChange={(value) => setPriceRange(value)}
-                renderThumb={(props, state) => (
-                  <div {...props}>{state.valueNow}</div>
-                )}
-              />
-              <div className="text-xs mt-2">
-                ₹{priceRange[0]} - ₹{priceRange[1]}
+        <div className="lg:grid grid-cols-[250px,1fr] mt-4">
+          {/* Filters */}
+          <div className="bg-white p-2 lg:block hidden lg:relative lg:w-full lg:min-h-full">
+            <h2>Filters</h2>
+            {/* Price Filter */}
+            <div className="mt-[18px]">
+              <div className="flex-col">
+                <div className="text-sm font-semibold">Price</div>
+                <ReactSlider
+                  className="horizontal-slider"
+                  thumbClassName="example-thumb"
+                  trackClassName="example-track"
+                  step={50}
+                  min={0}
+                  max={500}
+                  value={priceRange}
+                  onChange={(value) => setPriceRange(value)}
+                  renderThumb={(props, state) => (
+                    <div {...props}></div>
+                  )}
+                />
+                <div className="text-xs mt-2">
+                  ₹{priceRange[0]} - ₹{priceRange[1]}
+                </div>
               </div>
             </div>
           </div>
+          {/* Product Cards */}
+          <div className="sm:px-4 sm:flex sm:flex-col items-center">
+            {loading ? (
+              <p>Loading...</p>
+            ) : (
+              <VerticalCard
+                data={data}
+                loading={loading}
+                localItems={localItems}
+              />
+            )}
+          </div>
         </div>
-        {/* Product Cards */}
-        <div className="sm:px-4 sm:flex sm:flex-col items-center">
-          {loading ? (
-            <p>Loading...</p>
-          ) : (
-            <VerticalCard data={data} loading={loading} localItems={localItems}  />
-          )}
+      </div>
+      <div>
+      {/* {data.category && (
+        <div>
+          <HorizontalCardProduct
+            category={data?.category}
+            heading1={"You may also like"}
+          />
         </div>
+      )} */}
       </div>
     </div>
   );

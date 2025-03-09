@@ -71,7 +71,7 @@ const ProductCard = ({
   );
 
   return (
-    <div className="w-full min-w-[248px] max-w-[248px] h-[410px] md:h-[410px] bg-white rounded-md shadow-lg overflow-hidden relative  transition-transform rounded md:hover:border md:hover:border-[#CDD1D6] border border-[#CDD1D6]">
+    <div className="w-full min-w-[248px] max-w-[248px] h-[410px] md:h-[410px] bg-white rounded-md overflow-hidden relative  transition-transform rounded md:hover:border md:hover:border-[#CDD1D6] border border-[#CDD1D6]">
       <Link to={"/product/" + product?._id}>
         {/* Discount Label */}
         {/* Discount Savings */}
@@ -142,7 +142,7 @@ const ProductCard = ({
       </Link>
 
       {/* Heart Icon for Wishlist */}
-      <div
+      {/* <div
         className="absolute right-2 top-10 rounded-full bg-white p-1 cursor-pointer"
         onClick={toggleWishlist}
       >
@@ -157,7 +157,7 @@ const ProductCard = ({
             onClick={(e) => wishlistHandler(e, product?._id)}
           /> // Empty heart icon
         )}
-      </div>
+      </div> */}
     </div>
   );
 };

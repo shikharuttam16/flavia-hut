@@ -173,7 +173,7 @@ const Header = ({ onFAQClick }) => {
       </div>
 
        {/* Navigation Links */}
-       <nav className="hidden md:flex justify-center md:justify-start px-4 bg-white py-2 w-[95%] mx-auto">
+       <nav className="hidden md:flex justify-center md:justify-start  bg-white py-2 w-[95%] mx-auto max-w-[1400px]">
         <ul className="flex space-x-6 text-gray-700">
           <Link to="/">Home's</Link>
           {categories.map((cat) => (

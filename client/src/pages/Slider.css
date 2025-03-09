@@ -6,8 +6,8 @@
   }
   
   .example-thumb {
-    height: 20px;
-    width: 20px;
+    height:13px;
+    width: 13px;
     background: #ffb256;
     border-radius: 50%;
     cursor: grab;

@@ -2,8 +2,11 @@ import React from "react";
 import { Card, Typography, Button, Box } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import SummaryApi from "../common";
+import { useDispatch } from "react-redux";
+import { setUserDetails } from "../store/userSlice";
 
 function LoggedInUserCard({ user }) {
+  const dispatch = useDispatch()
   const handleLogout = async () => {
     try {
       const response = await fetch(SummaryApi.logout_user.url, {
@@ -95,6 +98,7 @@ function LoggedInUserCard({ user }) {
             }}
             onClick={()=>{
               handleLogout()
+              dispatch(setUserDetails(null));
             }}
           >
             Logout

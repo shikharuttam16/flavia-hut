@@ -25,7 +25,7 @@ const Footer = () => {
   }, []);
   return (
     <div className="bg-[#F2F2F2] py-10 px-6">
-      <div className="container mx-auto text-gray-700 text-sm w-[95%]">
+      <div className="container mx-auto text-gray-700 text-sm max-w-[1400px]">
         {/* Discount Message */}
         <div className="mb-10 flex flex-col gap-x-20 lg:flex-row lg:w-full">
           <div className="w-[70%] lg:w-full sm:w-full xs:w-full w-full">

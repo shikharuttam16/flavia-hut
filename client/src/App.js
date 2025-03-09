@@ -20,7 +20,7 @@ function App() {
   const [cartProductCount, setCartProductCount] = useState(0);
   const [cartProduct, setCartProduct] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState("");
-  const [localProductCount,setLocalProductCount] = useState(0)
+  const [localProductCount, setLocalProductCount] = useState(0);
   const faqRef = useRef(null); // Define faqRef here
   const [wishlist, setWishlist] = useState([]);
   const fetchUserDetails = async () => {
@@ -79,56 +79,51 @@ function App() {
     let cart = localStorage.getItem("cart"); // Get cart from localStorage
     // console.log("In store local items",cart);
     // console.log("This is user ",user);
-    
-    
+
     if (cart) {
-        cart = JSON.parse(cart); // Parse the JSON string to an object/array
-        // console.log("Local Cart Items:", cart);
+      cart = JSON.parse(cart); // Parse the JSON string to an object/array
+      // console.log("Local Cart Items:", cart);
 
-        if (cart.length === 0) return; // If cart is empty, do nothing
-        
-        if (!user || !user._id) {
-            console.error("User not found in localStorage.");
-            return;
-        }
-        // console.log("Local storare user id",user);
-        
-        const requestBody = {
-            productIds: cart.map(item => item), // Extract product IDs from cart
-            userId: user._id, // User ID from localStorage
-            quantity: 1, // Always 1 as per requirement
-        };
+      if (cart.length === 0) return; // If cart is empty, do nothing
 
-        console.log("Requested body",requestBody);
-        
+      if (!user || !user._id) {
+        console.error("User not found in localStorage.");
+        return;
+      }
+      // console.log("Local storare user id",user);
 
-        try {
-            const response = await fetch(SummaryApi.addToCartFromLocal.url, {
-                method: SummaryApi.addToCartFromLocal.method,
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                credentials:'include',
-                body: JSON.stringify(requestBody),
-            });
+      const requestBody = {
+        productIds: cart.map((item) => item), // Extract product IDs from cart
+        userId: user._id, // User ID from localStorage
+        quantity: 1, // Always 1 as per requirement
+      };
 
-            const data = await response.json();
-            localStorage.removeItem('cart');
-            console.log("API Response:", data);
-        } catch (error) {
-            console.error("Error adding local cart items:", error);
-        }
+      console.log("Requested body", requestBody);
+
+      try {
+        const response = await fetch(SummaryApi.addToCartFromLocal.url, {
+          method: SummaryApi.addToCartFromLocal.method,
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify(requestBody),
+        });
+
+        const data = await response.json();
+        localStorage.removeItem("cart");
+        console.log("API Response:", data);
+      } catch (error) {
+        console.error("Error adding local cart items:", error);
+      }
     }
   };
 
-  useEffect(()=>{
-
-    storeLocalItems();
-  },[user])
-
- 
   useEffect(() => {
-   
+    storeLocalItems();
+  }, [user]);
+
+  useEffect(() => {
     /**user Details */
     fetchUserDetails();
     /**user Details cart product */
@@ -136,7 +131,6 @@ function App() {
     fetchCartData();
     fetchWishListData();
     getCartItemCountLocal();
-    
   }, []);
 
   const scrollToFAQ = () => {
@@ -182,11 +176,12 @@ function App() {
               />
             </>
           )}
-
-          <main className="flex-grow">
-            <ScrollTop />
-            <Outlet context={{ faqRef, id: "faqAccordion" }}/>
-          </main>
+          <div className="flex-grow flex justify-center bg-[#FAFAFA]">
+            <main className="flex-grow w-full max-w-[1400px] bg-[#fff]">
+              <ScrollTop />
+                <Outlet context={{ faqRef, id: "faqAccordion" }} />
+            </main>
+          </div>
 
           {!isOnAdminPanel && (
             <>

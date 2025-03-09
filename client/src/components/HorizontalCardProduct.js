@@ -70,20 +70,17 @@ const HorizontalCardProduct = ({ category, heading1, heading2 }) => {
   }, [category,cartProductCount]);
 
   return (
-    <div className="w-full mx-auto px-4 my-6 relative">
+    <div className="w-full mx-auto px-4 mt-6 relative">
       <div className="flex justify-between items-center">
-        <h2 className="text-xl sm:text-2xl md:text-3xl font-normal">
-          <span className="text-black">{heading1}</span>
-          <span className="text-[#AA0000]">{heading2}</span>
-        </h2>
+        <h3 className="text-xl sm:text-2xl md:text-[22px] font-normal">
+          <span className="text-black">{heading1} </span>
+        </h3>
         <h2 className="font-semibold py-4">
           <Link to={`/product-category?category=${category}`} className="cursor-pointer capitalize">
             View All Cards
           </Link>
         </h2>
       </div>
-
-      <hr />
 
       {/* Navigation buttons with unique refs */}
       <div className="flex space-x-3 w-36">
@@ -116,7 +113,7 @@ const HorizontalCardProduct = ({ category, heading1, heading2 }) => {
       >
         {data.length && data.map((product) => (
               <SwiperSlide key={product?._id} className="!flex justify-center">
-                <div className="mx-auto my-5">
+                <div className="mx-auto ml-[1px] ml-5">
                   <ProductCard
                     product={product}
                     handleAddToCart={handleAddToCart}

@@ -5,11 +5,12 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 
-import image1 from '../assest/images/banner.png';
-import image2 from '../assest/images/Product Image.png';
-import image3 from '../assest/banner/img3.jpg';
-import image4 from '../assest/banner/img4.jpg';
-import image5 from '../assest/banner/img5.webp';
+import image1 from '../assest/banner/newProductBanner.jpg';
+import image2 from '../assest/banner/offerOne.jpg';
+import image3 from '../assest/banner/offerThree.jpg';
+
+
+
 
 import image1Mobile from '../assest/banner/img1_mobile.jpg';
 import image2Mobile from '../assest/banner/img2_mobile.webp';
@@ -17,7 +18,7 @@ import image3Mobile from '../assest/banner/img3_mobile.jpg';
 import image4Mobile from '../assest/banner/img4_mobile.jpg';
 import image5Mobile from '../assest/banner/img5_mobile.png';
 
-const desktopImages = [image1, image2, image3, image4, image5];
+const desktopImages = [image1, image2, image3];
 const mobileImages = [image1Mobile, image2Mobile, image3Mobile, image4Mobile, image5Mobile];
 
 const BannerProduct = () => {

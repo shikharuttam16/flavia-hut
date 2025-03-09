@@ -19,6 +19,8 @@ const Home = () => {
       }),
     });
     const jsonData = await data.json();
+    console.log("Category json data",jsonData);
+    
     setCategories(jsonData);
     // console.log("Json Data", jsonData);
   }
@@ -41,8 +43,7 @@ const Home = () => {
           <HorizontalCardProduct
           key={data.slug || index}
             category={data.slug}
-            heading1={data.name.split(" ")[0]}
-            heading2={data.name.split(" ")[1]}
+            heading1={data.name}
           />
         ))}
       </div>
