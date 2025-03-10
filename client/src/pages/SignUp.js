@@ -1,46 +1,50 @@
 import React, { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import SummaryApi from "../common";
+import { toast } from "react-toastify";
 
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [data, setData] = useState({
-    firstName: "",
-    lastName: "",
+    name: "",
     email: "",
-    password: "",
+    password: ""
   });
+  const navigate = useNavigate();
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
     setData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log("User Data:", data);
+    const response = await fetch(SummaryApi.signUP.url, {
+      method: SummaryApi.signUP.method,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+    const result = await response.json();
+    if (result.success) {
+      toast.success(result.message);
+      navigate("/login");
+    } else {
+      toast.error(result.message);
+    }
   };
 
   return (
     <div className="flex items-center justify-center px-4 py-4 bg-[#fff]">
       <div className="bg-white p-6 rounded-lg shadow-md w-96">
         <h2 className="text-2xl font-bold text-center mb-4">Create my account</h2>
-        <p className="text-center text-gray-600 mb-6">Fill in all the details below for account</p>
+        <p className="text-center text-gray-600 mb-6">Fill in all the details below for an account</p>
         <form onSubmit={handleSubmit} className="flex flex-col gap-3">
           <input
             type="text"
-            name="firstName"
-            placeholder="First Name"
-            value={data.firstName}
-            onChange={handleOnChange}
-            required
-            className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-gray-500"
-          />
-          <input
-            type="text"
-            name="lastName"
-            placeholder="Last Name"
-            value={data.lastName}
+            name="name"
+            placeholder="Name"
+            value={data.name}
             onChange={handleOnChange}
             required
             className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-gray-500"
@@ -73,10 +77,6 @@ const SignUp = () => {
             </button>
           </div>
           <button className="w-full bg-gray-800 text-white py-2 rounded-lg hover:bg-gray-900 transition duration-300">Register</button>
-          {/* <div className="text-center text-gray-500 my-2">Or</div>
-          <button className="w-full border border-gray-300 py-2 rounded-lg flex justify-center items-center gap-2 hover:bg-gray-200 transition">
-            <img src="https://www.google.com/favicon.ico" alt="Google" className="w-5 h-5" /> Continue with Google
-          </button> */}
           <p className="text-center text-gray-600 mt-4">
             Already have an account? <Link to="/login" className="text-blue-600 hover:underline">Login</Link>
           </p>

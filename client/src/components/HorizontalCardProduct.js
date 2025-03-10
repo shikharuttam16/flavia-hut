@@ -14,7 +14,7 @@ import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 
-const HorizontalCardProduct = ({ category, heading1, heading2 }) => {
+const HorizontalCardProduct = ({ category, heading1, heading2, fromDetail }) => {
   const { fetchUserAddToCart, fetchCartData, fetchWishListData, cartProductCount } = useContext(Context);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -99,7 +99,9 @@ const HorizontalCardProduct = ({ category, heading1, heading2 }) => {
           640: { slidesPerView: 1, spaceBetween: 20 },
           768: { slidesPerView: 2, spaceBetween: 20 },
           1024: { slidesPerView: 3, spaceBetween: 20 },
-          1200: { slidesPerView: 5, spaceBetween: 20 },
+          1280: { slidesPerView: 4, spaceBetween: 10 },
+          1400: { slidesPerView: 5, spaceBetween: 10 },
+
         }}
         navigation={{
           prevEl: prevRef.current,
@@ -109,11 +111,12 @@ const HorizontalCardProduct = ({ category, heading1, heading2 }) => {
           swiper.params.navigation.prevEl = prevRef.current;
           swiper.params.navigation.nextEl = nextRef.current;
         }}
-        className="my-4 lg:justify-center"
+        // className="my-4 lg:justify-center  "
+        className={`my-4 lg:justify-center `}
       >
         {data.length && data.map((product) => (
-              <SwiperSlide key={product?._id} className="!flex justify-center">
-                <div className="mx-auto ml-[1px] ml-5">
+              <SwiperSlide key={product?._id} className={`!flex justify-center ${fromDetail ? "ml-[1px]" : ""}`}>
+                <div className="mx-auto ">
                   <ProductCard
                     product={product}
                     handleAddToCart={handleAddToCart}

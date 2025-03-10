@@ -19,11 +19,21 @@
   display: none;
 }
 
+@media screen and  (max-width: 576px) {
+.category-card-parent{
+  grid-template-columns: 1fr !important;
+  margin: 0 auto;
+}
+.category-card-parent > div{
+  margin: 0 auto;
+}
+}
+
 @media (min-width: 320px) and (max-width: 768px) {
-  .vertical > div {
+  /* .vertical > div {
     min-width: 170px;
     max-width: 170px;
-  }
+  } */
 
   .vertical-product-card {
     height: 180px;

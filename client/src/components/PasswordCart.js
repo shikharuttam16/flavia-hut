@@ -13,7 +13,7 @@ function PasswordCart({userMeta, password,setPassword,handleLogin, handlePasswor
   return (
     <div className="w-[40%]">
     <AccordionDetails>
-      <h2 className="text-xl font-semibold mb-1">Welcome {userMeta.name}</h2>
+      {/* <h2 className="text-xl font-semibold mb-1">Welcome {userMeta.name}</h2> */}
       <TextField
         fullWidth
         label="Enter Password"
@@ -23,6 +23,11 @@ function PasswordCart({userMeta, password,setPassword,handleLogin, handlePasswor
         value={password}
         onChange={handlePasswordChange}
         size="small" // Reduces the height
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            handleLogin(e); // Replace this with your submit function
+          }
+        }}
       />
       <Button
         fullWidth

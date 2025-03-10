@@ -29,6 +29,8 @@ const Orders = () => {
         return "text-green-500 border-green-500";
       case "Canceled":
         return "text-red-500 border-red-500";
+      case "confirmed":
+        return "text-green-500 border-green-500";
       default:
         return "text-gray-500 border-gray-500";
     }

@@ -12,7 +12,7 @@ const Checkout = (id) => {
   const userId =params.id
 
   const [data, setData] = useState([]);
-   const [deliveryCharge, setDeliveryCharge] = useState(0);
+  const [deliveryCharge, setDeliveryCharge] = useState(0);
   const [selectedAddress, setSelectedAddress] = useState(null);
   const navigate = useNavigate();
 

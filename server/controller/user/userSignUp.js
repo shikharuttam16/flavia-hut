@@ -8,8 +8,6 @@ async function userSignUpController(req,res){
 
         const user = await userModel.findOne({email})
 
-      
-
         if(user){
             throw new Error("Already user exits.")
         }

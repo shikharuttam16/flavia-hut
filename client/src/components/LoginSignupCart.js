@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import { toast } from "react-toastify";
 import {
   TextField,
   Button,
@@ -17,16 +18,21 @@ import PasswordCart from "./PasswordCart";
 import Context from "../context";
 import { useDispatch } from "react-redux";
 import { setUserDetails } from "../store/userSlice";
+import RegistrationCart from "./RegistrationCart";
+import { useNavigate } from "react-router-dom";
 
 const LoginSignupCart = ({setAddressAvailable}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword ] = useState("");
+  const [name, setName] = useState("");
   const [emailfound, setEmailFound] = useState(false);
+  const [requiredRegistration,setRequiredRegistration] = useState(false)
   const [userMeta, setUserMeta] = useState({})
   const dispatch = useDispatch();
+  const navigate = useNavigate()
 
   const { fetchUserDetails, fetchUserAddToCart,fetchCartData } = useContext(Context);
-  const [expanded, setExpanded] = useState(false);
+  const [expanded, setExpanded] = useState(true);
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
@@ -93,20 +99,40 @@ const LoginSignupCart = ({setAddressAvailable}) => {
           email:email
         })
         setEmailFound(true)
+        // toast.success(`Welcome ${data.name}`);
 
         // console.log("Login successful:", data);
         // Store token in localStorage or state if needed
         // localStorage.setItem("token", data.data);
         // alert("Login Successful!");
       } else {
-        console.error("Login failed:", data.message);
-        alert(data.message); // Show error message to user
+        // console.error("Login failed:", data.message);
+        setRequiredRegistration(true)
+        // toast.error("Email not found!");
       }
     } catch (error) {
       console.error("Error:", error);
       alert("Something went wrong. Please try again.");
     }
   };
+
+  const handleRegistration = async (e) => {
+    e.preventDefault();
+    const response = await fetch(SummaryApi.signUP.url, {
+      method: SummaryApi.signUP.method,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name,email,password
+      }),
+    });
+    const result = await response.json();
+    if (result.success) {
+      toast.success("Registration completed! Please Login to continue");
+      setRequiredRegistration(false)
+    } else {
+      toast.error(result.message);
+    }
+  }
   
 
   const handleGoogleLogin = () => {
@@ -148,7 +174,17 @@ const LoginSignupCart = ({setAddressAvailable}) => {
         </AccordionSummary>
       { 
       !emailfound ?
-      <LoginCart handleContinue={handleContinue} email={email} setEmail={setEmail} handleEmailChange={handleEmailChange}  />
+      !requiredRegistration ?
+      <LoginCart handleContinue={handleContinue} email={email} setEmail={setEmail} handleEmailChange={handleEmailChange}  /> :
+      <RegistrationCart
+      email={email}
+      setEmail={setEmail}
+      password={password}
+      setPassword={setPassword}
+      name={name}
+      setName={setName}
+      handleRegistration={handleRegistration}
+      />
       :userMeta?.name && <PasswordCart  password={password} userMeta={userMeta} setPassword={setPassword} handleLogin={handleLogin} handlePasswordChange={handlePasswordChange} />
       }
       </Accordion>

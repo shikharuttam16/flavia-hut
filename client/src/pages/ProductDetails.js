@@ -333,13 +333,11 @@ const ProductDetails = () => {
         )}
       </div>
       {data.category && (
-        <div>
           <HorizontalCardProduct
             category={data?.category}
             heading1={"You may also like"}
-            heading2={""}
+            fromDetail = {true}
           />
-        </div>
       )}
     </div>
   );

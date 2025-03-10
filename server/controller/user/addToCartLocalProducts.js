@@ -21,8 +21,8 @@ const addToCartLocally = async (req, res) => {
         for (const productId of validProductIds) {
             const existingCartItem = await addToCartModel.findOne({ userId, productId });
             if (existingCartItem) {
-                existingCartItem.quantity += quantity || 1;
-                await existingCartItem.save();
+                // existingCartItem.quantity += quantity || 1;
+                // await existingCartItem.save();
             } else {
                 await addToCartModel.create({ userId, productId, quantity: quantity || 1 });
             }

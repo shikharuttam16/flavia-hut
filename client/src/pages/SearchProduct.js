@@ -7,14 +7,19 @@ const SearchProduct = () => {
     const query = useLocation()
     const [data,setData] = useState([])
     const [loading,setLoading] = useState(false)
+    const [localItems, setLocalItems] = useState([]);
 
     const fetchProduct = async()=>{
         setLoading(true)
         const response = await fetch(SummaryApi.searchProduct.url+query.search)
         const dataResponse = await response.json()
         setLoading(false)
-
+        let cartItems = JSON.parse(localStorage.getItem("cart"));
+        setLocalItems(cartItems);
         setData(dataResponse.data)
+        
+        
+        
     }
 
     useEffect(()=>{
@@ -29,7 +34,7 @@ const SearchProduct = () => {
         )
       }
  
-      <p className='text-lg font-semibold my-3'>Search Results : {data?.length}</p>
+      <p className='text-lg font-semibold my-3 mb-4 text-center'>Search Results : {data?.length}</p>
 
       {
         data?.length === 0 && !loading && (
@@ -38,9 +43,9 @@ const SearchProduct = () => {
       }
 
 
- <div className="px-4  flex flex-col items-center md:items-start ">
+ <div className="px-4  flex flex-col items-center ">
           {data.length !== 0 && !loading && (
-            <VerticalCard data={data} loading={loading} />
+            <VerticalCard data={data} loading={loading} localItems={localItems} />
           )}
         </div>
     </div>

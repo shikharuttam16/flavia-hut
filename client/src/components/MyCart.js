@@ -10,6 +10,8 @@ import {
   AccordionDetails,
   Typography,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const MyCart = ({
   setProductCart,
@@ -19,6 +21,18 @@ const MyCart = ({
 }) => {
   const [expanded, setExpanded] = useState(false);
   const { fetchUserAddToCart, setCartProduct } = useContext(Context);
+   const [deliveryCharge, setDeliveryCharge] = useState(0);
+  const [localCartLength, setLocalCartLength] = useState(0)
+  const user = useSelector((state) => state?.user?.user);
+  const navigate = useNavigate();
+
+  const fetchLocalData = ( ) =>{
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    if(cart.length >0){
+    // const cartCount = cart.length;
+    // setLocalCartLength(cartCount)
+    }
+  }
 
   const fetchCartData = useCallback(async () => {
     if (!addressAvailable) return;
@@ -41,6 +55,8 @@ const MyCart = ({
   useEffect(() => {
     fetchCartData();
   }, [fetchCartData]);
+
+
 
   const updateCartAPI = useCallback(
     debounce(async (id, newQty) => {
@@ -109,10 +125,97 @@ const MyCart = ({
     }
   };
 
-  const placeOrder = async () => {
+  const paymentHandler = async(e) => {
+
+    var amount = 100;
+    var paise = 0;
+    const currency = "INR";
+    const receiptId = "qwasq1";
+  
+  if(productCart&&productCart.length!==0){
+   paise = productCart.reduce(
+     (total, item) => total + item.quantity * item.productId.sellingPrice,
+     0
+   )
+   amount = (paise+deliveryCharge)*100;
+  }
+    const response = await fetch(SummaryApi.paymentOrder.url, {
+      method: "POST",
+      body: JSON.stringify({ amount, currency, receipt: receiptId }),
+      headers: { "Content-Type": "application/json" },
+    });
+    const order = await response.json();
+  
+   
+  
+    var options = {
+      key: "rzp_live_vIwnHnhaeU23Fj",
+      amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+      currency,
+      name: "Flavia Hut", //your business name
+      description: "Transaction",
+      image: "https://example.com/your_logo",
+      order_id: order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+      handler: async function (response) {
+        const body = {
+          ...response,
+        };
+  
+        const validateRes = await fetch(SummaryApi.paymentValidate.url, {
+          method: "POST",
+          body: JSON.stringify(body),
+          headers: { "content-type": "application/json" },
+        });
+        const jsonRes = await validateRes.json();
+        if (jsonRes.msg === "Success") {
+          placeOrder(e, jsonRes);
+        }
+      },
+      prefill: {
+        //We recommend using the prefill parameter to auto-fill customer's contact information, especially their phone number
+        name: "Gaurav Kumar", //your customer's name
+        email: addressToOrder.email,
+        contact: addressToOrder.phone, //Provide the customer's phone number for better conversion rates
+      },
+      notes: {
+        address: "Razorpay Corporate Office",
+      },
+      theme: {
+        color: "#3399cc",
+      },
+    };
+    var rzp1 = new window.Razorpay(options);
+    rzp1.on("payment.failed", function (response) {
+      alert(response.error.code);
+      alert(response.error.description);
+      alert(response.error.source);
+      alert(response.error.step);
+      alert(response.error.reason);
+      alert(response.error.metadata.order_id);
+      alert(response.error.metadata.payment_id);
+    });
+    rzp1.open();
+    e.preventDefault();
+  };
+  
+  const handleCombinedClick = (e) => {
+    if (productCart && productCart.length !== 0 && addressToOrder) {
+      paymentHandler(e);
+    }
+  };
+
+  const deleteAllProducts = async () => {
+    await fetch(SummaryApi.deleteCartProduct.url, {
+      method: SummaryApi.deleteCartProduct.method,
+      headers: { "content-type": "application/json" },
+      credentials: "include",
+    });
+  };
+
+  const placeOrder = async (e,jsonRes) => {
+    e.preventDefault();
     try {
-      const savedUserId = localStorage.getItem("user");
-      const parsedUserId = JSON.parse(savedUserId);
+      const parsedUserId =  user?._id;
       if (!addressToOrder) {
         toast.error("Please select an address before proceeding to checkout!");
         return;
@@ -122,7 +225,7 @@ const MyCart = ({
         return;
       }
       const orderData = {
-        userId: parsedUserId?._id,
+        userId: parsedUserId,
         cartItems: productCart?.map((item) => ({
           productId: item.productId._id,
           quantity: item.quantity,
@@ -146,7 +249,7 @@ const MyCart = ({
         ),
         orderDate: new Date().toISOString(),
         orderUpdateDate: new Date().toISOString(),
-        paymentId: null,
+        paymentId: jsonRes.paymentId,
       };
       const dataResponse = await fetch(SummaryApi.createOrder.url, {
         method: SummaryApi.createOrder.method,
@@ -158,8 +261,13 @@ const MyCart = ({
       const dataApi = await dataResponse.json();
       if (dataResponse.ok && dataApi.success) {
         toast.success(dataApi.message);
-        toast.success("Order placed successfully!", { position: "top-right" });
-        // fetchCartData();  // Uncomment if you want to refresh the cart after placing an order
+        toast.success("Order placed successfully! Redirecting to My Orders", { position: "top-right" });
+        await deleteAllProducts()
+        await fetchCartData();  // Uncomment if you want to refresh the cart after placing an order
+        fetchUserAddToCart();
+        setTimeout(()=>{
+          navigate('/my-account')
+        },1000)
       } else {
         toast.error(dataApi.message || "Failed to place the order!");
       }
@@ -199,7 +307,7 @@ const MyCart = ({
             >
               3
             </span>{" "}
-            Order Summary ({productCart.length})
+            Order Summary ({ productCart.length})
           </Typography>
         </AccordionSummary>
         <AccordionDetails sx={{ width: "100%" }}>
@@ -225,7 +333,7 @@ const MyCart = ({
               <div className="flex justify-start mt-4">
                 <button
                   className="bg-[#ff8d01] text-white py-2 px-4 font-semibold rounded-sm"
-                  onClick={placeOrder}
+                  onClick={handleCombinedClick}
                   disabled={productCart.length === 0}
                 >
                   Place Your Order

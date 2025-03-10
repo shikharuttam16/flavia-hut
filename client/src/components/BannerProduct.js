@@ -50,7 +50,7 @@ const BannerProduct = () => {
         >
           {desktopImages.map((imageUrl, index) => (
             <SwiperSlide key={index}>
-              <img src={imageUrl} className="w-full h-full object-cover" alt={`Slide ${index + 1}`} />
+              <img src={imageUrl} className="w-full h-full object-center" alt={`Slide ${index + 1}`} />
             </SwiperSlide>
           ))}
         </Swiper>

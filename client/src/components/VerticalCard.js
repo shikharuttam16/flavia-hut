@@ -5,21 +5,30 @@ import Context from '../context';
 import addToCart from '../helpers/addToCart';
 import { Link } from 'react-router-dom';
 import ProductCard from './ProductCard';
+import addToCartLocally from '../helpers/addToCartLocally';
+import { useSelector } from 'react-redux';
 
 const VerticalCard = ({ loading, data = [], localItems }) => {
   const loadingList = new Array(13).fill(null);
   const { fetchUserAddToCart,fetchCartData } = useContext(Context);
   const { getCartItemCountLocal } = useContext(Context);  
   const { cartProduct } = useContext(Context);
+  const user = useSelector((state) => state?.user?.user);
 
   const handleAddToCart = async (e, id) => {
-    await addToCart(e, id);
-    fetchUserAddToCart();
-    fetchCartData()
+    if(user == null){
+      const added =  await addToCartLocally(e, id);
+      return added
+    }else{ 
+      const result =  await addToCart(e, id);
+      await fetchUserAddToCart();
+      await fetchCartData();
+      return result
+    }
   };
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 vertical">
+    <div className="grid grid-cols-2 max-sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 vertical category-card-parent">
       {loading
         ? loadingList?.map((product, index) => {
             return (

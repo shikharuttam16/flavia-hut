@@ -75,7 +75,7 @@ const Header = ({ onFAQClick }) => {
         </span>
       </div>
 
-      <div className="bg-white px-4 py-3 flex items-center justify-between w-[95%] mx-auto mb-[12px]">
+      <div className="bg-white px-4 pt-3 flex items-center justify-between w-[95%] mx-auto mb-[6px]">
         <Link to="/" className="flex-shrink-0">
           <img src={logos} alt="logo" className="h-14 w-auto" />
         </Link>
@@ -86,6 +86,11 @@ const Header = ({ onFAQClick }) => {
             className="px-4 py-2 w-full outline-none bg-white"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                navigate(search ? `/search?q=${search}` : "/search");
+              }
+            }}
             placeholder="Search products..."
           />
           <button
@@ -196,7 +201,7 @@ const Header = ({ onFAQClick }) => {
           >
             <button
               onClick={() => setIsMobileMenuOpen(false)}
-              className="text-red-700 w-5 h-5 text-[40px]"
+              className="text-[#000]-700 w-5 h-5 text-[40px]"
             >
               &times;
             </button>

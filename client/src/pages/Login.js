@@ -30,9 +30,11 @@ const Login = () => {
     if (dataApi.success) {
       toast.success(dataApi.message);
       navigate("/admin-panel/all-products");
-      fetchUserDetails();
-      fetchUserAddToCart();
-      fetchCartData();
+
+      await fetchUserDetails();
+      await fetchUserAddToCart();
+      await fetchCartData()
+      window.location.reload();
     } else {
       toast.error(dataApi.message);
     }

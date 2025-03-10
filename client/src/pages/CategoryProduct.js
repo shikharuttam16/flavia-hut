@@ -20,7 +20,7 @@ const CategoryProduct = () => {
 
   const fetchData = async () => {
     if (!category) return;
-    setLoading(true);
+    // setLoading(true);
     try {
       const response = await fetch(SummaryApi.filterProduct.url, {
         method: SummaryApi.filterProduct.method,
@@ -72,27 +72,27 @@ const CategoryProduct = () => {
 
         <div className="lg:grid grid-cols-[250px,1fr] mt-4">
           {/* Filters */}
-          <div className="bg-white p-2 lg:block hidden lg:relative lg:w-full lg:min-h-full">
-            <h2>Filters</h2>
-            {/* Price Filter */}
-            <div className="mt-[18px]">
-              <div className="flex-col">
-                <div className="text-sm font-semibold">Price</div>
-                <ReactSlider
-                  className="horizontal-slider"
-                  thumbClassName="example-thumb"
-                  trackClassName="example-track"
-                  step={50}
-                  min={0}
-                  max={500}
-                  value={priceRange}
-                  onChange={(value) => setPriceRange(value)}
-                  renderThumb={(props, state) => (
-                    <div {...props}></div>
-                  )}
-                />
-                <div className="text-xs mt-2">
-                  ₹{priceRange[0]} - ₹{priceRange[1]}
+          <div className="bg-white  lg:block hidden lg:relative lg:w-full lg:min-h-full">
+            <div className="border border-[#E1E3E4] p-5 rounded-md">
+              <h2>Filters</h2>
+              {/* Price Filter */}
+              <div className="mt-[18px]">
+                <div className="flex-col">
+                  <div className="text-sm font-semibold">Price</div>
+                  <ReactSlider
+                    className="horizontal-slider"
+                    thumbClassName="example-thumb"
+                    trackClassName="example-track"
+                    step={50}
+                    min={0}
+                    max={500}
+                    value={priceRange}
+                    onChange={(value) => setPriceRange(value)}
+                    renderThumb={(props, state) => <div {...props}></div>}
+                  />
+                  <div className="text-xs mt-2">
+                    ₹{priceRange[0]} - ₹{priceRange[1]}
+                  </div>
                 </div>
               </div>
             </div>
@@ -112,7 +112,7 @@ const CategoryProduct = () => {
         </div>
       </div>
       <div>
-      {/* {data.category && (
+        {/* {data.category && (
         <div>
           <HorizontalCardProduct
             category={data?.category}

@@ -72,16 +72,20 @@ const ProductCard = ({
 
   return (
     <div className="w-full min-w-[248px] max-w-[248px] h-[410px] md:h-[410px] bg-white rounded-md overflow-hidden relative  transition-transform rounded md:hover:border md:hover:border-[#CDD1D6] border border-[#CDD1D6]">
-      <Link to={"/product/" + product?._id}>
+      
         {/* Discount Label */}
         {/* Discount Savings */}
+        <Link to={"/product/" + product?._id}>
+
         <p
           className="bg-[#326FFF] text-white font-titillium font-semibold text-[12px] 
                     leading-[12px] tracking-[0%] w-[95px] h-[27px] rounded-tl-[6px] rounded-br-[6px] flex items-center justify-center"
         >
           Save - {displayINRCurrency(amountSaved)}
         </p>
+        </Link>
         {/* Product Image */}
+        <Link to={"/product/" + product?._id}>
         <div className="bg-slate-200 h-[170px] min-w-[170px] vertical-product-card mt-2 mx-auto">
           <img
             src={product?.productImage[0]}
@@ -90,14 +94,17 @@ const ProductCard = ({
             alt={product?.productName}
           />
         </div>
+        </Link>
 
         {/* Product Details */}
         <div className="p-4">
+        <Link to={"/product/" + product?._id}>
           <h2 className="text-[#424750] font-barlow font-normal text-[14px] leading-[16.8px] tracking-[0%] text-ellipsis line-clamp-1 min-h-[50px]">
             {product?.productName}
           </h2>
-
+        </Link>
           <div className="flex justify-between mt-2 flex-col h-[101px]">
+            <Link to={"/product/" + product?._id}>
             <div className="flex gap-4 flex-col">
               <p className="text-[#424750] font-barlow font-normal text-[14px] leading-[17px] tracking-[0%] line-through">
                 From {displayINRCurrency(product?.price)}
@@ -106,6 +113,7 @@ const ProductCard = ({
                 To {displayINRCurrency(product?.sellingPrice)}
               </p>
             </div>
+            </Link>
             {/* Add to Cart */}
             {!addedToCart ? (
               <button
@@ -127,8 +135,9 @@ const ProductCard = ({
               </button>
             ) : (
               <button
-                onClick={() => navigate("/my-cart")}
+                
                 className="w-[100%] cursor-pointer bg-[#FFB255] text-white px-4 py-2 rounded-[6px] font-barlow font-semibold text-[16px] leading-[26px] tracking-[0%] text-center mt-4"
+                onClick={() => navigate("/my-cart")}
               >
                 {"Go to cart"}
               </button>
@@ -139,7 +148,7 @@ const ProductCard = ({
             <hr />
           </div>
         </div>
-      </Link>
+      {/* </Link> */}
 
       {/* Heart Icon for Wishlist */}
       {/* <div
