@@ -21,18 +21,17 @@ const MyCart = ({
 }) => {
   const [expanded, setExpanded] = useState(false);
   const { fetchUserAddToCart, setCartProduct } = useContext(Context);
-   const [deliveryCharge, setDeliveryCharge] = useState(0);
-  const [localCartLength, setLocalCartLength] = useState(0)
+  const [localCartLength, setLocalCartLength] = useState(0);
   const user = useSelector((state) => state?.user?.user);
   const navigate = useNavigate();
 
-  const fetchLocalData = ( ) =>{
+  const fetchLocalData = () => {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    if(cart.length >0){
-    // const cartCount = cart.length;
-    // setLocalCartLength(cartCount)
+    if (cart.length > 0) {
+      // const cartCount = cart.length;
+      // setLocalCartLength(cartCount)
     }
-  }
+  };
 
   const fetchCartData = useCallback(async () => {
     if (!addressAvailable) return;
@@ -51,12 +50,9 @@ const MyCart = ({
     }
   }, [addressAvailable]);
 
-  
   useEffect(() => {
     fetchCartData();
   }, [fetchCartData]);
-
-
 
   const updateCartAPI = useCallback(
     debounce(async (id, newQty) => {
@@ -76,19 +72,24 @@ const MyCart = ({
 
   const handleQuantityChange = (id, change) => {
     setProductCart((prevCart) =>
-      prevCart.map((item) =>
-        item._id === id
-          ? { ...item, quantity: Math.max(1, item.quantity + change) }
-          : item
-      )
+      prevCart?.map((item) => {
+        if (item._id === id) {
+          const newQuantity = item.quantity + change;
+          if (newQuantity > 10) {
+            toast.warning("Maximum quantity limit reached!", {
+              position: "top-right",
+            });
+            return item; // Prevent increasing beyond 10
+          }
+          return { ...item, quantity: Math.max(1, newQuantity) };
+        }
+        return item;
+      })
     );
-    updateCartAPI(
-      id,
-      Math.max(
-        1,
-        productCart.find((item) => item._id === id)?.quantity + change
-      )
-    );
+    const updatedItem = productCart.find((item) => item._id === id);
+    if (updatedItem && updatedItem.quantity + change <= 10) {
+      updateCartAPI(id, Math.max(1, updatedItem.quantity + change));
+    }
   };
 
   const deleteCartProduct = async (id) => {
@@ -109,7 +110,9 @@ const MyCart = ({
         });
         fetchCartData();
         fetchUserAddToCart();
-        setCartProduct((prevCart) => prevCart.filter((item) => item._id !== id));
+        setCartProduct((prevCart) =>
+          prevCart.filter((item) => item._id !== id)
+        );
       } else {
         toast.error("Failed to remove product!", { position: "top-right" });
       }
@@ -125,29 +128,25 @@ const MyCart = ({
     }
   };
 
-  const paymentHandler = async(e) => {
-
+  const paymentHandler = async (e) => {
     var amount = 100;
     var paise = 0;
     const currency = "INR";
     const receiptId = "qwasq1";
-  
-  if(productCart&&productCart.length!==0){
-   paise = productCart.reduce(
-     (total, item) => total + item.quantity * item.productId.sellingPrice,
-     0
-   )
-   amount = (paise+deliveryCharge)*100;
-  }
+    if (productCart && productCart.length !== 0) {
+      paise = productCart.reduce(
+        (total, item) => total + item.quantity * item.productId.sellingPrice,
+        0
+      );
+      const deliveryCharge = paise >= 499 ? 0 : 60;
+      amount = (paise + deliveryCharge) * 100;
+    }
     const response = await fetch(SummaryApi.paymentOrder.url, {
       method: "POST",
       body: JSON.stringify({ amount, currency, receipt: receiptId }),
       headers: { "Content-Type": "application/json" },
     });
     const order = await response.json();
-  
-   
-  
     var options = {
       key: "rzp_live_vIwnHnhaeU23Fj",
       amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
@@ -160,7 +159,7 @@ const MyCart = ({
         const body = {
           ...response,
         };
-  
+
         const validateRes = await fetch(SummaryApi.paymentValidate.url, {
           method: "POST",
           body: JSON.stringify(body),
@@ -197,7 +196,7 @@ const MyCart = ({
     rzp1.open();
     e.preventDefault();
   };
-  
+
   const handleCombinedClick = (e) => {
     if (productCart && productCart.length !== 0 && addressToOrder) {
       paymentHandler(e);
@@ -212,10 +211,10 @@ const MyCart = ({
     });
   };
 
-  const placeOrder = async (e,jsonRes) => {
+  const placeOrder = async (e, jsonRes) => {
     e.preventDefault();
     try {
-      const parsedUserId =  user?._id;
+      const parsedUserId = user?._id;
       if (!addressToOrder) {
         toast.error("Please select an address before proceeding to checkout!");
         return;
@@ -235,6 +234,7 @@ const MyCart = ({
           productName: item.productId.productName,
         })),
         addressInfo: {
+          name: addressToOrder.name,
           address: addressToOrder.address,
           city: addressToOrder.city,
           pincode: addressToOrder.pincode,
@@ -261,13 +261,15 @@ const MyCart = ({
       const dataApi = await dataResponse.json();
       if (dataResponse.ok && dataApi.success) {
         toast.success(dataApi.message);
-        toast.success("Order placed successfully! Redirecting to My Orders", { position: "top-right" });
-        await deleteAllProducts()
-        await fetchCartData();  // Uncomment if you want to refresh the cart after placing an order
+        toast.success("Order placed successfully! Redirecting to My Orders", {
+          position: "top-right",
+        });
+        await deleteAllProducts();
+        await fetchCartData();
         fetchUserAddToCart();
-        setTimeout(()=>{
-          navigate('/my-account')
-        },1000)
+        setTimeout(() => {
+          navigate("/my-account");
+        }, 1000);
       } else {
         toast.error(dataApi.message || "Failed to place the order!");
       }
@@ -307,7 +309,7 @@ const MyCart = ({
             >
               3
             </span>{" "}
-            Order Summary ({ productCart.length})
+            Order Summary ({productCart.length})
           </Typography>
         </AccordionSummary>
         <AccordionDetails sx={{ width: "100%" }}>

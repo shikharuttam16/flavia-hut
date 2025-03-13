@@ -8,8 +8,11 @@ import CustomTextField from "./CustomTextField";
 import { toast } from "react-toastify";
 import SummaryApi from "../common";
 import { Typography } from "@mui/material";
+import { useSelector } from "react-redux";
 
+// Total count: 28 States + 8 Union Territories = 36
 const indianStates = [
+  // 28 States
   "Andhra Pradesh",
   "Arunachal Pradesh",
   "Assam",
@@ -38,21 +41,31 @@ const indianStates = [
   "Uttar Pradesh",
   "Uttarakhand",
   "West Bengal",
+
+  // 8 Union Territories
+  "Andaman and Nicobar Islands",
+  "Chandigarh",
+  "Dadra and Nagar Haveli and Daman and Diu",
+  "Delhi",
+  "Jammu and Kashmir",
+  "Ladakh",
+  "Lakshadweep",
+  "Puducherry",
 ];
 
 const AddAddressForm = ({ setAddressChanged }) => {
+  const user = useSelector((state) => state.user);
   const [showAddressForm, setShowAddressForm] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
     pincode: "",
-    email: "",
+    email: user.user?.email || "",
     address: "",
     city: "",
     state: "",
     landmark: "",
     alternatePhone: "",
-    // deliveryType: "home",
   });
   const [errors, setErrors] = useState({});
   const savedUserId = localStorage.getItem("user");
@@ -115,13 +128,6 @@ const AddAddressForm = ({ setAddressChanged }) => {
     }
   };
 
-  // const handleRadioChange = (e) => {
-  //   setFormData((prev) => ({
-  //     ...prev,
-  //     deliveryType: e.target.value,
-  //   }));
-  // };
-
   const onCancelSave = () => {
     setFormData({
       name: "",
@@ -133,7 +139,6 @@ const AddAddressForm = ({ setAddressChanged }) => {
       state: "",
       landmark: "",
       alternatePhone: "",
-      // deliveryType: "home",
     });
     setErrors({});
     setShowAddressForm(false);
@@ -278,30 +283,6 @@ const AddAddressForm = ({ setAddressChanged }) => {
               onChange={handleInputChange}
             />
           </div>
-
-          {/* <div className="flex gap-4 mb-4">
-            <label className="flex items-center gap-2">
-              <input
-                type="radio"
-                name="deliveryType"
-                value="home"
-                checked={formData.deliveryType === "home"}
-                onChange={handleRadioChange}
-              />
-              <p className="font-bold">Home (All day delivery)</p>
-            </label>
-            <label className="flex items-center gap-2">
-              <input
-                type="radio"
-                name="deliveryType"
-                value="work"
-                checked={formData.deliveryType === "work"}
-                onChange={handleRadioChange}
-              />
-              <p className="font-bold">Work (Delivery between 10AM - 5PM)</p>
-            </label>
-          </div> */}
-
           <div className="flex gap-x-2 mt-4">
             <button
               className="bg-orange-500 py-3 px-5 rounded-sm text-white font-bold"

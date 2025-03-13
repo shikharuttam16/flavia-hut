@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from "react";
-import { FaFacebook, FaTwitter, FaInstagram } from "react-icons/fa";
+import { FaFacebook, FaTwitter, FaInstagram, FaWhatsapp } from "react-icons/fa";
 import SummaryApi from "../common";
 
 const Footer = () => {
@@ -66,6 +66,7 @@ const Footer = () => {
               <a href="#" className="text-gray-600"><FaFacebook size={24} /></a>
               <a href="#" className="text-gray-600"><FaTwitter size={24} /></a>
               <a href="#" className="text-gray-600"><FaInstagram size={24} /></a>
+              <a href="#" className="text-gray-600"><FaWhatsapp  size={24} /></a>
             </div>
           </div>
         </div>

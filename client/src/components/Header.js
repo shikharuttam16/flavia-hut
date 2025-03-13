@@ -1,16 +1,15 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { motion, AnimatePresence } from "framer-motion";
 import SummaryApi from "../common";
-import { toast } from "react-toastify";
 import { setUserDetails } from "../store/userSlice";
 import Context from "../context";
 import logos from "../assest/images/logo.png";
 import { FiAlignJustify, FiShoppingBag } from "react-icons/fi";
 import { FaSearch } from "react-icons/fa";
-import { FaChevronDown, FaCrown } from "react-icons/fa";
-import { FaSignInAlt, FaUserPlus } from "react-icons/fa";
+import { FaChevronDown } from "react-icons/fa";
+import { FaSignInAlt } from "react-icons/fa";
 import { FaRegUser } from "react-icons/fa";
 
 const Header = ({ onFAQClick }) => {
@@ -26,6 +25,19 @@ const Header = ({ onFAQClick }) => {
   const { cartProductCount } = useContext(Context);
   const { localProductCount } = useContext(Context);
   const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -53,9 +65,6 @@ const Header = ({ onFAQClick }) => {
       }
 
       const data = await response.json();
-      // console.log("Logout successful", data);
-
-      // Perform additional actions like clearing tokens and redirecting
       localStorage.removeItem("authToken"); // Adjust based on your auth mechanism
       sessionStorage.clear();
       // window.location.reload();
@@ -103,7 +112,7 @@ const Header = ({ onFAQClick }) => {
 
         <div className="flex items-center gap-4">
           {user?._id ? (
-            <div className="relative">
+            <div className="relative"  ref={dropdownRef}>
               <div className="flex flex-col">
                 <span className="text-gray-500 text-sm block max-md:hidden">{user.name}</span>
                 <button

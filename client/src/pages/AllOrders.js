@@ -25,14 +25,17 @@ function AllOrders() {
   // Handle status change for a particular order
   const handleStatusChange = async (orderId) => {
     try {
-      const response = await fetch(SummaryApi.updateOrderStatus.url.replace(":id", orderId), {
-        method: SummaryApi.updateOrderStatus.method,
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ orderStatus: newStatus[orderId] || "" }), // Status for specific order
-        credentials: "include",
-      });
+      const response = await fetch(
+        SummaryApi.updateOrderStatus.url.replace(":id", orderId),
+        {
+          method: SummaryApi.updateOrderStatus.method,
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ orderStatus: newStatus[orderId] || "" }), // Status for specific order
+          credentials: "include",
+        }
+      );
       const data = await response.json();
       if (data.success) {
         toast.success("Order status updated successfully!");
@@ -48,6 +51,9 @@ function AllOrders() {
   useEffect(() => {
     fetchAllOrders();
   }, []);
+
+  console.log(selectedOrder, "selectedOrder");
+
   return (
     <div className="p-6 bg-white rounded-lg shadow-md">
       <h2 className="text-2xl font-bold mb-4">All Orders</h2>
@@ -148,45 +154,93 @@ function AllOrders() {
 
         {/* Order Details Modal */}
         {selectedOrder && (
-          <div className="fixed inset-0   flex items-center justify-center bg-black bg-opacity-50 ">
-            <div className="bg-white p-6 rounded-lg shadow-lg max-w-lg bg-[#F2F2F2]">
-              <h3 className="text-xl font-semibold mb-4">Order Details</h3>
-              <p>
-                <strong>Order ID:</strong> {selectedOrder._id}
-              </p>
-              <p>
-                <strong>Payment Id:</strong>{" "}
-                {selectedOrder.paymentId ? selectedOrder.paymentId : "None"}
-              </p>
-              <p>
-                <strong>Date:</strong> {selectedOrder.orderDate.split("T")[0]}
-              </p>
-              <p>
-                <strong>Address:</strong> {selectedOrder.addressInfo.address},{" "}
-                {selectedOrder.addressInfo.city},{" "}
-                {selectedOrder.addressInfo.pincode}
-              </p>
-              <p>
-                <strong>Phone:</strong> {selectedOrder.addressInfo.phone}
-              </p>
-              <p>
-                <strong>Notes:</strong>{" "}
-                {selectedOrder.addressInfo.notes
-                  ? selectedOrder.addressInfo.notes
-                  : "None"}
-              </p>
+          <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-[1px] transition-all duration-300">
+            <div className="relative bg-white p-6 rounded-lg shadow-lg max-w-md w-full border border-gray-200">
+              {/* Close Button */}
+              <button
+                className="absolute top-4 right-4 text-gray-500 hover:text-gray-800 transition"
+                onClick={() => setSelectedOrder(null)}
+              >
+                ✕
+              </button>
 
-              <h4 className="mt-4 text-lg font-semibold">Products:</h4>
-              <ul className="list-disc pl-5">
+              {/* Header */}
+              <h3 className="text-xl font-bold text-gray-800 text-center mb-4">
+                Order Details
+              </h3>
+
+              {/* Order Information */}
+              <div className="space-y-2 text-gray-700 text-sm">
+                <p>
+                  <span className="text-gray-900 font-semibold">Name:</span>{" "}
+                  {selectedOrder.addressInfo.name}
+                </p>
+                <p>
+                  <span className="text-gray-900 font-semibold">Order ID:</span>{" "}
+                  {selectedOrder._id}
+                </p>
+                <p>
+                  <span className="text-gray-900 font-semibold">
+                    Payment ID:
+                  </span>{" "}
+                  {selectedOrder.paymentId || "None"}
+                </p>
+                <p>
+                  <span className="text-gray-900 font-semibold">Date:</span>{" "}
+                  {selectedOrder.orderDate.split("T")[0]}
+                </p>
+                <p>
+                  <span className="text-gray-900 font-semibold">Address:</span>{" "}
+                  {selectedOrder.addressInfo.address},{" "}
+                  {selectedOrder.addressInfo.city},{" "}
+                  {selectedOrder.addressInfo.pincode}
+                </p>
+                <p>
+                  <span className="text-gray-900 font-semibold">Phone:</span>{" "}
+                  {selectedOrder.addressInfo.phone}
+                </p>
+                <p>
+                  <span className="text-gray-900 font-semibold">Notes:</span>{" "}
+                  {selectedOrder.addressInfo.notes || "None"}
+                </p>
+              </div>
+
+              {/* Product List */}
+              <h4 className="mt-5 text-lg font-semibold text-gray-900">
+                Products
+              </h4>
+              <ul className="mt-2 space-y-1 text-sm">
                 {selectedOrder.cartItems?.map((product) => (
-                  <li key={product._id}>
-                    <strong>{product.productName}</strong> - {product.category},
-                    Price: ₹{product.sellingPrice}, Quantity: {product.quantity}
+                  <li
+                    key={product._id}
+                    className="flex justify-between py-1 border-b last:border-none text-gray-700 text-sm"
+                  >
+                    <p>
+                      <span className="text-gray-900 font-semibold">
+                        {product.productName}:{" "}
+                      </span>{" "}
+                      {product.category}
+                    </p>
+                    <span className="text-gray-600">
+                      ₹{product.sellingPrice} × {product.quantity} : Quantity
+                    </span>
                   </li>
                 ))}
               </ul>
+              {/* Total Amount */}
+              <div className="mt-4 border-t pt-3 flex justify-between items-center text-gray-800 text-lg font-semibold">
+                <span>Total Amount:</span>
+                <span className="text-green-600">
+                  ₹
+                  {selectedOrder.cartItems.reduce(
+                    (total, product) =>
+                      total + product.sellingPrice * product.quantity,
+                    0
+                  )}
+                </span>
+              </div>
               <button
-                className="mt-4 bg-red-600 text-white px-4 py-2 rounded"
+                className="mt-5 w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded-md font-medium transition"
                 onClick={() => setSelectedOrder(null)}
               >
                 Close

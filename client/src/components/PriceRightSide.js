@@ -16,7 +16,7 @@ const PriceRightSide = ({ productCart }) => {
   }, [productCart]);
 
   const totalSavings = totalOriginalPrice - totalSellingPrice;
-  const deliveryCharge = totalSellingPrice > 500 || totalSellingPrice === 0 ? 0 : 50;
+  const deliveryCharge = totalSellingPrice > 499 || totalSellingPrice === 0 ? 0 : 60;
   const totalPayable = totalSellingPrice + deliveryCharge;
 
   return (
