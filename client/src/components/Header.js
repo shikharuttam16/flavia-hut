@@ -180,7 +180,7 @@ const Header = ({ onFAQClick }) => {
        {/* Navigation Links */}
        <nav className="hidden md:flex justify-center md:justify-start  bg-white py-2 w-[95%] mx-auto max-w-[1400px]">
         <ul className="flex space-x-6 text-gray-700">
-          <Link to="/">Homess</Link>
+          <Link to="/">Homessss</Link>
           {categories.map((cat) => (
             <Link key={cat.slug} to={`/product-category?category=${cat.slug}`}>
               {cat.name}
