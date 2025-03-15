@@ -34,14 +34,14 @@ jobs:
     client:
         needs: check-changes
         runs-on: ubuntu-latest
-        if: needs.check-changes.output.client_changed == 'true'
+        if: needs.check-changes.outputs.client_changed == 'true'
         steps:
             - name: Nice working
               run: check 'client has changed'
     server:
         needs: check-changes
         runs-on: ubuntu-latest
-        if: needs.check-changes-changes.output.server_changed == 'true'
+        if: needs.check-changes-changes.outputs.server_changed == 'true'
         steps:
             - name: Nice working
               run: check 'server has changed'
