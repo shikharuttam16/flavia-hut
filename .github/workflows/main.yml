@@ -37,12 +37,12 @@ jobs:
         if: needs.check-changes.outputs.client_changed == 'true'
         steps:
             - name: Nice working
-              run: check 'client has changed'
+              run: echo "Working  on client github actions"
     server:
         needs: check-changes
         runs-on: ubuntu-latest
         if: needs.check-changes-changes.outputs.server_changed == 'true'
         steps:
             - name: Nice working
-              run: check 'server has changed'
+              run: echo "working on server action"
 
